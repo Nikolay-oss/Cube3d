@@ -13,10 +13,10 @@ LIBS	= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
 all: $(NAME)
 
 %.o:	%.c
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+	$(CC) -g $(CFLAGS) -Imlx -c $< -o $@
 
 $(NAME):	$(OBJS)
-		$(CC) -o $(NAME) $(LIBS) $(OBJS)
+		$(CC) -g -o $(NAME) $(LIBS) $(OBJS)
 
 clean:
 		# @make -C mlx clean
