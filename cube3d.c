@@ -18,15 +18,16 @@ typedef	struct	s_vars
 	void	*win;
 }				t_vars;
 
-// int				key_hook(int keycode)//, t_vars *vars)
-// {
-// 	// printf("%p\n", vars->mlx);
-// 	printf("keycode:\t%d\n", keycode);
-// 	return (keycode);
-// }
+int				key_hook(int keycode)//, t_vars *vars)
+{
+	// printf("%p\n", vars->mlx);
+	printf("keycode:\t%d\n", keycode);
+	return (keycode);
+}
 
 int             win_close(int keycode, t_vars *vars)
 {
+	printf("keycode:\t%d\n", keycode);
 	if (keycode == 	53)
 	{
     	mlx_destroy_window(vars->mlx, vars->win);
@@ -100,6 +101,7 @@ int             main(void)
 	// check keyhook
 	// mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 2, 1L<<0, win_close, &vars);
+	mlx_mouse_hook(vars.win, key_hook, &vars);
 
     mlx_loop(vars.mlx);
 }
