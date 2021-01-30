@@ -2,7 +2,7 @@ CC		= gcc
 
 NAME	= cub3D
 
-SRCS	= cube3d.c
+SRCS	= shift.c
 
 CFLAGS	= -Wall -Wextra -Werror
 
