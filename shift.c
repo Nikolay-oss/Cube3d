@@ -24,6 +24,7 @@ typedef	struct	s_player
 	int		x;
 	int		y;
 	t_data	*img;
+	t_vars	*vars;
 }				t_player;
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -41,6 +42,13 @@ int             win_close(t_vars *vars) // int keycode,
 	return (0);
 }
 
+int				win_close_esc(int keycode, t_vars *vars)
+{
+	// if (keycode == 8)
+	// 	draw_circle(vars->img);
+	return (keycode == 53 ? win_close(vars) : 0);
+}
+
 // int			get_key(int keycode)
 // {
 // 	printf("key:\t%d\n", keycode);
@@ -56,8 +64,8 @@ int			draw_circle(t_player *player)
 	i = 0;
 	while (i < 2000)
 	{
-		x = (int)2 * sin(i) * 100 + player->x;
-		y = (int)2 * cos(i) * 100 + player->y;
+		x = (int)(2 * sin(i) * 100 + player->x);
+		y = (int)(2 * cos(i) * 100 + player->y);
 		my_mlx_pixel_put(player->img, x, y, 0x00FF0000);
 		i++;
 	}
@@ -73,8 +81,8 @@ void		img_clear(t_player *player)
 	i = 0;
 	while (i < 2000)
 	{
-		x = (int)2 * sin(i) * 100 + player->x;
-		y = (int)2 * cos(i) * 100 + player->y;
+		x = (int)(2 * sin(i) * 100 + player->x);
+		y = (int)(2 * cos(i) * 100 + player->y);
 		my_mlx_pixel_put(player->img, x, y, 0x00000000);
 		i++;
 	}
@@ -90,6 +98,12 @@ int			shift_circle(int keycode, t_player *player)
 {
 	int step;
 
+	if (keycode == 53)
+	{
+		win_close(player->vars);
+		// mlx_destroy_image(player->vars->mlx, player->vars->img);
+		return (0);
+	}
 	step = 20;
 	img_clear(player);
 	if (keycode == 13)
@@ -116,6 +130,7 @@ int	main()
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
                                  &img.endian);
 	vars.img = &img;
+	player.vars = &vars;
 	player.x = 500;
 	player.y = 500;
 	player.img = &img;

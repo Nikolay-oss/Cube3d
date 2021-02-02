@@ -2,7 +2,7 @@ CC		= gcc
 
 NAME	= cub3D
 
-SRCS	= shift.c
+SRCS	= shift.c #test_hook.c
 
 CFLAGS	= -Wall -Wextra -Werror
 
@@ -25,3 +25,5 @@ clean:
 fclean:	clean
 		# @make -C mlx fclean
 		rm -rf $(NAME)
+
+re:		fclean all

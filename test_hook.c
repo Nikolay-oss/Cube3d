@@ -67,8 +67,8 @@ int			draw_circle(t_data *img)
 
 int				win_close_esc(int keycode, t_vars *vars)
 {
-	if (keycode == 8)
-		draw_circle(vars->img);
+	// if (keycode == 8)
+	// 	draw_circle(vars->img);
 	return (keycode == 53 ? win_close(vars) : 0);
 }
 
