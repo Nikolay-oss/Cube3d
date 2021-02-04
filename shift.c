@@ -57,34 +57,34 @@ int				win_close_esc(int keycode, t_vars *vars)
 
 int			draw_circle(t_player *player)
 {
-	int i;
+	double i;
 	int x;
 	int y;
 
 	i = 0;
-	while (i < 2000)
+	while (i < 2000.0)
 	{
 		x = (int)(2 * sin(i) * 100 + player->x);
 		y = (int)(2 * cos(i) * 100 + player->y);
 		my_mlx_pixel_put(player->img, x, y, 0x00FF0000);
-		i++;
+		i += 0.1;
 	}
 	return (0);
 }
 
 void		img_clear(t_player *player)
 {
-	int i;
+	double i;
 	int x;
 	int y;
 
 	i = 0;
-	while (i < 2000)
+	while (i < 2000.0)
 	{
 		x = (int)(2 * sin(i) * 100 + player->x);
 		y = (int)(2 * cos(i) * 100 + player->y);
 		my_mlx_pixel_put(player->img, x, y, 0x00000000);
-		i++;
+		i += 0.1;
 	}
 }
 
