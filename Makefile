@@ -1,28 +1,33 @@
-CC		= gcc
+CC			= gcc
 
-NAME	= cub3D
+NAME		= cub3D
 
-SRCS	= shift.c #test_hook.c
+INCLUDES	= ./includes/
 
-CFLAGS	= -Wall -Wextra -Werror
+SRCS		= shift.c gnl/get_next_line.c#test_hook.c
 
-OBJS	= $(SRCS:.c=.o)
+CFLAGS		= -Wall -Wextra -Werror
 
-LIBS	= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
+OBJS		= $(SRCS:.c=.o)
+
+LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
 
 all: $(NAME)
 
 %.o:	%.c
-	$(CC) -g $(CFLAGS) -Imlx -c $< -o $@
+	$(CC) -g $(CFLAGS) -Imlx -Iincludes -c $< -o $@
 
 $(NAME):	$(OBJS)
+		make -C libft/
 		$(CC) -g -o $(NAME) $(LIBS) $(OBJS)
 
 clean:
+		make -C libft/ clean
 		# @make -C mlx clean
 		rm -rf $(OBJS)
 
 fclean:	clean
+		make -C libft/ fclean
 		# @make -C mlx fclean
 		rm -rf $(NAME)
 
