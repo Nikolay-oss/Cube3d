@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 00:04:17 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/04 04:21:51 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:48:09 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ static int	get_words_count(char const *s, char c)
 
 static void	split_free(char **strs)
 {
-	while (*strs)
-	{
-		free(*strs);
-		strs++;
-	}
+	int	i;
+
+	i = 0;
+	while (*(strs + i))
+		free(*(strs + i++));
 	free(strs);
 }
 

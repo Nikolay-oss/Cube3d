@@ -4,7 +4,7 @@ NAME		= cub3D
 
 INCLUDES	= ./includes/
 
-SRCS		= shift.c gnl/get_next_line.c#test_hook.c
+SRCS		= gnl/get_next_line.c main.c parser/ft_parser.c
 
 CFLAGS		= -Wall -Wextra -Werror
 
@@ -15,7 +15,7 @@ LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
 all: $(NAME)
 
 %.o:	%.c
-	$(CC) -g $(CFLAGS) -Imlx -Iincludes -c $< -o $@
+		$(CC) -g $(CFLAGS) -Imlx -Iincludes -c $< -o $@
 
 $(NAME):	$(OBJS)
 		make -C libft/
