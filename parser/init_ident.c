@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_ident.c                                      :+:      :+:    :+:   */
+/*   init_ident.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 21:42:20 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/08 22:19:41 by dkenchur         ###   ########.fr       */
+/*   Created: 2021/02/09 18:17:09 by dkenchur          #+#    #+#             */
+/*   Updated: 2021/02/09 21:31:17 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
-#include "libft.h"
 
-void	check_r(t_ident *ident, char *str)
+void	init_ident(t_opt *ident)
 {
-	char 	**params;
-	int		count;
-
-	params = ft_split(str, ' ');
-	count = 0;
-	while (*(params + count))
-		count++;
-	if (count != 2)
-	{
-		ident->eflag = 0;
-		return ;
-	}
-	ident->r[0] = ft_atoi(*params);
-	ident->r[1] = ft_atoi(*(params + 1));
-	split_line_free(params);
+	ident->r[0] = -1;
+	ident->r[1] = -1;
+	ident->r[2] = 0;
+	ident->so = NULL;
+	ident->no = NULL;
+	ident->we = NULL;
+	ident->ea = NULL;
+	ident->s = NULL;
+	ident->f[0] = -1;
+	ident->f[1] = -1;
+	ident->f[2] = -1;
+	ident->f[3] = 0;
+	ident->c[0] = -1;
+	ident->c[1] = -1;
+	ident->c[2] = -1;
+	ident->c[3] = 0;
+	ident->eflag = 0;
+	ident->count = 0;
 }

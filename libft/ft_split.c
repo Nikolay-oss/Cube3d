@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 00:04:17 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/08 19:48:09 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/09 20:22:24 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	split_free(char **strs)
 	while (*(strs + i))
 		free(*(strs + i++));
 	free(strs);
+	strs = NULL;
 }
 
 static void	split_words(char **strs, char const *s, int size, char c)

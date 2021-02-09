@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:55:23 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/08 21:42:56 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/09 21:33:24 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int	main(int ac, char **av)
 {
-	t_ident	ident;
+	t_opt	opt;
 
 	if (ac < 2)
 		return (0);
-	ft_parser(&ident, *(av + 1));
+	init_ident(&opt);
+	ft_parser(&opt, *(av + 1));
 	return (0);
 }

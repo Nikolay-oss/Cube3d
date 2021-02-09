@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/08 22:14:15 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/09 22:40:28 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,14 @@ int		skip_spaces(char *line)
 	return (i);
 }
 
-int		check_line(t_ident *ident, char *str)
+int		check_line(t_opt *opt, char *str)
 {
-	int i;
-
-	i = 0;
-	ident->r[1] = 0; // чтоб компилятор не ругался
-	// printf("%s\n", *str);
-	// while (*(str + i))
-	// 	printf("%s ", *(str + i++));
-	// printf("\n");
-	// printf("|%d|\n", i);
 	if (!ft_strncmp(str, "R  ", 2))
-		printf("%s\n", str);
+		opt->eflag = check_r(opt, str);
 	else if (!ft_strncmp(str, "NO  ", 3))
 		printf("%s\n", str);
 	else if (!ft_strncmp(str, "SO  ", 3))
-		printf("%s\n", str);
+		opt->eflag = check_so(opt, str);
 	else if (!ft_strncmp(str, "WE  ", 3))
 		printf("%s\n", str);
 	else if (!ft_strncmp(str, "EA  ", 3))
@@ -55,38 +46,44 @@ int		check_line(t_ident *ident, char *str)
 		printf("%s\n", str);
 	else if (!ft_strncmp(str, "C  ", 2))
 		printf("%s\n", str);
+	else
+		check_symbs(opt, str);
+	if (opt->eflag)
+		printf("ERROR: eflag = 1\n"); // error
 	return (1);
 }
 
-void	split_line_free(char **strs)
+int		check_ext(char *filename, const char *set)
 {
-	int	i;
+	char *p_point;
 
-	i = 0;
-	while (*(strs + i))
-		free(*(strs + i++));
-	free(strs);
+	if (!(p_point = ft_strrchr(filename, '.')))
+		return (0); // error
+	if (ft_strncmp(p_point, set, 4) != 0)
+		return (0); // error
+	return (1);
 }
 
-int		ft_parser(t_ident *ident, char *filename)
+int		ft_parser(t_opt *opt, char *filename)
 {
 	char	*line;
-	// char	**params;
 	int		fd;
 	int		res;
 
+	if (!check_ext(filename, ".cub"))
+		return (-1); // error
 	if (!(fd = open(filename, O_RDONLY)))
-		return (-1);
+		return (-1); // error
 	// printf("|%d|\n", fd);
 	while ((res = get_next_line(fd, &line)) > -1)
 	{
-		check_line(ident, line + skip_spaces(line));
+		check_line(opt, line + skip_spaces(line));
 		free(line);
 		if (!res)
 			break ;
 	}
 	if (res < 0)
-		return (-1);
+		return (-1); // error
 	close(fd);
 	return (0);
 }

@@ -4,9 +4,9 @@ NAME		= cub3D
 
 INCLUDES	= ./includes/
 
-SRCS		= gnl/get_next_line.c main.c parser/ft_parser.c
+SRCS		= gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_ident.c parser/utils.c
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= #-Wall -Wextra -Werror
 
 OBJS		= $(SRCS:.c=.o)
 
