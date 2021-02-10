@@ -31,13 +31,13 @@ static int	ft_issign(const char c)
 int			ft_atoi(const char *str)
 {
 	unsigned long long int	res;
-	unsigned long long int	border;
+	unsigned long long int	max;
 	int						i;
 	int						sign;
 
 	res = 0;
 	i = 0;
-	border = 922337203685477580;
+	max = 922337203685477580;
 	while (ft_isspace(*(str + i)))
 		i++;
 	sign = *str == '-' ? -1 : 1;
@@ -45,10 +45,10 @@ int			ft_atoi(const char *str)
 		i++;
 	while (ft_isdigit(*(str + i)))
 	{
-		if ((res > border || (res == border && (*(str + i) - '0') > 7))
+		if ((res > max || (res == max && (*(str + i) - '0') > 7))
 															&& sign == 1)
 			return (-1);
-		else if ((res > border || (res == border && (*(str + i) - '0') > 8))
+		else if ((res > max || (res == max && (*(str + i) - '0') > 8))
 																&& sign == -1)
 			return (0);
 		res = res * 10 + (*(str + i) - '0');
