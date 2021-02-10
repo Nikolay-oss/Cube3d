@@ -11,14 +11,18 @@
 /* ************************************************************************** */
 
 #include "ft_parser.h"
+#include <stdio.h>
+#include "libft.h"
 
 int	main(int ac, char **av)
 {
-	t_opt	opt;
+	// t_opt	opt;
 
-	if (ac < 2)
-		return (0);
-	init_ident(&opt);
-	ft_parser(&opt, *(av + 1));
+	// if (ac < 2)
+	// 	return (0);
+	// init_ident(&opt);
+	// ft_parser(&opt, *(av + 1));
+	// 9223372036854775807
+	printf("%d\t%d\n", ft_atoi("9223372036854775819"), atoi("9223372036854775819"));
 	return (0);
 }

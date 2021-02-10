@@ -30,26 +30,27 @@ static int	ft_issign(const char c)
 
 int			ft_atoi(const char *str)
 {
-	long long int	res;
-	int				i;
-	int				sign;
+	unsigned long long int	res;
+	unsigned long long int	border;
+	int						i;
+	int						sign;
 
 	res = 0;
-	sign = 1;
 	i = 0;
-	while (*(str + i) && ft_isspace(*(str + i)) && !ft_issign(*(str + i)))
+	border = 922337203685477580;
+	while (ft_isspace(*(str + i)))
 		i++;
-	if (*(str + i) == '-')
+	sign = *str == '-' ? -1 : 1;
+	if (ft_issign(*str))
+		i++;
+	while (ft_isdigit(*(str + i)))
 	{
-		sign = -1;
-		i++;
-	}
-	else if (*(str + i) == '+')
-		i++;
-	while (*(str + i) && ft_isdigit(*(str + i)))
-	{
-		if (res > 2147483647)
-			return (sign == -1 ? 0 : -1);
+		if ((res > border || (res == border && (*(str + i) - '0') > 7))
+															&& sign == 1)
+			return (-1);
+		else if ((res > border || (res == border && (*(str + i) - '0') > 8))
+																&& sign == -1)
+			return (0);
 		res = res * 10 + (*(str + i) - '0');
 		i++;
 	}

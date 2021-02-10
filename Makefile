@@ -10,16 +10,18 @@ CFLAGS		= #-Wall -Wextra -Werror
 
 OBJS		= $(SRCS:.c=.o)
 
-LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
+# LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
+
+LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
 
 all: $(NAME)
 
 %.o:	%.c
-		$(CC) -g $(CFLAGS) -Imlx -Iincludes -c $< -o $@
+		$(CC) -g $(CFLAGS) -I$(INCLUDES) -Iminilibx-linux/ -c $< -o $@
 
 $(NAME):	$(OBJS)
 		make -C libft/
-		$(CC) -g -o $(NAME) $(LIBS) $(OBJS)
+		$(CC) -g -o $(NAME) -I$(INCLUDES) -Iminilibx-linux/ $(OBJS) $(LIBS)
 
 clean:
 		make -C libft/ clean
