@@ -138,7 +138,7 @@ int	main()
 	player.img = &img;
 	draw_circle(&player);
 	mlx_hook(vars.win, 17, 0, &win_close, &vars);
-	mlx_hook(vars.win, 2, 1L<<0, &shift_circle, &player);
+	mlx_hook(vars.win, 2, 0, &shift_circle, &player);
 	mlx_loop_hook(vars.mlx, &render_frame, &vars);
 	mlx_loop(vars.mlx);
 }

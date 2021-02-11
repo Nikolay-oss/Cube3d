@@ -1,13 +1,17 @@
-R 0000001920 1080
-
-NO ./path_to_the_north_texture
-SO ./path/to_the/south/texture.xpm
+R    0000001920    0001080
 
 
-WE ./path_to_the_west_texture
+NO    ./path/to_the/south/NO_texture.xpm
+     
+SO ./path/to_the/south/SO_texture.xpm
 
-EA ./path_to_the_east_texture
+     
+WE ./path/to_the/south/WE_texture.xpm
 
-S   ./path_to_the_sprite_texture
+EA   ./path/to_the/south/EA_texture.xpm
+     
+S   ./path/to_the/south/S_texture.xpm
 F 220, 100, 0
+
 C 225,30, 0
+

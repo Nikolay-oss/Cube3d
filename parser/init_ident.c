@@ -6,13 +6,13 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:17:09 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/09 21:31:17 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/11 18:59:50 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-void	init_ident(t_opt *ident)
+void	init_opt(t_opt *ident)
 {
 	ident->r[0] = -1;
 	ident->r[1] = -1;

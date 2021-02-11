@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/09 22:40:28 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/11 18:55:44 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,28 @@ int		skip_spaces(char *line)
 	return (i);
 }
 
-int		check_line(t_opt *opt, char *str)
+int		check_line(t_opt *opt, char **params)
 {
-	if (!ft_strncmp(str, "R  ", 2))
-		opt->eflag = check_r(opt, str);
-	else if (!ft_strncmp(str, "NO  ", 3))
-		printf("%s\n", str);
-	else if (!ft_strncmp(str, "SO  ", 3))
-		opt->eflag = check_so(opt, str);
-	else if (!ft_strncmp(str, "WE  ", 3))
-		printf("%s\n", str);
-	else if (!ft_strncmp(str, "EA  ", 3))
-		printf("%s\n", str);
-	else if (!ft_strncmp(str, "S  ", 2))
-		printf("%s\n", str);
-	else if (!ft_strncmp(str, "F  ", 2))
-		printf("%s\n", str);
-	else if (!ft_strncmp(str, "C  ", 2))
-		printf("%s\n", str);
+	if (!*params)
+		return (1);
+	if (!ft_strncmp(*params, "R", 2))
+		opt->eflag = check_r(opt, params);
+	else if (!ft_strncmp(*params, "NO", 3))
+		opt->eflag = check_path_opt(opt, &opt->no, params);// printf("%s\n", *params);
+	else if (!ft_strncmp(*params, "SO", 3))
+		opt->eflag = check_path_opt(opt, &opt->so, params); // printf("%s\n", *params);
+	else if (!ft_strncmp(*params, "WE", 3))
+		opt->eflag = check_path_opt(opt, &opt->we, params);// printf("%s\n", *params);
+	else if (!ft_strncmp(*params, "EA", 3))
+		opt->eflag = check_path_opt(opt, &opt->ea, params);// printf("%s\n", *params);
+	else if (!ft_strncmp(*params, "S", 2))
+		opt->eflag = check_path_opt(opt, &opt->s, params);// printf("%s\n", *params);
+	else if (!ft_strncmp(*params, "F", 2))
+		printf("%s\n", *params);
+	else if (!ft_strncmp(*params, "C", 2))
+		printf("%s\n", *params);
 	else
-		check_symbs(opt, str);
-	if (opt->eflag)
-		printf("ERROR: eflag = 1\n"); // error
+		check_symbs(opt, *params); //  brain on, please
 	return (1);
 }
 
@@ -66,19 +66,35 @@ int		check_ext(char *filename, const char *set)
 
 int		ft_parser(t_opt *opt, char *filename)
 {
+	char	**params;
 	char	*line;
 	int		fd;
 	int		res;
+	// int i;
 
 	if (!check_ext(filename, ".cub"))
-		return (-1); // error
-	if (!(fd = open(filename, O_RDONLY)))
-		return (-1); // error
+		exit_error(-1); // error
+	if ((fd = open(filename, O_RDONLY)) < 0)
+		exit_error(-1); // error
 	// printf("|%d|\n", fd);
 	while ((res = get_next_line(fd, &line)) > -1)
 	{
-		check_line(opt, line + skip_spaces(line));
+		if (!(params = ft_split(line, ' ')))
+		{
+			free(line);
+			exit_error(-1);; // error
+		}
+		if (opt->count != 8)
+			check_line(opt, params);
+		// i = 0;
+		// while (*(params + i))
+		// 	printf("%s ", *(params + i++));
+		// printf("\n");
+		split_line_free(params);
+		// check_line(opt, line + skip_spaces(line));
 		free(line);
+		if (opt->eflag)
+			exit_error(opt->eflag);
 		if (!res)
 			break ;
 	}
