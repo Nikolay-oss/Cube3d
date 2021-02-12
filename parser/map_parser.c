@@ -16,5 +16,5 @@
 
 int		ismap()
 {
-	
+	return (0);
 }

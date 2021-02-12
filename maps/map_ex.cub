@@ -2,7 +2,7 @@
 R    0000001920  0001080
   
 
-NO   d ./path/to_the/south/NO_texture.xpm
+NO   ./path/to_the/south/NO_texture.xpm
      
 SO ./path/to_the/south/SO_texture.xpm
 
