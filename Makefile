@@ -8,7 +8,7 @@ MLX			= ./mlx/
 
 # MLX			= ./minilibx-linux/
 
-SRCS		= gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_ident.c parser/utils.c
+SRCS		= gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c
 
 CFLAGS		= #-Wall -Wextra -Werror
 

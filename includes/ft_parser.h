@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:19:27 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/11 18:59:38 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/12 16:10:36 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ void	init_opt(t_opt *opt);
 int		ft_parser(t_opt *opt, char *filename);
 void	split_line_free(char **strs);
 int		check_ext(char *filename, const char *set);
-int		check_r(t_opt *opt, char **params);
+int		check_r(t_opt *opt, char *param);
 void	check_symbs(t_opt *opt, char *line);
 int		check_digit(char **params, int *digit_count);
-int		check_path_opt(t_opt *opt, char **option, char **params);
-int		check_color_opt(t_opt *opt, int **option, char **params);
+int		check_path_opt(t_opt *opt, char **option, char *param);
+int		check_color_opt(t_opt *opt, int *option, char *line);
 void	exit_error(int errorcode);
+int		check_comma(char *str);
+int		skip_spaces(char *line);
 
 #endif
