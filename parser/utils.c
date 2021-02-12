@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 19:28:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/12 12:23:44 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/12 20:02:10 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,11 @@ int		check_digit(char **params, int *digit_count)
 {
 	int	i;
 	int	j;
-	int k;
 
 	i = 0;
 	while (*(params + i))
 	{
 		j = 0;
-		k = 0;
 		while (*(*(params + i) + j))
 		{
 			// while (*(*(params + i) + j) == '0')
@@ -57,7 +55,6 @@ int		check_digit(char **params, int *digit_count)
 			if (!ft_isdigit(*(*(params + i) + j)))
 				return (0);
 			j++;
-			k++;
 		}
 		*digit_count += j;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 13:01:35 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/12/01 00:23:41 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/12 19:47:03 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,23 @@ char				*ft_substr(char const *s, unsigned int start,
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_itoa(int n);
-typedef struct		s_list
+
+typedef struct		s_node
 {
 	void			*content;
-	struct s_list	*next;
+	struct s_node	*next;
+}					t_node;
+
+typedef	struct		s_list
+{
+	t_node			*head;
+	size_t			size;
 }					t_list;
-t_list				*ft_lstnew(void *content);
-void				ft_lstadd_front(t_list **lst, t_list *new);
-int					ft_lstsize(t_list *lst);
-t_list				*ft_lstlast(t_list *lst);
-void				ft_lstadd_back(t_list **lst, t_list *new);
-void				ft_lstdelone(t_list *lst, void (*del)(void *));
-void				ft_lstclear(t_list **lst, void (*del)(void *));
-void				ft_lstiter(t_list *lst, void (*f)(void *));
-t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-						void (*del)(void *));
+
+t_list				*ft_create_lst();
+t_node				*ft_create_node(void *data);
+void				ft_push_front(t_list *begin, void *data);
+void				ft_push_back(t_list *begin, void *data);
+void				ft_lst_clear(t_list *begin, void (*del)(void*));
+
 #endif

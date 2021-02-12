@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_create_lst.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 23:41:25 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/04 05:07:42 by dkenchur         ###   ########.fr       */
+/*   Created: 2021/02/12 18:06:00 by dkenchur          #+#    #+#             */
+/*   Updated: 2021/02/12 18:07:12 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+t_list	*ft_create_lst()
 {
-	if (!lst && !f)
-		return ;
-	while (lst)
-	{
-		f(lst->content);
-		lst = lst->next;
-	}
+	t_list *lst;
+	
+	if (!(lst = (t_list*)malloc(sizeof(t_list))))
+		return (NULL);
+	lst->head = NULL;
+	lst->head = 0;
+	return (lst);
 }

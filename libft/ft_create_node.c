@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_create_node.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 23:41:17 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/03 23:41:18 by dkenchur         ###   ########.fr       */
+/*   Created: 2021/02/12 17:41:58 by dkenchur          #+#    #+#             */
+/*   Updated: 2021/02/12 19:46:58 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+t_node	*ft_create_node(void *data)
 {
-	if (!new)
-		return ;
-	if (!*lst)
-		*lst = new;
-	else
-	{
-		new->next = *lst;
-		*lst = new;
-	}
+	t_node *node;
+
+	if (!(node = (t_node*)malloc(sizeof(t_node))))
+		return (NULL);
+	node->content = data;
+	node->next = NULL;
+	return (node);
 }

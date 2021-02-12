@@ -8,9 +8,9 @@ MLX			= ./mlx/
 
 # MLX			= ./minilibx-linux/
 
-SRCS		= gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c
+SRCS		= gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c parser/map_parser.c
 
-CFLAGS		= #-Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 
 OBJS		= $(SRCS:.c=.o)
 
@@ -25,7 +25,7 @@ all: $(NAME)
 
 $(NAME):	$(OBJS)
 		make -C libft/
-		$(CC) -g -o $(NAME) -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
+		$(CC) -g -o $(NAME) $(CFLAGS) -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
 
 clean:
 		make -C libft/ clean
@@ -38,3 +38,7 @@ fclean:	clean
 		rm -rf $(NAME)
 
 re:		fclean all
+
+# remember to delete
+t1:	$(NAME)
+		@./cub3D maps/map_ex.cub 

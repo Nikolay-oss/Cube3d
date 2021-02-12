@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_push_front.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/04 05:33:20 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/05 20:19:46 by dkenchur         ###   ########.fr       */
+/*   Created: 2021/02/12 17:44:30 by dkenchur          #+#    #+#             */
+/*   Updated: 2021/02/12 19:46:36 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	ft_push_front(t_list *begin, void *data)
 {
-	t_list	*list;
-	t_list	*new_node;
-	t_list	*node;
-
-	list = NULL;
-	new_node = NULL;
-	if (!lst && f && del)
-		return (list);
-	node = lst;
-	while (node)
+	t_node *node;
+	
+	if (!(node = ft_create_node(data)))
+		return ;
+	if (!begin->head)
 	{
-		if (!(new_node = ft_lstnew(f(node->content))))
-		{
-			ft_lstclear(&list, del);
-			return (new_node);
-		}
-		ft_lstadd_back(&list, new_node);
-		node = node->next;
+		begin->head = node;
+		begin->size++;
+		return ;
 	}
-	return (list);
+	node->next = begin->head;
+	begin->head = node;
+	begin->size++;
 }

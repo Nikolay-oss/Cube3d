@@ -6,7 +6,7 @@
 #    By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 06:46:45 by dkenchur          #+#    #+#              #
-#    Updated: 2021/02/06 16:00:55 by dkenchur         ###   ########.fr        #
+#    Updated: 2021/02/12 19:16:30 by dkenchur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,15 +50,11 @@ SRCS		= 	ft_memset.c \
 				ft_strmapi.c	\
 				ft_itoa.c	\
 				ft_split.c	\
-				ft_lstnew.c	\
-				ft_lstadd_back.c	\
-				ft_lstadd_front.c \
-				ft_lstclear.c \
-				ft_lstdelone.c \
-				ft_lstiter.c	\
-				ft_lstlast.c	\
-				ft_lstsize.c	\
-				ft_lstmap.c		
+				ft_create_lst.c \
+				ft_create_node.c \
+				ft_lst_clear.c \
+				ft_push_front.c \
+				ft_push_back.c
 
 CFLAGS		= -Wall -Wextra -Werror
 

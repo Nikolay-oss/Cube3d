@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/12 16:14:38 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/12 20:39:26 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		skip_spaces(char *line)
 	return (i);
 }
 
-int		check_line(t_opt *opt, char *param)
+int		check_options(t_opt *opt, char *param)
 {
 	if (!param)
 		return (1);
@@ -49,7 +49,7 @@ int		check_line(t_opt *opt, char *param)
 	else if (!ft_strncmp(param, "C ", 1))
 		{opt->eflag = check_color_opt(opt, opt->c, param + 1);printf("|C|: color -> %d, %d, %d\n", opt->c[0], opt->c[1], opt->c[2]);}
 	else
-		check_symbs(opt, param); //  brain on, please
+		check_symbs(opt, param); //  brain on, please!!!!!
 	// printf("%d\n", ft_strncmp("NO    ./path/to_the/south/NO_texture.xpm", "NO ", 3));
 	return (1);
 }
@@ -65,42 +65,39 @@ int		check_ext(char *filename, const char *set)
 	return (1);
 }
 
-int		ft_parser(t_opt *opt, char *filename)
+void	check_line(t_opt *opt, int fd, int *res)
 {
-	char	*param;
 	char	*line;
-	int		fd;
-	int		res;
-	// int i;
+	char	*param;
 
-	if (!check_ext(filename, ".cub"))
-		exit_error(-1); // error
-	if ((fd = open(filename, O_RDONLY)) < 0)
-		exit_error(-1); // error
-	// printf("|%d|\n", fd);
-	while ((res = get_next_line(fd, &line)) > -1)
+	while ((*res = get_next_line(fd, &line)) > -1)
 	{
-		// if (!(params = ft_split(line, ' ')))
 		if (!(param = ft_strtrim(line, " ")))
 		{
 			free(line);
 			exit_error(-1); // error
 		}
 		if (opt->count != 8)
-			check_line(opt, param);
-		// i = 0;
-		// while (*(params + i))
-		// 	printf("%s ", *(params + i++));
-		// printf("\n");
-		// split_line_free(params);
-		// check_line(opt, line + skip_spaces(line));
+			check_options(opt, param);
 		free(param);
 		free(line);
 		if (opt->eflag)
 			exit_error(opt->eflag);
-		if (!res)
+		if (!*res)
 			break ;
 	}
+}
+
+int		ft_parser(t_opt *opt, char *filename)
+{
+	int		fd;
+	int		res;
+
+	if (!check_ext(filename, ".cub"))
+		exit_error(-1); // error
+	if ((fd = open(filename, O_RDONLY)) < 0)
+		exit_error(-1); // error
+	check_line(opt, fd, &res);
 	if (res < 0)
 		return (-1); // error
 	close(fd);
