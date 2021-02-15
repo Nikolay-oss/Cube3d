@@ -35,6 +35,7 @@ int	main()
 		printf("%s\n", (char*)node->content);
 		node = node->next;
 	}
+	printf("lst size -> |%d|\n", (int)lst->size);
 	ft_lst_clear(lst, &free);
 	return (0);
 }

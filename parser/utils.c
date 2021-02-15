@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 19:28:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/12 20:02:10 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/15 13:44:49 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_symbs(t_opt *opt, char *line)
 		opt->eflag = 1;
 }
 
-void	split_line_free(char **strs)
+int		split_line_free(char **strs, int errorcode)
 {
 	int	i;
 
@@ -27,6 +27,7 @@ void	split_line_free(char **strs)
 	while (*(strs + i))
 		free(*(strs + i++));
 	free(strs);
+	return (errorcode);
 }
 
 void	exit_error(int errorcode)

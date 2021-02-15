@@ -1,5 +1,5 @@
   
-R    0000001920  0001080
+R 0000001920  0001080
   
 
 NO   ./path/to_the/south/NO_texture.xpm
@@ -10,7 +10,7 @@ SO ./path/to_the/south/SO_texture.xpm
 WE ./path/to_the/south/WE_texture.xpm
 
 EA   ./path/to_the/south/EA_texture.xpm
-     
+   
 S   ./path/to_the/south/S_texture.xpm
 F    000000220    ,    00000100    ,   00000000000000000  
   

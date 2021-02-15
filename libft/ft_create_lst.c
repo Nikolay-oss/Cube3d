@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 18:06:00 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/12 18:07:12 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:11:30 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ t_list	*ft_create_lst()
 	if (!(lst = (t_list*)malloc(sizeof(t_list))))
 		return (NULL);
 	lst->head = NULL;
-	lst->head = 0;
+	lst->size = 0;
 	return (lst);
 }

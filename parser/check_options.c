@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 21:42:20 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/12 16:27:22 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/15 13:48:03 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int				check_r(t_opt *opt, char *param)
 		count++;
 	digit_count = 0;
 	if (count != 2)
-		return (1); // error
+		return (split_line_free(resolution, 1)); // error
 	else if (!check_digit(resolution, &digit_count)) // rewrite!
-		return (1);
+		return (split_line_free(resolution, 1));
 	// добавить установку максимального разрешения, если подано разрешение больше максимального разрешения экрана
 	while (count--)
 		opt->r[count] = ft_atoi(*(resolution + count));
 	opt->r[2] = 1;
 	opt->count++;
-	split_line_free(resolution);
+	split_line_free(resolution, 1);
 	return (0);
 }
 
@@ -48,7 +48,10 @@ int				check_path_opt(t_opt *opt, char **option, char *param)
 	if (!check_ext(param, ".xpm"))
 		return (1);
 	if (!(*option = ft_strtrim(param, " ")))
+	{
+		free(*option);
 		return (1);
+	}
 	opt->count++;
 	return (0);
 }
@@ -57,8 +60,7 @@ static	char	**check_color_line(char *line)
 {
 	char	**params;
 	int		count;
-	
-	count = 0;
+
 	count = check_comma(line);
 	if (count > 2 || count < 2)
 		return (NULL);
@@ -114,17 +116,17 @@ int				check_color_opt(t_opt *opt, int *option, char *param)
 	while (*(color_map + count))
 		count++;
 	if (count != 3)
-		return (1); // invalid color
+		return (split_line_free(color_map, 1)); // invalid color
 	if (check_nbrs(color_map))
-		return (1);
+		return (split_line_free(color_map, 1));
 	while (count--)
 	{
 		option[count] = ft_atoi(*(color_map + count));
 		if (option[count] > 255)
-			return (1);
+			return (split_line_free(color_map, 1));
 	}
 	option[3] = 1;
 	opt->count++;
-	split_line_free(color_map);
+	split_line_free(color_map, 1);
 	return (0);
 }

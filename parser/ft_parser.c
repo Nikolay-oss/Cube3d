@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/12 20:39:26 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:35:33 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ int		check_options(t_opt *opt, char *param)
 {
 	if (!param)
 		return (1);
-	if (!ft_strncmp(param, "R ", 1))
+	if (!ft_strncmp(param, "R  ", 2))
 		{opt->eflag = check_r(opt, param + 1);printf("|R|: resolution -> %d %d\n", opt->r[0], opt->r[1]);}
-	else if (!ft_strncmp(param, "NO ", 2))
+	else if (!ft_strncmp(param, "NO  ", 3))
 		{opt->eflag = check_path_opt(opt, &opt->no, param + 2);printf("|NO|: path -> <%s>\n", opt->no);}
-	else if (!ft_strncmp(param, "SO ", 2))
+	else if (!ft_strncmp(param, "SO  ", 3))
 		{opt->eflag = check_path_opt(opt, &opt->so, param + 2);printf("|SO|: path -> <%s>\n", opt->so);}
-	else if (!ft_strncmp(param, "WE ", 2))
+	else if (!ft_strncmp(param, "WE  ", 3))
 		{opt->eflag = check_path_opt(opt, &opt->we, param + 2);printf("|WE|: path -> <%s>\n", opt->we);}
-	else if (!ft_strncmp(param, "EA ", 2))
+	else if (!ft_strncmp(param, "EA  ", 3))
 		{opt->eflag = check_path_opt(opt, &opt->ea, param + 2);printf("|EA|: path -> <%s>\n", opt->ea);}
-	else if (!ft_strncmp(param, "S ", 1))
+	else if (!ft_strncmp(param, "S  ", 2))
 		{opt->eflag = check_path_opt(opt, &opt->s, param + 1);printf("|S|: path -> <%s>\n", opt->s);}
-	else if (!ft_strncmp(param, "F ", 1))
+	else if (!ft_strncmp(param, "F  ", 2))
 		{opt->eflag = check_color_opt(opt, opt->f, param + 1);printf("|F|: color -> %d, %d, %d\n", opt->f[0], opt->f[1], opt->f[2]);}
-	else if (!ft_strncmp(param, "C ", 1))
+	else if (!ft_strncmp(param, "C  ", 2))
 		{opt->eflag = check_color_opt(opt, opt->c, param + 1);printf("|C|: color -> %d, %d, %d\n", opt->c[0], opt->c[1], opt->c[2]);}
 	else
 		check_symbs(opt, param); //  brain on, please!!!!!
@@ -69,17 +69,34 @@ void	check_line(t_opt *opt, int fd, int *res)
 {
 	char	*line;
 	char	*param;
+	t_list	*map_lines;
 
+	map_lines = ft_create_lst();
 	while ((*res = get_next_line(fd, &line)) > -1)
 	{
-		if (!(param = ft_strtrim(line, " ")))
-		{
-			free(line);
-			exit_error(-1); // error
-		}
 		if (opt->count != 8)
+		{
+			if (!(param = ft_strtrim(line, " ")))
+			{
+				free(line);
+				ft_lst_clear(map_lines, NULL);
+				exit_error(-1); // error
+			}
 			check_options(opt, param);
-		free(param);
+			free(param);
+		}
+		else
+		{
+			// map parser
+		}
+		// if (!(param = ft_strtrim(line, " ")))
+		// {
+		// 	free(line);
+		// 	exit_error(-1); // error
+		// }
+		// if (opt->count != 8)
+		// 	check_options(opt, param);
+		// free(param);
 		free(line);
 		if (opt->eflag)
 			exit_error(opt->eflag);
