@@ -6,22 +6,26 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:55:23 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/15 13:58:07 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/02/16 16:14:45 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parser.h"
+// #include "ft_parser.h"
 #include <stdio.h>
-#include "libft.h"
+// #include "libft.h"
 
 int	main(int ac, char **av)
 {
-	t_opt	opt;
+	// t_opt	opt;
 
-	if (ac < 2)
-		return (0);
-	init_opt(&opt);
-	ft_parser(&opt, *(av + 1));
+	// if (ac < 2)
+	// 	return (0);
+	// init_opt(&opt);
+	// ft_parser(&opt, *(av + 1));
 	// sleep(1000);
+	double a = 10.0;
+	a /= 0;
+	// a -= 1;
+	printf("%f\n", a);
 	return (0);
 }
