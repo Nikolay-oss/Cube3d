@@ -3,42 +3,119 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <math.h>
-#include "libft.h"
-#include "get_next_line.h"
+// #include "libft.h"
+// #include "get_next_line.h"
 
+#define mapWidth	24
+#define mapHeight	24
 
+int worldMap[mapWidth][mapHeight]=
+{
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,2,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+};
 
-
+typedef	struct	s_point
+{
+	int			x;
+	int			y;
+}				t_point;
 
 int	main()
 {
-	t_list *lst;
-	t_node *node;
-	int fd;
-	char *line;
-	int res;
+	t_point	plr_pos;
+	t_point ray_pos;
+	double	fov = M_PI / 3; // 60 degrees -> (M_PI / 3) * 180 / M_PI
+	double	plr_dir = M_PI / 2;
 
-	lst = ft_create_lst();
-	fd = open("maps/map_ex.cub", O_RDONLY);
-	while ((res = get_next_line(fd, &line)) > -1)
+	plr_pos.x = 18;
+	plr_pos.y = 20;
+
+	for (double t = 0.0; t < 24; t += 0.5)
 	{
-		ft_push_back(lst, line);
-		if (!res)
+		ray_pos.x = plr_pos.x + t * cos(plr_dir);
+		ray_pos.y = plr_pos.y + t * sin(plr_dir);
+		if (worldMap[ray_pos.x][ray_pos.y] == 1)
+		{
+			double dist = sqrt(pow(ray_pos.x - plr_pos.x, 2) + pow(ray_pos.y - plr_pos.y, 2));
+			printf("%lf\n", cos(plr_dir));
+			printf("plr_x -> %d\tplr_y -> %d\n", plr_pos.x, plr_pos.y);
+			printf("ray_pos_x -> %d\tray_pos_y -> %d\n", ray_pos.x, ray_pos.y);
+			printf("dist -> %lf\n", dist);
 			break ;
+		}
 	}
-	close(fd);
-	node = lst->head;
-	while (node)
-	{
-		// printf("%d\n", *(int*)(node->content));
-		// printf("%d\n", (int)node->content);
-		printf("%s\n", (char*)node->content);
-		node = node->next;
-	}
-	printf("lst size -> |%d|\n", (int)lst->size);
-	ft_lst_clear(lst, &free);
-	return (0);
+	// printf("%lf\n", 1.5708 * 180 / M_PI);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// int	main()
+// {
+// 	t_list *lst;
+// 	t_node *node;
+// 	int fd;
+// 	char *line;
+// 	int res;
+
+// 	lst = ft_create_lst();
+// 	fd = open("maps/map_ex.cub", O_RDONLY);
+// 	while ((res = get_next_line(fd, &line)) > -1)
+// 	{
+// 		ft_push_back(lst, line);
+// 		if (!res)
+// 			break ;
+// 	}
+// 	close(fd);
+// 	node = lst->head;
+// 	while (node)
+// 	{
+// 		// printf("%d\n", *(int*)(node->content));
+// 		// printf("%d\n", (int)node->content);
+// 		printf("%s\n", (char*)node->content);
+// 		node = node->next;
+// 	}
+// 	printf("lst size -> |%d|\n", (int)lst->size);
+// 	ft_lst_clear(lst, &free);
+// 	return (0);
+// }
 
 
 

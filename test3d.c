@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define	width	1280
-#define	height	960
+#define	width	640
+#define	height	480
 #define mapWidth 24
 #define mapHeight 24
 
@@ -88,7 +88,7 @@ int             win_close(t_game *game) // int keycode,
 
 int				win_close_esc(int keycode, t_game *game)
 {
-	return (keycode == 65307/*53*/ ? win_close(game) : 0);
+	return (keycode == /*65307*/53 ? win_close(game) : 0);
 }
 
 void		draw_vertline(int x, int start, int end, t_game *game, int color)
@@ -236,14 +236,14 @@ void		shift(int keycode, t_game *game)
 
 	// clc_img(game);
 	// printf("key -> %d\n", keycode);
-	if (keycode == 119)//13) // up
+	if (keycode == /*119*/13) // up
 	{
 		if (!worldMap[(int)(game->plr.pos[0] + game->plr.dir[0] * move_speed)][(int)(game->plr.pos[1])])
 			game->plr.pos[0] += game->plr.dir[0] * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] + game->plr.dir[1] * move_speed)])
 			game->plr.pos[1] += game->plr.dir[1] * move_speed;
 	}
-	else if (keycode == 97)//0) // left
+	else if (keycode == /*97*/2) // left
 	{
 		buf = game->plr.dir[1] * sin(1.57) * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0] + buf)][(int)(game->plr.pos[1])])
@@ -252,14 +252,14 @@ void		shift(int keycode, t_game *game)
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] - buf)])
 			game->plr.pos[1] -= buf;
 	}
-	else if (keycode == 115)//1) // down
+	else if (keycode == /*115*/1) // down
 	{
 		if (!worldMap[(int)(game->plr.pos[0] - game->plr.dir[0] * move_speed)][(int)game->plr.pos[1]])
 			game->plr.pos[0] -= game->plr.dir[0] * move_speed;	
 		if (!worldMap[(int)game->plr.pos[0]][(int)(game->plr.pos[1] - game->plr.dir[1] * move_speed)])
 			game->plr.pos[1] -= game->plr.dir[1] * move_speed;
 	}
-	else if (keycode == 100)//2) // right
+	else if (keycode == /*100*/0) // right
 	{
 		buf = game->plr.dir[1] * sin(1.57) * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0] - buf)][(int)(game->plr.pos[1])])
@@ -268,7 +268,7 @@ void		shift(int keycode, t_game *game)
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] + buf)])
 			game->plr.pos[1] += buf;
 	}
-	else if (keycode == 65361)//123) // right rot
+	else if (keycode == /*65361*/123) // right rot
 	{
 		double olddir_x = game->plr.dir[0];
 		game->plr.dir[0] = game->plr.dir[0] * cos(rot_speed) - game->plr.dir[1] * sin(rot_speed);
@@ -277,7 +277,7 @@ void		shift(int keycode, t_game *game)
 		game->plr.plane[0] = game->plr.plane[0] * cos(rot_speed) - game->plr.plane[1] * sin(rot_speed);
 		game->plr.plane[1] = oldplane_x * sin(rot_speed) + game->plr.plane[1] * cos(rot_speed);
 	}
-	else if (keycode == 65363)//124) // left rot
+	else if (keycode == /*65363*/124) // left rot
 	{
 		double olddir_x = game->plr.dir[0];
 		game->plr.dir[0] = game->plr.dir[0] * cos(-rot_speed) - game->plr.dir[1] * sin(-rot_speed);
@@ -338,12 +338,12 @@ int			main()
 	game.plr.plane[1] = 0.66;
 	game.plr.plane[0] = game.plr.plane[0] * cos(3.14);
 	game.plr.plane[1] = game.plr.plane[1] * cos(3.14);
-	// printf("planeX -> %f\nplaneY -> %f\n", game.plr.plane[0], game.plr.plane[1]);
+	printf("planeX -> %f\nplaneY -> %f\t%f\n", game.plr.plane[0], game.plr.plane[1], cos(-3.14));
 	game.plr.update = 1;
 
 	// raycaster(&game);
 
-	mlx_hook(game.vars.win, 33, 0, &win_close, &game);
+	mlx_hook(game.vars.win, 17, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &choice_key, &game);
 	mlx_loop_hook(game.vars.mlx, &render_frame, &game);
 	mlx_do_sync(game.vars.mlx);

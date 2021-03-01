@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define	width	1280
-#define	height	960
+#define	width	640
+#define	height	480
 #define mapWidth 24
 #define mapHeight 24
 
@@ -51,10 +51,17 @@ typedef	struct	s_vars
 	void	*win;
 }				t_vars;
 
+typedef	struct	s_point
+{
+	int			x;
+	int			y;
+}				t_point;
+
 typedef	struct	s_plr
 {
-	double	pos[2];
-	double	dir[2];
+	t_point	pos;
+	// double	dir[2];
+	double	dir;
 	double	plane[2];
 	int		start;
 	int		end;
@@ -88,7 +95,7 @@ int             win_close(t_game *game) // int keycode,
 
 int				win_close_esc(int keycode, t_game *game)
 {
-	return (keycode == 65307/*53*/ ? win_close(game) : 0);
+	return (keycode == /*65307*/53 ? win_close(game) : 0);
 }
 
 void		draw_vertline(int x, int start, int end, t_game *game, int color)
@@ -131,21 +138,56 @@ void	intersect(double p1[4], double p2[4], double *intersect)
 
 void		raycaster(t_game *game)
 {
-	double	camera_y;
-	double	ray_dir[2];
-	// double	map[2];
-	// double	pos[2];
-	int		x;
-
-	x = 0;
-	while (x < width)
+	t_point			ray_pos;
+	const double	fov = M_PI / 3;
+	double			angle;
+	
+	for (int x = 0; x < width; x++)
 	{
-		camera_y = 2 * x / (double)width - 1;
-		ray_dir[0] = game->plr.dir[0] + game->plr.plane[0] * camera_y;
-		ray_dir[1] = game->plr.dir[1] + game->plr.plane[1] * camera_y;
-		printf("ray_x -> %f\tray_y -> %f\n", ray_dir[0], ray_dir[1]);
-		x++;
+		angle = game->plr.dir - fov / 2 + fov * x / (double)width;
+		for (double t = 0.0; t < 24; t += 0.5)
+		{
+			ray_pos.x = game->plr.pos.x + t * cos(angle);
+			ray_pos.y = game->plr.pos.x + t * sin(angle);
+			if (worldMap[ray_pos.x][ray_pos.y] == 1)
+			{
+				double dist = sqrt(pow(ray_pos.x - game->plr.pos.x, 2) + pow(ray_pos.y - game->plr.pos.y, 2));
+				double line_height = (int)(height / dist);
+				double draw_start = -line_height / 2 + height / 2;
+				if (draw_start < 0)
+					draw_start = 0;
+				double draw_end = line_height / 2 + height / 2;
+				if (draw_end >= height)
+					draw_end = height - 1;
+				draw_vertline(x, draw_start, draw_end, game, 0x000000FF);
+				// printf("%lf\n", cos(plr_dir));
+				// printf("plr_x -> %d\tplr_y -> %d\n", plr_pos.x, plr_pos.y);
+				// printf("ray_pos_x -> %d\tray_pos_y -> %d\n", ray_pos.x, ray_pos.y);
+				// printf("dist -> %lf\n", dist);
+
+				break ;
+			}
+		}
 	}
+	
+	
+	
+	// double	camera_y;
+	// double	ray_dir[2];
+	// // double	map[2];
+	// // double	pos[2];
+	// int		x;
+
+	// x = 0;
+	// while (x < width)
+	// {
+	// 	camera_y = 2 * x / (double)width - 1;
+	// 	ray_dir[0] = game->plr.dir[0] + game->plr.plane[0] * camera_y;
+	// 	ray_dir[1] = game->plr.dir[1] + game->plr.plane[1] * camera_y;
+		
+	// 	// printf("ray_x -> %f\tray_y -> %f\n", ray_dir[0], ray_dir[1]);
+	// 	x++;
+	// }
 }
 
 void		clc_img(t_game *game)
@@ -176,8 +218,9 @@ int			render_frame(t_game *game)
 	// raycaster(game);
 	if (game->plr.update)
 	{
+		printf("RTTTTT\n");
 		clc_img(game);
-		// raycaster(game);
+		raycaster(game);
 		game->plr.update = 0;
 	}
 	mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
@@ -195,12 +238,16 @@ int			main()
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
                                  &game.img.endian);
 	
-	game.plr.pos[0] = 4;
-	game.plr.pos[1] = 2;
-	game.plr.dir[0] = 0;
-	game.plr.dir[1] = -1;
-	game.plr.plane[0] = 0.66;
-	game.plr.plane[1] = 0;
+
+	game.plr.pos.x = 18;
+	game.plr.pos.y = 20;
+	game.plr.dir = M_PI / 2;
+	// game.plr.pos[0] = 4;
+	// game.plr.pos[1] = 2;
+	// game.plr.dir[0] = 0;
+	// game.plr.dir[1] = 1;
+	// game.plr.plane[0] = 0.66;
+	// game.plr.plane[1] = 0;
 	// game.plr.plane[0] = game.plr.plane[0] * cos(3.14);
 	// game.plr.plane[1] = game.plr.plane[1] * cos(3.14);
 	// printf("planeX -> %f\nplaneY -> %f\n", game.plr.plane[0], game.plr.plane[1]);
@@ -208,9 +255,9 @@ int			main()
 
 	raycaster(&game);
 
-	mlx_hook(game.vars.win, 33 /*17*/, 0, &win_close, &game);
+	mlx_hook(game.vars.win, /*33*/ 17, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &choice_key, &game);
-	// mlx_loop_hook(game.vars.mlx, &render_frame, &game);
+	mlx_loop_hook(game.vars.mlx, &render_frame, &game);
 	mlx_do_sync(game.vars.mlx);
 	mlx_loop(game.vars.mlx);
 }
