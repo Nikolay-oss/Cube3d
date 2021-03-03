@@ -88,7 +88,8 @@ int             win_close(t_game *game) // int keycode,
 
 int				win_close_esc(int keycode, t_game *game)
 {
-	return (keycode == /*65307*/53 ? win_close(game) : 0);
+	// return (keycode == 53 ? win_close(game) : 0);
+	return (keycode == 65307 ? win_close(game) : 0);
 }
 
 void		draw_vertline(int x, int start, int end, t_game *game, int color)
@@ -124,11 +125,15 @@ int			raycaster(t_game *game)
 
 	color = 0x000000FF;
 	x = 0;
+	// game->plr.pos[0] += 1;
+	// game->plr.pos[1] += 1;
 	while (x < width)
 	{
 		camera_x = 2 * x / (double)width - 1;
 		ray_dir[0] = game->plr.dir[0] + game->plr.plane[0] * camera_x;
 		ray_dir[1] = game->plr.dir[1] + game->plr.plane[1] * camera_x;
+
+		printf("dir_x -> %lf\tdir_y -> %lf\n", ray_dir[0], ray_dir[1]);
 
 		map[0] = (int)game->plr.pos[0];
 		map[1] = (int)game->plr.pos[1];
@@ -236,14 +241,14 @@ void		shift(int keycode, t_game *game)
 
 	// clc_img(game);
 	// printf("key -> %d\n", keycode);
-	if (keycode == /*119*/13) // up
+	if (keycode == 119) // up 13
 	{
 		if (!worldMap[(int)(game->plr.pos[0] + game->plr.dir[0] * move_speed)][(int)(game->plr.pos[1])])
 			game->plr.pos[0] += game->plr.dir[0] * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] + game->plr.dir[1] * move_speed)])
 			game->plr.pos[1] += game->plr.dir[1] * move_speed;
 	}
-	else if (keycode == /*97*/2) // left
+	else if (keycode == 97) // left 2
 	{
 		buf = game->plr.dir[1] * sin(1.57) * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0] + buf)][(int)(game->plr.pos[1])])
@@ -252,14 +257,14 @@ void		shift(int keycode, t_game *game)
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] - buf)])
 			game->plr.pos[1] -= buf;
 	}
-	else if (keycode == /*115*/1) // down
+	else if (keycode == 115) // down 1
 	{
 		if (!worldMap[(int)(game->plr.pos[0] - game->plr.dir[0] * move_speed)][(int)game->plr.pos[1]])
 			game->plr.pos[0] -= game->plr.dir[0] * move_speed;	
 		if (!worldMap[(int)game->plr.pos[0]][(int)(game->plr.pos[1] - game->plr.dir[1] * move_speed)])
 			game->plr.pos[1] -= game->plr.dir[1] * move_speed;
 	}
-	else if (keycode == /*100*/0) // right
+	else if (keycode == 100/*0*/) // right
 	{
 		buf = game->plr.dir[1] * sin(1.57) * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0] - buf)][(int)(game->plr.pos[1])])
@@ -268,7 +273,7 @@ void		shift(int keycode, t_game *game)
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] + buf)])
 			game->plr.pos[1] += buf;
 	}
-	else if (keycode == /*65361*/123) // right rot
+	else if (keycode == 65361/*123*/) // right rot
 	{
 		double olddir_x = game->plr.dir[0];
 		game->plr.dir[0] = game->plr.dir[0] * cos(rot_speed) - game->plr.dir[1] * sin(rot_speed);
@@ -277,7 +282,7 @@ void		shift(int keycode, t_game *game)
 		game->plr.plane[0] = game->plr.plane[0] * cos(rot_speed) - game->plr.plane[1] * sin(rot_speed);
 		game->plr.plane[1] = oldplane_x * sin(rot_speed) + game->plr.plane[1] * cos(rot_speed);
 	}
-	else if (keycode == /*65363*/124) // left rot
+	else if (keycode == 65363/*124*/) // left rot
 	{
 		double olddir_x = game->plr.dir[0];
 		game->plr.dir[0] = game->plr.dir[0] * cos(-rot_speed) - game->plr.dir[1] * sin(-rot_speed);
@@ -330,8 +335,8 @@ int			main()
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
                                  &game.img.endian);
 	
-	game.plr.pos[0] = 15;
-	game.plr.pos[1] = 5;
+	game.plr.pos[0] = 12;
+	game.plr.pos[1] = 12;
 	game.plr.dir[0] = 1;
 	game.plr.dir[1] = 0;
 	game.plr.plane[0] = 0;
@@ -343,7 +348,7 @@ int			main()
 
 	// raycaster(&game);
 
-	mlx_hook(game.vars.win, 17, 0, &win_close, &game);
+	mlx_hook(game.vars.win, 33, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &choice_key, &game);
 	mlx_loop_hook(game.vars.mlx, &render_frame, &game);
 	mlx_do_sync(game.vars.mlx);

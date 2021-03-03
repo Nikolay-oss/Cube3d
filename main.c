@@ -10,22 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "ft_parser.h"
+#include "ft_parser.h"
 #include <stdio.h>
-// #include "libft.h"
+#include "libft.h"
 
 int	main(int ac, char **av)
 {
-	// t_opt	opt;
+	t_opt	opt;
 
-	// if (ac < 2)
-	// 	return (0);
-	// init_opt(&opt);
-	// ft_parser(&opt, *(av + 1));
-	// sleep(1000);
-	double a = 10.0;
-	a /= 0;
-	// a -= 1;
-	printf("%f\n", a);
+	if (ac < 2)
+		return (0);
+	init_opt(&opt);
+	ft_parser(&opt, *(av + 1));
+	//sleep(1000);
 	return (0);
 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
+// #include <stdlib.h>
+// #include <fcntl.h>
+// #include <unistd.h>
 #include <math.h>
 // #include "libft.h"
 // #include "get_next_line.h"
@@ -39,35 +39,53 @@ int worldMap[mapWidth][mapHeight]=
 
 typedef	struct	s_point
 {
-	int			x;
-	int			y;
+	double			x;
+	double			y;
 }				t_point;
 
 int	main()
 {
-	t_point	plr_pos;
-	t_point ray_pos;
-	double	fov = M_PI / 3; // 60 degrees -> (M_PI / 3) * 180 / M_PI
-	double	plr_dir = M_PI / 2;
+	// t_point	plr_pos;
+	// t_point ray_pos;
+	// double	fov = M_PI / 3; // 60 degrees -> (M_PI / 3) * 180 / M_PI
+	// double	plr_dir = M_PI / 2;
 
-	plr_pos.x = 18;
-	plr_pos.y = 20;
+	// plr_pos.x = 18;
+	// plr_pos.y = 20;
 
-	for (double t = 0.0; t < 24; t += 0.5)
-	{
-		ray_pos.x = plr_pos.x + t * cos(plr_dir);
-		ray_pos.y = plr_pos.y + t * sin(plr_dir);
-		if (worldMap[ray_pos.x][ray_pos.y] == 1)
-		{
-			double dist = sqrt(pow(ray_pos.x - plr_pos.x, 2) + pow(ray_pos.y - plr_pos.y, 2));
-			printf("%lf\n", cos(plr_dir));
-			printf("plr_x -> %d\tplr_y -> %d\n", plr_pos.x, plr_pos.y);
-			printf("ray_pos_x -> %d\tray_pos_y -> %d\n", ray_pos.x, ray_pos.y);
-			printf("dist -> %lf\n", dist);
-			break ;
-		}
-	}
-	// printf("%lf\n", 1.5708 * 180 / M_PI);
+	// for (double t = 0.0; t < 24; t += 0.5)
+	// {
+	// 	ray_pos.x = plr_pos.x + t * cos(plr_dir);
+	// 	ray_pos.y = plr_pos.y + t * sin(plr_dir);
+	// 	if (worldMap[ray_pos.x][ray_pos.y] == 1)
+	// 	{
+	// 		double dist = sqrt(pow(ray_pos.x - plr_pos.x, 2) + pow(ray_pos.y - plr_pos.y, 2));
+	// 		printf("%lf\n", cos(plr_dir));
+	// 		printf("plr_x -> %d\tplr_y -> %d\n", plr_pos.x, plr_pos.y);
+	// 		printf("ray_pos_x -> %d\tray_pos_y -> %d\n", ray_pos.x, ray_pos.y);
+	// 		printf("dist -> %lf\n", dist);
+	// 		break ;
+	// 	}
+	// }
+	// printf("%lf\n", 2.092759 * 180 / M_PI);
+	t_point	des_p;
+	double	phi = 1.570796;
+	double	alpha = 0.523599;
+	double	r = 1;
+
+	des_p.x = 6 + (r / cos(alpha)) * cos(phi - alpha);
+	des_p.y = 3 + (r / cos(alpha)) * sin(phi - alpha);
+
+	// printf("desire_x -> %lf\tdesire_y -> %lf\n", 6.66, 4.0);
+	// printf("x -> %lf\ty -> %lf\n", des_p.x, des_p.y);
+	// printf("%lf\n", 3 * sqrt(1 + pow(2 / 3, 2)));
+	printf("%lf\n", acos(((1 * 2) + (1 * 1)) / (sqrt(2) * sqrt(5))));
+
+	// printf("%lf\n", cos(30 * M_PI / 180));
+	// printf("%lf\n", 6 - sin(30 * M_PI / 180));
+	// printf("%lf\n", 1 / cos(30 * M_PI / 180));
+	// printf("%lf\n", sqrt(3)/2);
+	// printf("%lf\n", 30 * M_PI / 180);
 }
 
 

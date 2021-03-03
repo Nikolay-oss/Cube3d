@@ -32,7 +32,7 @@ int worldMap[mapWidth][mapHeight]=
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,2,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,2,2,0,0,0,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
@@ -57,12 +57,18 @@ typedef	struct	s_point
 	int			y;
 }				t_point;
 
+typedef	struct	s_vec
+{
+	double		x;
+	double		y;
+}				t_vec;
+
 typedef	struct	s_plr
 {
 	t_point	pos;
-	// double	dir[2];
-	double	dir;
-	double	plane[2];
+	t_point	dir;
+	t_vec	plane;
+	double	dir_angel;
 	int		start;
 	int		end;
 	int		color;
@@ -71,8 +77,6 @@ typedef	struct	s_plr
 
 typedef	struct	s_game
 {
-	int		x;
-	int		y;
 	t_data	img;
 	t_vars	vars;
 	t_plr	plr;
@@ -95,7 +99,8 @@ int             win_close(t_game *game) // int keycode,
 
 int				win_close_esc(int keycode, t_game *game)
 {
-	return (keycode == /*65307*/53 ? win_close(game) : 0);
+	// return (keycode == 53 ? win_close(game) : 0);
+	return (keycode == 65307 ? win_close(game) : 0);
 }
 
 void		draw_vertline(int x, int start, int end, t_game *game, int color)
@@ -139,30 +144,73 @@ void	intersect(double p1[4], double p2[4], double *intersect)
 void		raycaster(t_game *game)
 {
 	t_point			ray_pos;
-	const double	fov = M_PI / 3;
-	double			angle;
+	t_point			sray_pos;
+	t_vec			tmp;
+	const double	fov = 66 * M_PI / 180;
+	double			ray_angle;
+	double			dir_x;
+	double			dir_y;
+	double			dist;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	int				color;
 	
 	for (int x = 0; x < width; x++)
 	{
-		angle = game->plr.dir - fov / 2 + fov * x / (double)width;
+		double camera_plane = 2 * x / (double)width - 1;
+		dir_x = game->plr.dir.x + game->plr.plane.x * camera_plane;
+		dir_y = game->plr.dir.y + game->plr.plane.y * camera_plane;
+		// printf("dir_x -> %lf\tdir_y -> %lf\n", dir_x, dir_y);
+		ray_angle = game->plr.dir_angel - fov / 2 + fov * x / (double)width;
+		// printf("%lf\n", ray_angle * 180 / M_PI);
+		//printf("%lf\n", sin(ray_angle));
+		sray_pos.x = game->plr.pos.x + dir_x;
+		sray_pos.y = game->plr.pos.y + dir_y;
 		for (double t = 0.0; t < 24; t += 0.5)
 		{
-			ray_pos.x = game->plr.pos.x + t * cos(angle);
-			ray_pos.y = game->plr.pos.x + t * sin(angle);
-			if (worldMap[ray_pos.x][ray_pos.y] == 1)
+			//ray_pos.x = game->plr.pos.x + dir_x + t * cos(game->plr.dir_angel);//game->plr.pos.x + t * cos(ray_angle);
+			//ray_pos.y = game->plr.pos.y + dir_y + t * sin(game->plr.dir_angel);//game->plr.pos.x + t * sin(ray_angle);
+			ray_pos.x = game->plr.pos.x + t * cos(ray_angle);
+			ray_pos.y = game->plr.pos.y + t * sin(ray_angle);
+			// printf("%d\n", worldMap[21][3]);
+			if (worldMap[ray_pos.x][ray_pos.y] == 2)
+				printf("ray_pos_x -> %d\tray_pos_y -> %d\n", ray_pos.x, ray_pos.y);
+			if (worldMap[ray_pos.y][ray_pos.x] == 1 || worldMap[ray_pos.y][ray_pos.x] == 2)
 			{
-				double dist = sqrt(pow(ray_pos.x - game->plr.pos.x, 2) + pow(ray_pos.y - game->plr.pos.y, 2));
-				double line_height = (int)(height / dist);
-				double draw_start = -line_height / 2 + height / 2;
+				// printf("%d\n", worldMap[ray_pos.x][ray_pos.y]);
+				// printf("ray_x -> %d\tray_y -> %d\n", ray_pos.x, ray_pos.y);
+				tmp.x = (ray_pos.x - sray_pos.x);
+				tmp.y = (ray_pos.y - sray_pos.y);
+				dist = sqrt(pow(tmp.x, 2) + pow(tmp.y, 2));//t * cos(ray_angle - game->plr.dir);//sqrt(pow(ray_pos.x - (game->plr.pos.x + tmp), 2) + pow(ray_pos.y - game->plr.pos.y, 2));
+				// printf("%lf\n", dist);
+				// dist *= cos(game->plr.dir_angel - ray_angle);
+				// printf("%lf\n", cos(game->plr.dir_angel - ray_angle));
+				// dist += sqrt(pow(ray_pos.x - game->plr.pos.x, 2) + pow(ray_pos.y - game->plr.pos.y, 2));
+				// dist = sqrt(pow(dist * cos(ray_angle) * cos(ra), 2));
+				// printf("%lf\n", game->plr.pos.x + dist * cos(ray_angle));
+				// dist = dist * sin(ray_angle);
+				line_height = (int)(height / dist);
+				// printf("%d\n", line_height);
+				// printf("%lf\n", dist);
+				draw_start = -line_height / 2 + height / 2;
 				if (draw_start < 0)
 					draw_start = 0;
-				double draw_end = line_height / 2 + height / 2;
+				draw_end = line_height / 2 + height / 2;
 				if (draw_end >= height)
 					draw_end = height - 1;
-				draw_vertline(x, draw_start, draw_end, game, 0x000000FF);
+				if (worldMap[ray_pos.y][ray_pos.x] == 2)
+				{
+					// printf("%d\n", worldMap[ray_pos.y][ray_pos.x]);
+					color = 0x00FF0000;
+				}
+				else
+					color = 0x000000FF;
+				// printf("start_draw -> %d\tend_draw -> %d\n", draw_start, draw_end);
+				draw_vertline(x, draw_start, draw_end, game, color);
 				// printf("%lf\n", cos(plr_dir));
 				// printf("plr_x -> %d\tplr_y -> %d\n", plr_pos.x, plr_pos.y);
-				// printf("ray_pos_x -> %d\tray_pos_y -> %d\n", ray_pos.x, ray_pos.y);
+				
 				// printf("dist -> %lf\n", dist);
 
 				break ;
@@ -218,7 +266,6 @@ int			render_frame(t_game *game)
 	// raycaster(game);
 	if (game->plr.update)
 	{
-		printf("RTTTTT\n");
 		clc_img(game);
 		raycaster(game);
 		game->plr.update = 0;
@@ -239,9 +286,14 @@ int			main()
                                  &game.img.endian);
 	
 
-	game.plr.pos.x = 18;
-	game.plr.pos.y = 20;
-	game.plr.dir = M_PI / 2;
+	game.plr.pos.x = 8;
+	game.plr.pos.y = 18;
+	game.plr.dir_angel = M_PI / 2;
+	game.plr.dir.x = 0;
+	game.plr.dir.y = 1;
+	game.plr.plane.x = 0.66;
+	game.plr.plane.y = 0.0;
+
 	// game.plr.pos[0] = 4;
 	// game.plr.pos[1] = 2;
 	// game.plr.dir[0] = 0;
@@ -255,7 +307,8 @@ int			main()
 
 	raycaster(&game);
 
-	mlx_hook(game.vars.win, /*33*/ 17, 0, &win_close, &game);
+	// mlx_hook(game.vars.win, 17, 0, &win_close, &game);
+	mlx_hook(game.vars.win, 33, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &choice_key, &game);
 	mlx_loop_hook(game.vars.mlx, &render_frame, &game);
 	mlx_do_sync(game.vars.mlx);
