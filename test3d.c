@@ -133,14 +133,14 @@ int			raycaster(t_game *game)
 		ray_dir[0] = game->plr.dir[0] + game->plr.plane[0] * camera_x;
 		ray_dir[1] = game->plr.dir[1] + game->plr.plane[1] * camera_x;
 
-		printf("dir_x -> %lf\tdir_y -> %lf\n", ray_dir[0], ray_dir[1]);
+		// printf("dir_x -> %lf\tdir_y -> %lf\n", ray_dir[0], ray_dir[1]);
 
 		map[0] = (int)game->plr.pos[0];
 		map[1] = (int)game->plr.pos[1];
 
 		delta_dist[0] = fabs(1 / ray_dir[0]);
 		delta_dist[1] = fabs(1 / ray_dir[1]);
-
+		printf("side_x -> %lf\tside_y -> %lf\n", delta_dist[0], delta_dist[1]);
 		hit = 0;
 		if (ray_dir[0] < 0)
 		{
@@ -162,6 +162,7 @@ int			raycaster(t_game *game)
 			step[1] = 1;
 			side_dist[1] = (map[1] + 1.0 - game->plr.pos[1]) * delta_dist[1];
 		}
+		// printf("side_x -> %lf\tsize_y -> %lf\n", side_dist[0], side_dist[1]);
 		while (!hit)
 		{
 			if (side_dist[0] < side_dist[1])

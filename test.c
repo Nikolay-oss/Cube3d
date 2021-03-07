@@ -79,7 +79,7 @@ int	main()
 	// printf("desire_x -> %lf\tdesire_y -> %lf\n", 6.66, 4.0);
 	// printf("x -> %lf\ty -> %lf\n", des_p.x, des_p.y);
 	// printf("%lf\n", 3 * sqrt(1 + pow(2 / 3, 2)));
-	printf("%lf\n", acos(((1 * 2) + (1 * 1)) / (sqrt(2) * sqrt(5))));
+	printf("%lf\n", 1.555724 * sin(50 * M_PI / 180));//sqrt(pow(1.555724, 2) - 1));//1/cos(50 * M_PI / 180));
 
 	// printf("%lf\n", cos(30 * M_PI / 180));
 	// printf("%lf\n", 6 - sin(30 * M_PI / 180));

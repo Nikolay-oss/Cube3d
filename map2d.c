@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "libft.h"
 
 #define	width	1280
 #define	height	1024
@@ -18,14 +19,14 @@ int worldMap[mapWidth][mapHeight]=
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1},
+  {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1},
+  {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -118,6 +119,33 @@ void	draw_dir(t_game *game, int color)
 	}
 }
 
+void	draw_vec(t_game *game, double x1, double y1, double x2, double y2, int color)
+{
+	int x;
+	int y;
+	int e_x;
+	int e_y;
+	int s_x;
+	int s_y;
+	double k;
+
+	s_x = OFFSET + x1 * PSQUARE;
+	s_y = OFFSET + y1 * PSQUARE;;
+	e_x = OFFSET + (x1 + ((x2) - x1)) * PSQUARE;
+	e_y = OFFSET + (y1 + ((y2) - y1)) * PSQUARE;
+	x = s_x;
+	y = s_y;
+	k = 0.01;
+	while (k <= 200)
+	{
+		x = (s_x + k * e_x) / (1 + k);
+		y = (s_y + k * e_y) / (1 + k);
+		pixel_put(&game->img, x, y, color);
+		// printf("x -> %d\ty -> %d\n", x, y);
+		k += 0.01;
+	}
+}
+
 void	draw_rectangle(t_game *game, int s_x, int s_y, int color, int size)
 {
 	int	x;
@@ -152,7 +180,7 @@ void	draw_map(t_game *game)
 		while (y < mapHeight)
 		{
 			if (worldMap[x][y])
-				draw_rectangle(game, draw_x, draw_y, 0x00FFFFFF, PSQUARE);
+				draw_rectangle(game, draw_x - PSQUARE / 2, draw_y - PSQUARE / 2, 0x00FFFFFF, PSQUARE);
 			draw_x += PSQUARE;
 			y++;
 		}
@@ -165,25 +193,142 @@ void	draw_plr(t_game *game)
 {
 	int	x = OFFSET + game->plr.pos.x * PSQUARE;
 	int y = OFFSET + game->plr.pos.y * PSQUARE;
+	printf("x -> %lf\ty -> %lf\n", game->plr.pos.x, game->plr.pos.y);
 	draw_rectangle(game, x - 5, y - 5, 0x0000FF00, 10);
 }
 
-// void	raycaster(t_game *game)
-// {
+void	draw_line(t_game *game, int line, int draw_start, int draw_end, int color)
+{
+	while (draw_start < draw_end)
+	{
+		pixel_put(&game->img, line, draw_start, color);
+		draw_start++;
+	}
+}
 
-// }
+void	draw_grid(t_game *game)
+{
+	int x;
+	int y;
+
+	x = OFFSET + PSQUARE;
+	while (x < OFFSET + mapWidth * PSQUARE)
+	{
+		y = OFFSET;
+		while (y < OFFSET + mapHeight * PSQUARE)
+		{
+			pixel_put(&game->img, x - PSQUARE / 2, y - PSQUARE / 2, 0x000000FF);
+			y += 1;
+		}
+		x += PSQUARE;
+	}
+	y = OFFSET + PSQUARE;
+	while (y < OFFSET + mapHeight * PSQUARE)
+	{
+		x = OFFSET;
+		while (x < OFFSET + mapWidth * PSQUARE)
+		{
+			pixel_put(&game->img, x - PSQUARE / 2, y - PSQUARE / 2, 0x000000FF);
+			x++;
+		}
+		y += PSQUARE;
+	}
+}
+
+void	raycaster(t_game *game)
+{
+	double		ray_x;
+	double		ray_y;
+	double	kx;
+	double	ky;
+	double	side_x;
+	double	side_y;
+	int		ray_map_posx;
+	int		ray_map_posy;
+	int		ishit;
+	int		step_x;
+	int		step_y;
+	t_point	intersect;
+	int		side_map;
+
+	ray_x = game->plr.dir.x;
+	ray_y = game->plr.dir.y;
+	ray_map_posx = game->plr.pos.x;
+	ray_map_posy = game->plr.pos.y;
+	kx = /*fabs(1 / ray_x);*/ sqrt(1 + pow(1 / game->plr.dir.x, 2)); //game->plr.dir.y == 0 ? 0 : (game->plr.dir.x == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.x, 2)));
+	ky = /*fabs(1 / ray_y);*/ sqrt(1 + pow(1 / game->plr.dir.y, 2)); //game->plr.dir.x == 0 ? 0 : (game->plr.dir.y == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.y, 2)));
+	printf("kx -> %lf\tky -> %lf\n", kx, ky);
+	printf("ray_x -> %lf\tray_y -> %lf\n", ray_x, ray_y);
+	printf("ray_len -> %lf\n", sqrt(pow(ray_x, 2) + pow(ray_y, 2)));
+	if (game->plr.dir.x > 0)
+	{
+		side_x = (ray_map_posx + 1.0 - game->plr.pos.x) / fabs(game->plr.dir.x);
+		step_x = 1;
+	}
+	else
+	{
+		side_x = (game->plr.pos.x - ray_map_posx) / fabs(game->plr.dir.x);
+		step_x = -1;
+	}
+	if (game->plr.dir.y > 0)
+	{
+		side_y = (ray_map_posy + 1.0 - game->plr.pos.y) / fabs(game->plr.dir.y);
+		step_y = 1;
+	}
+	else
+	{
+		side_y = (game->plr.pos.y - ray_map_posy) / fabs(game->plr.dir.y);
+		step_y = -1;
+	}
+	printf("side_x -> %lf\tside_y -> %lf\n", side_x, side_y);
+	ishit = 0;
+	while (!ishit)
+	{
+		if (side_x < side_y)
+		{
+			// printf("TUT\n");
+			side_x += kx;
+			ray_map_posx += step_x;
+			side_map = 1;
+		}
+		else
+		{
+			// printf("TUT2\n");
+			side_y += ky;
+			ray_map_posy += step_y;
+			side_map = 0;
+		}
+		if (worldMap[ray_map_posy][ray_map_posx])
+			ishit = 1;
+	}
+	intersect.x = ray_map_posx;
+	// if (side_map && game->plr.dir.x > 0)
+	// 	intersect.x = ray_map_posx - 0.5;//(game->plr.pos.x + 20 * ray_map_posx) / 21;
+	// else if (side_map && game->plr.dir.x < 0)
+	// 	intersect.x = ray_map_posx + 0.5;
+	intersect.y = ray_map_posy;
+	// if (!side_map && game->plr.dir.y > 0)
+	// 	intersect.y = ray_map_posy - 0.5;//(game->plr.pos.y + 20 * ray_map_posy) / 21;
+	// else if (!side_map && game->plr.dir.y < 0)
+	// 	intersect.y = ray_map_posy + 0.5;
+	draw_vec(game, game->plr.pos.x, game->plr.pos.y, intersect.x, intersect.y, 0x00FF0000);
+	// draw_vec(game, game->plr.pos.x, game->plr.pos.y, ray_map_posx, ray_map_posy, 0x00FF0000);
+}
 
 int		render_frame(t_game *game)
 {
 	if (game->plr.update)
 	{
+		// ft_bzero(game->img.img, width);  разобраться с bzero
+		// draw fun
 		game->img.img = mlx_new_image(game->vars.mlx, width, height);
 		game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
 			&game->img.endian);
-		// draw fun
 		draw_map(game);
+		draw_grid(game);
 		draw_plr(game);
-		draw_dir(game, 0x00FF0000);
+		raycaster(game);
+		draw_dir(game, 0x0000FF00);
 		mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
 		game->plr.update = 0;
 	}
@@ -233,6 +378,7 @@ int		key_hook(int keycode, t_game *game)
 		game->plr.dir.y = old_value * sin(rot_speed) + game->plr.dir.y * cos(rot_speed);
 	}
 	mlx_destroy_image(game->vars.mlx, game->img.img);
+	printf("or_angle -> %lf\n", game->origin_angle);
 	game->plr.update = 1;
 	return (0);
 }
@@ -246,12 +392,12 @@ int	main()
 
 	game.plr.pos.x = 12;
 	game.plr.pos.y = 12;
-	game.plr.dir.x = 1;
-	game.plr.dir.y = -1;
+	game.plr.dir.x = 0;
+	game.plr.dir.y = 1;
 	game.plr.update = 1;
-	game.origin_angle = -1.570796;
+	game.origin_angle = 1.570796;
 
-	printf("dx -> %lf\tdy -> %lf\n", sqrt(1 + pow(game.plr.dir.y / game.plr.dir.x, 2)), sqrt(1 + pow(game.plr.dir.x / game.plr.dir.y, 2)));
+	// printf("dx -> %lf\tdy -> %lf\n", sqrt(1 + pow(game.plr.dir.y / game.plr.dir.x, 2)), sqrt(1 + pow(game.plr.dir.x / game.plr.dir.y, 2)));
 	
 	mlx_hook(game.vars.win, 33, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &key_hook, &game);
