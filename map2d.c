@@ -73,6 +73,7 @@ typedef	struct	s_game
 	t_data	img;
 	t_vars	vars;
 	t_plr	plr;
+	t_point	plane;
 	double	origin_angle;
 }				t_game;
 
@@ -131,8 +132,8 @@ void	draw_vec(t_game *game, double x1, double y1, double x2, double y2, int colo
 
 	s_x = OFFSET + x1 * PSQUARE;
 	s_y = OFFSET + y1 * PSQUARE;;
-	e_x = OFFSET + (x1 + ((x2) - x1)) * PSQUARE;
-	e_y = OFFSET + (y1 + ((y2) - y1)) * PSQUARE;
+	e_x = OFFSET + (x1 + (x2 - x1)) * PSQUARE;
+	e_y = OFFSET + (y1 + (y2 - y1)) * PSQUARE;
 	x = s_x;
 	y = s_y;
 	k = 0.01;
@@ -250,90 +251,98 @@ void	raycaster(t_game *game)
 	int		step_y;
 	t_point	intersect;
 	int		side_map;
+	double		x;
 
-	ray_x = game->plr.dir.x;
-	ray_y = game->plr.dir.y;
-	ray_map_posx = game->plr.pos.x;
-	ray_map_posy = game->plr.pos.y;
-	kx = fabs(1 / ray_x); /*sqrt(1 + pow(1 / game->plr.dir.x, 2));*/ //game->plr.dir.y == 0 ? 0 : (game->plr.dir.x == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.x, 2)));
-	ky = fabs(1 / ray_y); /*sqrt(1 + pow(1 / game->plr.dir.y, 2));*/ //game->plr.dir.x == 0 ? 0 : (game->plr.dir.y == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.y, 2)));
-	printf("kx -> %lf\tky -> %lf\n", kx, ky);
-	printf("ray_x -> %lf\tray_y -> %lf\n", ray_x, ray_y);
-	printf("ray_len -> %lf\n", sqrt(pow(ray_x, 2) + pow(ray_y, 2)));
-	if (game->plr.dir.x > 0)
+	x = -0.66;
+	while (x < 0.66)
 	{
-		side_x = (ray_map_posx + 1.0 - game->plr.pos.x) / fabs(game->plr.dir.x);
-		step_x = 1;
-	}
-	else
-	{
-		side_x = (game->plr.pos.x - ray_map_posx) / fabs(game->plr.dir.x);
-		step_x = -1;
-	}
-	if (game->plr.dir.y > 0)
-	{
-		side_y = (ray_map_posy + 1.0 - game->plr.pos.y) / fabs(game->plr.dir.y);
-		step_y = 1;
-	}
-	else
-	{
-		side_y = (game->plr.pos.y - ray_map_posy) / fabs(game->plr.dir.y);
-		step_y = -1;
-	}
-	printf("side_x -> %lf\tside_y -> %lf\n", side_x, side_y);
-	ishit = 0;
-	while (!ishit)
-	{
-		if (side_x < side_y)
+		ray_x = game->plr.dir.x + game->plane.x * x;
+		ray_y = game->plr.dir.y + game->plane.y * x;
+		ray_map_posx = game->plr.pos.x;
+		ray_map_posy = game->plr.pos.y;
+		kx = fabs(1 / ray_x); /*sqrt(1 + pow(1 / game->plr.dir.x, 2));*/ //game->plr.dir.y == 0 ? 0 : (game->plr.dir.x == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.x, 2)));
+		ky = fabs(1 / ray_y); /*sqrt(1 + pow(1 / game->plr.dir.y, 2));*/ //game->plr.dir.x == 0 ? 0 : (game->plr.dir.y == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.y, 2)));
+		printf("kx -> %lf\tky -> %lf\n", kx, ky);
+		printf("ray_x -> %lf\tray_y -> %lf\n", ray_x, ray_y);
+		printf("ray_len -> %lf\n", sqrt(pow(ray_x, 2) + pow(ray_y, 2)));
+		if (game->plr.dir.x > 0)
 		{
-			// printf("TUT\n");
-			side_x += kx;
-			ray_map_posx += step_x;
-			side_map = 1;
+			side_x = (ray_map_posx + 1.0 - game->plr.pos.x) * kx;
+			step_x = 1;
 		}
 		else
 		{
-			// printf("TUT2\n");
-			side_y += ky;
-			ray_map_posy += step_y;
-			side_map = 0;
+			side_x = (game->plr.pos.x - ray_map_posx) * kx;
+			step_x = -1;
 		}
-		if (worldMap[ray_map_posy][ray_map_posx])
-			ishit = 1;
+		if (game->plr.dir.y > 0)
+		{
+			side_y = (ray_map_posy + 1.0 - game->plr.pos.y) * ky;
+			step_y = 1;
+		}
+		else
+		{
+			side_y = (game->plr.pos.y - ray_map_posy) * ky;
+			step_y = -1;
+		}
+		printf("side_x -> %lf\tside_y -> %lf\n", side_x, side_y);
+		ishit = 0;
+		while (!ishit)
+		{
+			if (side_x < side_y)
+			{
+				// printf("TUT\n");
+				side_x += kx;
+				ray_map_posx += step_x;
+				side_map = 1;
+			}
+			else
+			{
+				// printf("TUT2\n");
+				side_y += ky;
+				ray_map_posy += step_y;
+				side_map = 0;
+			}
+			if (worldMap[ray_map_posy][ray_map_posx])
+				ishit = 1;
+			// if (ray_map_posx < width || ray_map_posy < height)
+			// 	break ;
+			if (ray_map_posx > width || ray_map_posy > height)
+				break ;
+		}
+		intersect.x = ray_map_posx;
+		if (side_map && game->plr.dir.x > 0)
+			intersect.x = ray_map_posx - 0.5;//(game->plr.pos.x + 20 * ray_map_posx) / 21;
+		else if (side_map && game->plr.dir.x < 0)
+			intersect.x = ray_map_posx + 0.5;
+		intersect.y = ray_map_posy;
+		if (!side_map && game->plr.dir.y > 0)
+			intersect.y = ray_map_posy - 0.5;//(game->plr.pos.y + 20 * ray_map_posy) / 21;
+		else if (!side_map && game->plr.dir.y < 0)
+			intersect.y = ray_map_posy + 0.5;
+		draw_vec(game, game->plr.pos.x, game->plr.pos.y, intersect.x, intersect.y, 0x00FF0000);
+		// draw_vec(game, game->plr.pos.x, game->plr.pos.y, ray_map_posx, ray_map_posy, 0x00FF0000);
+		x += 0.01;
 	}
-	intersect.x = ray_map_posx;
-	if (side_map && game->plr.dir.x > 0)
-		intersect.x = ray_map_posx - 0.5;//(game->plr.pos.x + 20 * ray_map_posx) / 21;
-	else if (side_map && game->plr.dir.x < 0)
-		intersect.x = ray_map_posx + 0.5;
-	intersect.y = ray_map_posy;
-	if (!side_map && game->plr.dir.y > 0)
-		intersect.y = ray_map_posy - 0.5;//(game->plr.pos.y + 20 * ray_map_posy) / 21;
-	else if (!side_map && game->plr.dir.y < 0)
-		intersect.y = ray_map_posy + 0.5;
-	draw_vec(game, game->plr.pos.x, game->plr.pos.y, intersect.x, intersect.y, 0x00FF0000);
-	// draw_vec(game, game->plr.pos.x, game->plr.pos.y, ray_map_posx, ray_map_posy, 0x00FF0000);
 }
 
 int		render_frame(t_game *game)
 {
-	// if (game->plr.update)
-	{
-		// ft_bzero(game->img.img, width);  разобраться с bzero
-		// draw fun
-		game->img.img = mlx_new_image(game->vars.mlx, width, height);
-		game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
-			&game->img.endian);
-		draw_map(game);
-		draw_grid(game);
-		draw_plr(game);
+	// ft_bzero(game->img.img, width);  разобраться с bzero
+	// draw fun
+	game->img.img = mlx_new_image(game->vars.mlx, width, height);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
+		&game->img.endian);
+	draw_map(game);
+	draw_grid(game);
+	draw_plr(game);
+	if ((int)(game->plr.pos.x) < mapWidth && (int)(game->plr.pos.x) > 0
+		&& (int)(game->plr.pos.y) < mapHeight && (int)(game->plr.pos.y) > 0)
 		raycaster(game);
-		draw_dir(game, 0x0000FF00);
-		mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
-		mlx_do_sync(game->vars.mlx);
-		mlx_destroy_image(game->vars.mlx, game->img.img);
-		// game->plr.update = 0;
-	}
+	draw_dir(game, 0x0000FF00);
+	mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
+	mlx_do_sync(game->vars.mlx);
+	mlx_destroy_image(game->vars.mlx, game->img.img);
 	return (0);
 }
 
@@ -343,45 +352,49 @@ int		key_hook(int keycode, t_game *game)
 	const double	rot_speed = 0.15;//0.321751;
 	double			old_value;
 
-	if (keycode == 65307 || keycode == 53)
+	if (keycode == 65307)
 		win_close(game);
-	else if (keycode == 119 || keycode == 13) // up
+	else if (keycode == 119) // up
 	{
 		game->plr.pos.x += game->plr.dir.x * move_speed;
 		game->plr.pos.y += game->plr.dir.y * move_speed;
 	}
-	else if (keycode == 97 || keycode == 2) // left
+	else if (keycode == 97) // left
 	{
 		game->plr.pos.x += game->plr.dir.y * move_speed;
 		game->plr.pos.y -= game->plr.dir.x * move_speed;
 	}
-	else if (keycode == 115 || keycode == 1) // down
+	else if (keycode == 115) // down
 	{
 		game->plr.pos.x -= game->plr.dir.x * move_speed;
 		game->plr.pos.y -= game->plr.dir.y * move_speed;
 	}
-	else if (keycode == 100 || keycode == 0) // right
+	else if (keycode == 100) // right
 	{
 		game->plr.pos.x -= game->plr.dir.y * move_speed;
 		game->plr.pos.y += game->plr.dir.x * move_speed;
 	}
-	else if (keycode == 65361 || keycode == 123) // left rot
+	else if (keycode == 65361) // left rot
 	{
 		game->origin_angle -= acos(cos(rot_speed));
 		old_value = game->plr.dir.x;
 		game->plr.dir.x = game->plr.dir.x * cos(rot_speed) + game->plr.dir.y * sin(rot_speed);
 		game->plr.dir.y = -old_value * sin(rot_speed) + game->plr.dir.y * cos(rot_speed);
+		old_value = game->plane.x;
+		game->plane.x = game->plane.x * cos(rot_speed) + game->plane.y * sin(rot_speed);
+		game->plane.y = -old_value * sin(rot_speed) + game->plane.y * cos(rot_speed);
 	}
-	else if (keycode == 65363 || keycode == 124) // right rot
+	else if (keycode == 65363) // right rot
 	{
 		game->origin_angle += acos(cos(rot_speed));
 		old_value = game->plr.dir.x;
 		game->plr.dir.x = game->plr.dir.x * cos(rot_speed) - game->plr.dir.y * sin(rot_speed);
 		game->plr.dir.y = old_value * sin(rot_speed) + game->plr.dir.y * cos(rot_speed);
+		old_value = game->plane.x;
+		game->plane.x = game->plane.x * cos(rot_speed) - game->plane.y * sin(rot_speed);
+		game->plane.y = old_value * sin(rot_speed) + game->plane.y * cos(rot_speed);
 	}
-	// mlx_destroy_image(game->vars.mlx, game->img.img);
 	printf("or_angle -> %lf\n", game->origin_angle);
-	// game->plr.update = 1;
 	return (0);
 }
 
@@ -395,14 +408,15 @@ int	main()
 	game.plr.pos.x = 12;
 	game.plr.pos.y = 12;
 	game.plr.dir.x = 0;
-	game.plr.dir.y = 1;
+	game.plr.dir.y = -1;
+	game.plane.x = 0.66;
+	game.plane.y = 0;
 	game.plr.update = 1;
 	game.origin_angle = 1.570796;
 
 	// printf("dx -> %lf\tdy -> %lf\n", sqrt(1 + pow(game.plr.dir.y / game.plr.dir.x, 2)), sqrt(1 + pow(game.plr.dir.x / game.plr.dir.y, 2)));
 	
-	// mlx_hook(game.vars.win, 33, 0, &win_close, &game);
-	mlx_hook(game.vars.win, 17, 0, &win_close, &game);
+	mlx_hook(game.vars.win, 33, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &key_hook, &game);
 	mlx_loop_hook(game.vars.mlx, &render_frame, &game);
 	mlx_loop(game.vars.mlx);
