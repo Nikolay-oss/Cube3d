@@ -4,19 +4,19 @@ NAME		= cub3D
 
 INCLUDES	= ./includes/
 
-# MLX			= ./mlx/
+MLX			= ./mlx/
 
-MLX			= ./minilibx-linux/
+# MLX			= ./minilibx-linux/
 
-SRCS		= map2d.c#gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c parser/map_parser.c
+SRCS		=   test_image.c#gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c parser/map_parser.c
 
 CFLAGS		= #-Wall -Wextra -Werror
 
 OBJS		= $(SRCS:.c=.o)
 
-# LIBS		= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
+LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
 
-LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
+# LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
 
 all:	$(NAME)
 
@@ -25,7 +25,9 @@ all:	$(NAME)
 
 $(NAME):	$(OBJS)
 		make -C libft/
-		$(CC) -g -o $(NAME) $(CFLAGS) -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
+		# make -C $(MLX)
+		# mv $(MLX)/libmlx.dylib .
+		$(CC) -g -o $(NAME) $(CFLAGS) -O2 -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
 
 clean:
 		make -C libft/ clean

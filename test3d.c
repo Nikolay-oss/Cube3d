@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define	width	640
-#define	height	480
+#define	width	1920//640
+#define	height	1080//480
 #define mapWidth 24
 #define mapHeight 24
 
@@ -44,6 +44,12 @@ typedef struct  s_data
     int         line_length;
     int         endian;
 }               t_data;
+
+typedef struct	s_texture
+{
+	
+}				t_texture;
+
 
 typedef	struct	s_vars
 {
@@ -88,8 +94,8 @@ int             win_close(t_game *game) // int keycode,
 
 int				win_close_esc(int keycode, t_game *game)
 {
-	// return (keycode == 53 ? win_close(game) : 0);
-	return (keycode == 65307 ? win_close(game) : 0);
+	return (keycode == 53 ? win_close(game) : 0);
+	// return (keycode == 65307 ? win_close(game) : 0);
 }
 
 void		draw_vertline(int x, int start, int end, t_game *game, int color)
@@ -140,7 +146,7 @@ int			raycaster(t_game *game)
 
 		delta_dist[0] = fabs(1 / ray_dir[0]);
 		delta_dist[1] = fabs(1 / ray_dir[1]);
-		printf("side_x -> %lf\tside_y -> %lf\n", delta_dist[0], delta_dist[1]);
+		// printf("side_x -> %lf\tside_y -> %lf\n", delta_dist[0], delta_dist[1]);
 		hit = 0;
 		if (ray_dir[0] < 0)
 		{
@@ -242,39 +248,39 @@ void		shift(int keycode, t_game *game)
 
 	// clc_img(game);
 	// printf("key -> %d\n", keycode);
-	if (keycode == 119) // up 13
+	if (keycode == 119 || keycode == 13) // up 13
 	{
 		if (!worldMap[(int)(game->plr.pos[0] + game->plr.dir[0] * move_speed)][(int)(game->plr.pos[1])])
 			game->plr.pos[0] += game->plr.dir[0] * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] + game->plr.dir[1] * move_speed)])
 			game->plr.pos[1] += game->plr.dir[1] * move_speed;
 	}
-	else if (keycode == 97) // left 2
+	else if (keycode == 97 || keycode == 2) // left 2
 	{
 		buf = game->plr.dir[1] * sin(1.57) * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0] + buf)][(int)(game->plr.pos[1])])
-			game->plr.pos[0] += buf;
+			game->plr.pos[0] += game->plr.plane[0] * move_speed;
 		buf = game->plr.dir[0] * sin(1.57) * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] - buf)])
-			game->plr.pos[1] -= buf;
+			game->plr.pos[1] += game->plr.plane[1] * move_speed;
 	}
-	else if (keycode == 115) // down 1
+	else if (keycode == 115 || keycode == 1) // down 1
 	{
 		if (!worldMap[(int)(game->plr.pos[0] - game->plr.dir[0] * move_speed)][(int)game->plr.pos[1]])
 			game->plr.pos[0] -= game->plr.dir[0] * move_speed;	
 		if (!worldMap[(int)game->plr.pos[0]][(int)(game->plr.pos[1] - game->plr.dir[1] * move_speed)])
 			game->plr.pos[1] -= game->plr.dir[1] * move_speed;
 	}
-	else if (keycode == 100/*0*/) // right
+	else if (keycode == 100 || keycode == 0) // right
 	{
 		buf = game->plr.dir[1] * sin(1.57) * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0] - buf)][(int)(game->plr.pos[1])])
-			game->plr.pos[0] -= buf;
+			game->plr.pos[0] -= game->plr.plane[0] * move_speed;
 		buf = game->plr.dir[0] * sin(1.57) * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] + buf)])
-			game->plr.pos[1] += buf;
+			game->plr.pos[1] -= game->plr.plane[1] * move_speed;
 	}
-	else if (keycode == 65361/*123*/) // right rot
+	else if (keycode == 65361 || keycode == 123) // right rot
 	{
 		double olddir_x = game->plr.dir[0];
 		game->plr.dir[0] = game->plr.dir[0] * cos(rot_speed) - game->plr.dir[1] * sin(rot_speed);
@@ -283,7 +289,7 @@ void		shift(int keycode, t_game *game)
 		game->plr.plane[0] = game->plr.plane[0] * cos(rot_speed) - game->plr.plane[1] * sin(rot_speed);
 		game->plr.plane[1] = oldplane_x * sin(rot_speed) + game->plr.plane[1] * cos(rot_speed);
 	}
-	else if (keycode == 65363/*124*/) // left rot
+	else if (keycode == 65363 || keycode == 124) // left rot
 	{
 		double olddir_x = game->plr.dir[0];
 		game->plr.dir[0] = game->plr.dir[0] * cos(-rot_speed) - game->plr.dir[1] * sin(-rot_speed);
@@ -315,13 +321,21 @@ int			render_frame(t_game *game)
 {
 	// clc_img(game);
 	// raycaster(game);
-	if (game->plr.update)
+	// if (game->plr.update)
 	{
-		clc_img(game);
+		game->img.img = mlx_new_image(game->vars.mlx, width, height);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
+                                 &game->img.endian);
+		printf("line_len -> %d\n", game->img.line_length / width);
+		printf("bits_per_pixel -> %d\n", game->img.bits_per_pixel);
+		printf("endian -> %d\n", game->img.endian);
+		// clc_img(game);
 		raycaster(game);
 		game->plr.update = 0;
 	}
 	mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
+	mlx_do_sync(game->vars.mlx);
+	mlx_destroy_image(game->vars.mlx, game->img.img);
 	// clc_img(game);
 	return (0);
 }
@@ -329,29 +343,31 @@ int			render_frame(t_game *game)
 int			main()
 {
 	t_game	game;
+	t_data	tex;
 
 	game.vars.mlx = mlx_init();
 	game.vars.win = mlx_new_window(game.vars.mlx, width, height, "Game");
-	game.img.img = mlx_new_image(game.vars.mlx, width, height);
-	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
-                                 &game.img.endian);
+	// game.img.img = mlx_new_image(game.vars.mlx, width, height);
+	// game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
+    //                              &game.img.endian);
 	
-	game.plr.pos[0] = 12;
-	game.plr.pos[1] = 12;
+	
+
+	game.plr.pos[0] = 1.5;
+	game.plr.pos[1] = 1.5;
 	game.plr.dir[0] = 1;
 	game.plr.dir[1] = 0;
 	game.plr.plane[0] = 0;
 	game.plr.plane[1] = 0.66;
 	game.plr.plane[0] = game.plr.plane[0] * cos(3.14);
 	game.plr.plane[1] = game.plr.plane[1] * cos(3.14);
-	printf("planeX -> %f\nplaneY -> %f\t%f\n", game.plr.plane[0], game.plr.plane[1], cos(-3.14));
+	// printf("planeX -> %f\nplaneY -> %f\t%f\n", game.plr.plane[0], game.plr.plane[1], cos(-3.14));
 	game.plr.update = 1;
 
 	// raycaster(&game);
 
-	mlx_hook(game.vars.win, 33, 0, &win_close, &game);
+	mlx_hook(game.vars.win, 17, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &choice_key, &game);
 	mlx_loop_hook(game.vars.mlx, &render_frame, &game);
-	mlx_do_sync(game.vars.mlx);
 	mlx_loop(game.vars.mlx);
 }

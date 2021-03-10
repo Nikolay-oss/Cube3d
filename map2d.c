@@ -78,7 +78,7 @@ typedef	struct	s_game
 
 int		win_close(t_game *game)
 {
-	mlx_destroy_image(game->vars.mlx, game->img.img);
+	// mlx_destroy_image(game->vars.mlx, game->img.img);
 	mlx_destroy_window(game->vars.mlx, game->vars.win);
 	exit(1);
 	return (0);
@@ -255,8 +255,8 @@ void	raycaster(t_game *game)
 	ray_y = game->plr.dir.y;
 	ray_map_posx = game->plr.pos.x;
 	ray_map_posy = game->plr.pos.y;
-	kx = /*fabs(1 / ray_x);*/ sqrt(1 + pow(1 / game->plr.dir.x, 2)); //game->plr.dir.y == 0 ? 0 : (game->plr.dir.x == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.x, 2)));
-	ky = /*fabs(1 / ray_y);*/ sqrt(1 + pow(1 / game->plr.dir.y, 2)); //game->plr.dir.x == 0 ? 0 : (game->plr.dir.y == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.y, 2)));
+	kx = fabs(1 / ray_x); /*sqrt(1 + pow(1 / game->plr.dir.x, 2));*/ //game->plr.dir.y == 0 ? 0 : (game->plr.dir.x == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.x, 2)));
+	ky = fabs(1 / ray_y); /*sqrt(1 + pow(1 / game->plr.dir.y, 2));*/ //game->plr.dir.x == 0 ? 0 : (game->plr.dir.y == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.y, 2)));
 	printf("kx -> %lf\tky -> %lf\n", kx, ky);
 	printf("ray_x -> %lf\tray_y -> %lf\n", ray_x, ray_y);
 	printf("ray_len -> %lf\n", sqrt(pow(ray_x, 2) + pow(ray_y, 2)));
@@ -302,22 +302,22 @@ void	raycaster(t_game *game)
 			ishit = 1;
 	}
 	intersect.x = ray_map_posx;
-	// if (side_map && game->plr.dir.x > 0)
-	// 	intersect.x = ray_map_posx - 0.5;//(game->plr.pos.x + 20 * ray_map_posx) / 21;
-	// else if (side_map && game->plr.dir.x < 0)
-	// 	intersect.x = ray_map_posx + 0.5;
+	if (side_map && game->plr.dir.x > 0)
+		intersect.x = ray_map_posx - 0.5;//(game->plr.pos.x + 20 * ray_map_posx) / 21;
+	else if (side_map && game->plr.dir.x < 0)
+		intersect.x = ray_map_posx + 0.5;
 	intersect.y = ray_map_posy;
-	// if (!side_map && game->plr.dir.y > 0)
-	// 	intersect.y = ray_map_posy - 0.5;//(game->plr.pos.y + 20 * ray_map_posy) / 21;
-	// else if (!side_map && game->plr.dir.y < 0)
-	// 	intersect.y = ray_map_posy + 0.5;
+	if (!side_map && game->plr.dir.y > 0)
+		intersect.y = ray_map_posy - 0.5;//(game->plr.pos.y + 20 * ray_map_posy) / 21;
+	else if (!side_map && game->plr.dir.y < 0)
+		intersect.y = ray_map_posy + 0.5;
 	draw_vec(game, game->plr.pos.x, game->plr.pos.y, intersect.x, intersect.y, 0x00FF0000);
 	// draw_vec(game, game->plr.pos.x, game->plr.pos.y, ray_map_posx, ray_map_posy, 0x00FF0000);
 }
 
 int		render_frame(t_game *game)
 {
-	if (game->plr.update)
+	// if (game->plr.update)
 	{
 		// ft_bzero(game->img.img, width);  разобраться с bzero
 		// draw fun
@@ -330,7 +330,9 @@ int		render_frame(t_game *game)
 		raycaster(game);
 		draw_dir(game, 0x0000FF00);
 		mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
-		game->plr.update = 0;
+		mlx_do_sync(game->vars.mlx);
+		mlx_destroy_image(game->vars.mlx, game->img.img);
+		// game->plr.update = 0;
 	}
 	return (0);
 }
@@ -341,45 +343,45 @@ int		key_hook(int keycode, t_game *game)
 	const double	rot_speed = 0.15;//0.321751;
 	double			old_value;
 
-	if (keycode == 65307)
+	if (keycode == 65307 || keycode == 53)
 		win_close(game);
-	else if (keycode == 119) // up
+	else if (keycode == 119 || keycode == 13) // up
 	{
 		game->plr.pos.x += game->plr.dir.x * move_speed;
 		game->plr.pos.y += game->plr.dir.y * move_speed;
 	}
-	else if (keycode == 97) // left
+	else if (keycode == 97 || keycode == 2) // left
 	{
 		game->plr.pos.x += game->plr.dir.y * move_speed;
 		game->plr.pos.y -= game->plr.dir.x * move_speed;
 	}
-	else if (keycode == 115) // down
+	else if (keycode == 115 || keycode == 1) // down
 	{
 		game->plr.pos.x -= game->plr.dir.x * move_speed;
 		game->plr.pos.y -= game->plr.dir.y * move_speed;
 	}
-	else if (keycode == 100) // right
+	else if (keycode == 100 || keycode == 0) // right
 	{
 		game->plr.pos.x -= game->plr.dir.y * move_speed;
 		game->plr.pos.y += game->plr.dir.x * move_speed;
 	}
-	else if (keycode == 65361) // left rot
+	else if (keycode == 65361 || keycode == 123) // left rot
 	{
 		game->origin_angle -= acos(cos(rot_speed));
 		old_value = game->plr.dir.x;
 		game->plr.dir.x = game->plr.dir.x * cos(rot_speed) + game->plr.dir.y * sin(rot_speed);
 		game->plr.dir.y = -old_value * sin(rot_speed) + game->plr.dir.y * cos(rot_speed);
 	}
-	else if (keycode == 65363) // right rot
+	else if (keycode == 65363 || keycode == 124) // right rot
 	{
 		game->origin_angle += acos(cos(rot_speed));
 		old_value = game->plr.dir.x;
 		game->plr.dir.x = game->plr.dir.x * cos(rot_speed) - game->plr.dir.y * sin(rot_speed);
 		game->plr.dir.y = old_value * sin(rot_speed) + game->plr.dir.y * cos(rot_speed);
 	}
-	mlx_destroy_image(game->vars.mlx, game->img.img);
+	// mlx_destroy_image(game->vars.mlx, game->img.img);
 	printf("or_angle -> %lf\n", game->origin_angle);
-	game->plr.update = 1;
+	// game->plr.update = 1;
 	return (0);
 }
 
@@ -399,9 +401,9 @@ int	main()
 
 	// printf("dx -> %lf\tdy -> %lf\n", sqrt(1 + pow(game.plr.dir.y / game.plr.dir.x, 2)), sqrt(1 + pow(game.plr.dir.x / game.plr.dir.y, 2)));
 	
-	mlx_hook(game.vars.win, 33, 0, &win_close, &game);
+	// mlx_hook(game.vars.win, 33, 0, &win_close, &game);
+	mlx_hook(game.vars.win, 17, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &key_hook, &game);
 	mlx_loop_hook(game.vars.mlx, &render_frame, &game);
-	mlx_do_sync(game.vars.mlx);
 	mlx_loop(game.vars.mlx);
 }
