@@ -4,9 +4,9 @@ NAME		= cub3D
 
 INCLUDES	= ./includes/
 
-MLX			= ./mlx/
+# MLX			= ./mlx/
 
-# MLX			= ./minilibx-linux/
+MLX			= ./minilibx-linux/
 
 SRCS		=   map2d.c#test_image.c#gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c parser/map_parser.c
 
@@ -14,9 +14,9 @@ CFLAGS		= #-Wall -Wextra -Werror
 
 OBJS		= $(SRCS:.c=.o)
 
-LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
+# LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
 
-# LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
+LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
 
 all:	$(NAME)
 

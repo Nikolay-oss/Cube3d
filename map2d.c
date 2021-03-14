@@ -361,8 +361,8 @@ int		key_hook(int keycode, t_game *game)
 	}
 	else if (keycode == 97) // left
 	{
-		game->plr.pos.x += game->plr.dir.y * move_speed;
-		game->plr.pos.y -= game->plr.dir.x * move_speed;
+		game->plr.pos.x -= game->plane.x * move_speed;
+		game->plr.pos.y -= game->plane.y * move_speed;
 	}
 	else if (keycode == 115) // down
 	{
@@ -371,8 +371,8 @@ int		key_hook(int keycode, t_game *game)
 	}
 	else if (keycode == 100) // right
 	{
-		game->plr.pos.x -= game->plr.dir.y * move_speed;
-		game->plr.pos.y += game->plr.dir.x * move_speed;
+		game->plr.pos.x += game->plane.x * move_speed;
+		game->plr.pos.y += game->plane.y * move_speed;
 	}
 	else if (keycode == 65361) // left rot
 	{
