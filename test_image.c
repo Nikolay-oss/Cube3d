@@ -65,7 +65,7 @@ void	draw_tex(t_all *all, int w, int h)
 			// 	i++;
 			// }
 			
-			my_mlx_pixel_put(&all->img, x/2 + OFFSET, y/2 + OFFSET, *(unsigned int*)(all->img_tex.addr + (y * all->img_tex.line_length + x * (all->img_tex.bits_per_pixel / 8))));//*(all->img_tex.addr + y + x * 4));//*(all->img_tex.addr + x * all->img_tex.bits_per_pixel + y * all->img_tex.bits_per_pixel));
+			my_mlx_pixel_put(&all->img, x + OFFSET, y + OFFSET, *(unsigned int*)(all->img_tex.addr + (y * all->img_tex.line_length + x * (all->img_tex.bits_per_pixel / 8))));//*(all->img_tex.addr + y + x * 4));//*(all->img_tex.addr + x * all->img_tex.bits_per_pixel + y * all->img_tex.bits_per_pixel));
 			// printf("%d ", y * all->img_tex.line_length + x * (all->img_tex.bits_per_pixel / 8));
 			// printf("line_len -> %d\n", all->img_tex.line_length);
 			y++;
@@ -84,7 +84,7 @@ void	test(t_all *all)
 	all->vars.win = mlx_new_window(all->vars.mlx, width, height, "Image testing...");
 	all->img.img = mlx_new_image(all->vars.mlx, width, height);
 	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
-	all->img_tex.img = mlx_xpm_file_to_image(all->vars.mlx, "textures/test.xpm", &w, &h);
+	all->img_tex.img = mlx_xpm_file_to_image(all->vars.mlx, "textures/mossy.xpm", &w, &h);
 	if (all->img.img == NULL)
 		exit(1);
 	all->img_tex.addr = mlx_get_data_addr(all->img_tex.img, &all->img_tex.bits_per_pixel, &all->img_tex.line_length, &all->img_tex.endian);

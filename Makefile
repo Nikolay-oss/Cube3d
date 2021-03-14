@@ -8,7 +8,7 @@ MLX			= ./mlx/
 
 # MLX			= ./minilibx-linux/
 
-SRCS		=   map2d.c#test_image.c#gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c parser/map_parser.c
+SRCS		=   test3d.c#gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c parser/map_parser.c
 
 CFLAGS		= #-Wall -Wextra -Werror
 
