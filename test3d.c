@@ -31,8 +31,8 @@ int worldMap[mapWidth][mapHeight]=
   {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1},
-  {1,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,2,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
@@ -64,10 +64,6 @@ typedef	struct	s_plr
 	double	pos[2];
 	double	dir[2];
 	double	plane[2];
-	int		start;
-	int		end;
-	int		color;
-	int		update;
 }				t_plr;
 
 typedef	struct	s_game
@@ -227,13 +223,6 @@ int			raycaster(t_game *game)
 		draw_end = line_height / 2 + height / 2;
 		if (draw_end >= height)
 			draw_end = height - 1;
-		// if (worldMap[map[0]][map[1]] == 2)
-		// 	color = 0x00FF0000;
-		// else
-		// 	color = 0x000000FF;
-		// if (side == 1)
-		// 	color = color / 2;
-		// printf("%d\n", game->tex.h);
 		double wallx;
 		if (side == 0)	wallx = game->plr.pos[1] + perp_wall_dist * ray_dir[1];
 		else			wallx = game->plr.pos[0] + perp_wall_dist * ray_dir[0];
@@ -253,9 +242,9 @@ int			raycaster(t_game *game)
 		}
 
 		int tex_x = (int)(wallx * (double)(w));
-		if (side == 0 && ray_dir[0] > 0) tex_x = w - tex_x ;
-		if (side == 1 && ray_dir[1] < 0) tex_x = w - tex_x;
-		double step_tex = 1.0 * h / line_height;
+		if (side == 0 && ray_dir[0] > 0) tex_x = w - tex_x - 1;
+		if (side == 1 && ray_dir[1] < 0) tex_x = w - tex_x - 1;
+		double step_tex = (double)h / line_height;
 		double texPos = (draw_start - height / 2 + line_height / 2) * step_tex;
 		for (int y = draw_start; y < draw_end; y++)
 		{
@@ -386,7 +375,6 @@ int			render_frame(t_game *game)
 		// printf("endian -> %d\n", game->img.endian);
 		// clc_img(game);
 	raycaster(game);
-	game->plr.update = 0;
 	mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
 	mlx_do_sync(game->vars.mlx);
 	mlx_destroy_image(game->vars.mlx, game->img.img);
@@ -410,16 +398,15 @@ int			main()
 	game.plr.plane[0] = game.plr.plane[0] * cos(3.14);
 	game.plr.plane[1] = game.plr.plane[1] * cos(3.14);
 	// printf("planeX -> %f\nplaneY -> %f\t%f\n", game.plr.plane[0], game.plr.plane[1], cos(-3.14));
-	game.plr.update = 1;
 
 
-	game.tex.img.img = mlx_xpm_file_to_image(game.vars.mlx, "textures/putin.xpm", &game.tex.w, &game.tex.h);
+	game.tex.img.img = mlx_xpm_file_to_image(game.vars.mlx, "textures/redbrick_1.xpm", &game.tex.w, &game.tex.h);
 	if (game.tex.img.img == NULL)
 		exit(1);
 	game.tex.img.addr = mlx_get_data_addr(game.tex.img.img, &game.tex.img.bits_per_pixel, &game.tex.img.line_length,
 		&game.tex.img.endian);
 
-	game.tex2.img.img = mlx_xpm_file_to_image(game.vars.mlx, "textures/mossy.xpm", &game.tex2.w, &game.tex2.h);
+	game.tex2.img.img = mlx_xpm_file_to_image(game.vars.mlx, "textures/eagle.xpm", &game.tex2.w, &game.tex2.h);
 	if (game.tex2.img.img == NULL)
 		exit(1);
 	game.tex2.img.addr = mlx_get_data_addr(game.tex2.img.img, &game.tex2.img.bits_per_pixel, &game.tex2.img.line_length,
