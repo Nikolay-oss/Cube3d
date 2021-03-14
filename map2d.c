@@ -348,33 +348,33 @@ int		render_frame(t_game *game)
 
 int		key_hook(int keycode, t_game *game)
 {
-	const double	move_speed = 0.2;
-	const double	rot_speed = 0.15;//0.321751;
+	const double	move_speed = 0.3;
+	const double	rot_speed = 0.2;//0.321751;
 	double			old_value;
 
-	if (keycode == 65307)
+	if (keycode == 65307 || keycode == 53)
 		win_close(game);
-	else if (keycode == 119) // up
+	else if (keycode == 119 || keycode == 13) // up
 	{
 		game->plr.pos.x += game->plr.dir.x * move_speed;
 		game->plr.pos.y += game->plr.dir.y * move_speed;
 	}
-	else if (keycode == 97) // left
+	else if (keycode == 97 || keycode == 2) // left
 	{
 		game->plr.pos.x -= game->plane.x * move_speed;
 		game->plr.pos.y -= game->plane.y * move_speed;
 	}
-	else if (keycode == 115) // down
+	else if (keycode == 115 || keycode == 1) // down
 	{
 		game->plr.pos.x -= game->plr.dir.x * move_speed;
 		game->plr.pos.y -= game->plr.dir.y * move_speed;
 	}
-	else if (keycode == 100) // right
+	else if (keycode == 100 || keycode == 0) // right
 	{
 		game->plr.pos.x += game->plane.x * move_speed;
 		game->plr.pos.y += game->plane.y * move_speed;
 	}
-	else if (keycode == 65361) // left rot
+	else if (keycode == 65361 || keycode == 123) // left rot
 	{
 		game->origin_angle -= acos(cos(rot_speed));
 		old_value = game->plr.dir.x;
@@ -384,7 +384,7 @@ int		key_hook(int keycode, t_game *game)
 		game->plane.x = game->plane.x * cos(rot_speed) + game->plane.y * sin(rot_speed);
 		game->plane.y = -old_value * sin(rot_speed) + game->plane.y * cos(rot_speed);
 	}
-	else if (keycode == 65363) // right rot
+	else if (keycode == 65363 || keycode == 124) // right rot
 	{
 		game->origin_angle += acos(cos(rot_speed));
 		old_value = game->plr.dir.x;

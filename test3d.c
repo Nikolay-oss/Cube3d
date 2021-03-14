@@ -21,18 +21,18 @@ int worldMap[mapWidth][mapHeight]=
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,2,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1},
+  {1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
@@ -47,7 +47,9 @@ typedef struct  s_data
 
 typedef struct	s_texture
 {
-	
+	t_data img;
+	int w;
+	int h;
 }				t_texture;
 
 
@@ -62,19 +64,15 @@ typedef	struct	s_plr
 	double	pos[2];
 	double	dir[2];
 	double	plane[2];
-	int		start;
-	int		end;
-	int		color;
-	int		update;
 }				t_plr;
 
 typedef	struct	s_game
 {
-	int		x;
-	int		y;
-	t_data	img;
-	t_vars	vars;
-	t_plr	plr;
+	t_data		img;
+	t_texture	tex;
+	t_texture	tex2;
+	t_vars		vars;
+	t_plr		plr;
 }				t_game;
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -94,6 +92,8 @@ int             win_close(t_game *game) // int keycode,
 
 int				win_close_esc(int keycode, t_game *game)
 {
+	mlx_destroy_image(game->vars.mlx, game->tex.img.img);
+	mlx_destroy_image(game->vars.mlx, game->tex2.img.img);
 	return (keycode == 53 ? win_close(game) : 0);
 	// return (keycode == 65307 ? win_close(game) : 0);
 }
@@ -110,6 +110,30 @@ void		draw_vertline(int x, int start, int end, t_game *game, int color)
 		i++;
 	}
 	// mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
+}
+
+void		draw_sky(int x, int end, t_game *game, int color)
+{
+	int i;
+
+	i = 0;
+	while (i < end)
+	{
+		my_mlx_pixel_put(&game->img, x, i, color);
+		i++;
+	}
+}
+
+void		draw_floor(int x, int start, int end, t_game *game, int color)
+{
+	int i;
+
+	i = start;
+	while (i < end)
+	{
+		my_mlx_pixel_put(&game->img, x, i, color);
+		i++;
+	}
 }
 
 int			raycaster(t_game *game)
@@ -199,16 +223,48 @@ int			raycaster(t_game *game)
 		draw_end = line_height / 2 + height / 2;
 		if (draw_end >= height)
 			draw_end = height - 1;
-		if (worldMap[map[0]][map[1]] == 2)
-			color = 0x00FF0000;
+		double wallx;
+		if (side == 0)	wallx = game->plr.pos[1] + perp_wall_dist * ray_dir[1];
+		else			wallx = game->plr.pos[0] + perp_wall_dist * ray_dir[0];
+		// printf("wallx -> %lf\tfloor(wallx) -> %lf\n", wallx, wallx - floor(wallx));
+		wallx -= floor(wallx);
+		int h;
+		int w;
+		if (side)
+		{
+			h = game->tex.h; // texture height
+			w = game->tex.w; // texture width
+		}
 		else
-			color = 0x000000FF;
-		if (side == 1)
-			color = color / 2;
-		game->plr.start = draw_start;
-		game->plr.end = draw_end;
-		game->plr.color = color;
-		draw_vertline(x, draw_start, draw_end, game, color);
+		{
+			h = game->tex2.h; // texture height
+			w = game->tex2.w; // texture width
+		}
+
+		int tex_x = (int)(wallx * (double)(w));
+		if (side == 0 && ray_dir[0] > 0) tex_x = w - tex_x - 1;
+		if (side == 1 && ray_dir[1] < 0) tex_x = w - tex_x - 1;
+		double step_tex = (double)h / line_height;
+		double texPos = (draw_start - height / 2 + line_height / 2) * step_tex;
+		for (int y = draw_start; y < draw_end; y++)
+		{
+			int tex_y = (int)texPos & (h - 1);
+			texPos += step_tex;
+			// printf("tex_x -> %d\ttex_y -> %d\n", tex_x, tex_y);
+			// data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+			if (side)
+				color = *(unsigned int*)(game->tex.img.addr + (tex_y * game->tex.img.line_length + (game->tex.img.bits_per_pixel / 8) * tex_x));
+			else
+				color = *(unsigned int*)(game->tex2.img.addr + (tex_y * game->tex2.img.line_length + (game->tex2.img.bits_per_pixel / 8) * tex_x));
+			// printf("%d\n", tex_y * game->tex.img.line_length + (game->tex.img.bits_per_pixel / 8) * tex_x);
+			// color = *(unsigned int*)(game->tex.img.addr + (tex_x * texHeight + tex_y));
+			if (side)
+				color = (color >> 1) & 8355711;
+			my_mlx_pixel_put(&game->img, x, y, color);
+		}
+		draw_floor(x, draw_end, height, game, 0xd4d7ea);
+		draw_sky(x, draw_start, game, 0x8aadfb);
+		// draw_vertline(x, draw_start, draw_end, game, color);
 		x++;
 	}
 	return (0);
@@ -227,28 +283,20 @@ void		clc_img(t_game *game)
 	}
 }
 
-// double	get_a(double y1, double y2)
-// {
-
-// }
-
-// void	get_b()
-// {
-
-// }
-
 void		shift(int keycode, t_game *game)
 {
 	double	move_speed;
 	double	rot_speed;
 	double 	buf;
 
-	move_speed = 0.1;
-	rot_speed = 0.05;
+	move_speed = 0.2;
+	rot_speed = 0.15;
 
 	// clc_img(game);
 	// printf("key -> %d\n", keycode);
-	if (keycode == 119 || keycode == 13) // up 13
+	if (keycode == 53)
+		win_close_esc(keycode, game);
+	else if (keycode == 119 || keycode == 13) // up 13
 	{
 		if (!worldMap[(int)(game->plr.pos[0] + game->plr.dir[0] * move_speed)][(int)(game->plr.pos[1])])
 			game->plr.pos[0] += game->plr.dir[0] * move_speed;
@@ -298,7 +346,7 @@ void		shift(int keycode, t_game *game)
 		game->plr.plane[0] = game->plr.plane[0] * cos(-rot_speed) - game->plr.plane[1] * sin(-rot_speed);
 		game->plr.plane[1] = oldplane_x * sin(-rot_speed) + game->plr.plane[1] * cos(-rot_speed);
 	}
-	game->plr.update = 1;
+	// game->plr.update = 1;
 	// clc_img(game);
 	// raycaster(game);
 	// clc_img(game);
@@ -311,7 +359,7 @@ void		shift(int keycode, t_game *game)
 int			choice_key(int keycode, t_game *game)
 {
 	// printf("keycode -> %d\n", keycode);
-	win_close_esc(keycode, game);
+	// win_close_esc(keycode, game);
 	shift(keycode, game);
 	// shift_item(keycode, game);
 	return (0);
@@ -319,20 +367,14 @@ int			choice_key(int keycode, t_game *game)
 
 int			render_frame(t_game *game)
 {
-	// clc_img(game);
-	// raycaster(game);
-	// if (game->plr.update)
-	{
-		game->img.img = mlx_new_image(game->vars.mlx, width, height);
+	game->img.img = mlx_new_image(game->vars.mlx, width, height);
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
                                  &game->img.endian);
-		printf("line_len -> %d\n", game->img.line_length / width);
-		printf("bits_per_pixel -> %d\n", game->img.bits_per_pixel);
-		printf("endian -> %d\n", game->img.endian);
+		// printf("line_len -> %d\n", game->img.line_length / width);
+		// printf("bits_per_pixel -> %d\n", game->img.bits_per_pixel);
+		// printf("endian -> %d\n", game->img.endian);
 		// clc_img(game);
-		raycaster(game);
-		game->plr.update = 0;
-	}
+	raycaster(game);
 	mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
 	mlx_do_sync(game->vars.mlx);
 	mlx_destroy_image(game->vars.mlx, game->img.img);
@@ -343,15 +385,9 @@ int			render_frame(t_game *game)
 int			main()
 {
 	t_game	game;
-	t_data	tex;
 
 	game.vars.mlx = mlx_init();
 	game.vars.win = mlx_new_window(game.vars.mlx, width, height, "Game");
-	// game.img.img = mlx_new_image(game.vars.mlx, width, height);
-	// game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
-    //                              &game.img.endian);
-	
-	
 
 	game.plr.pos[0] = 1.5;
 	game.plr.pos[1] = 1.5;
@@ -362,7 +398,19 @@ int			main()
 	game.plr.plane[0] = game.plr.plane[0] * cos(3.14);
 	game.plr.plane[1] = game.plr.plane[1] * cos(3.14);
 	// printf("planeX -> %f\nplaneY -> %f\t%f\n", game.plr.plane[0], game.plr.plane[1], cos(-3.14));
-	game.plr.update = 1;
+
+
+	game.tex.img.img = mlx_xpm_file_to_image(game.vars.mlx, "textures/redbrick_1.xpm", &game.tex.w, &game.tex.h);
+	if (game.tex.img.img == NULL)
+		exit(1);
+	game.tex.img.addr = mlx_get_data_addr(game.tex.img.img, &game.tex.img.bits_per_pixel, &game.tex.img.line_length,
+		&game.tex.img.endian);
+
+	game.tex2.img.img = mlx_xpm_file_to_image(game.vars.mlx, "textures/eagle.xpm", &game.tex2.w, &game.tex2.h);
+	if (game.tex2.img.img == NULL)
+		exit(1);
+	game.tex2.img.addr = mlx_get_data_addr(game.tex2.img.img, &game.tex2.img.bits_per_pixel, &game.tex2.img.line_length,
+		&game.tex2.img.endian);
 
 	// raycaster(&game);
 
