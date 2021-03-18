@@ -157,10 +157,10 @@ void		ft_sort(int *sprite_order, double *sprites_dist, int count)
 	int tmp;
 
 	i = 0;
-	isswap = 0;
 	while (i < count - 1)
 	{
 		j = 0;
+		isswap = 0;
 		while (j < count - i - 1)
 		{
 			if (sprites_dist[j] < sprites_dist[j + 1])
@@ -173,9 +173,11 @@ void		ft_sort(int *sprite_order, double *sprites_dist, int count)
 				sprite_order[j + 1] = tmp;
 				isswap = 1;
 			}
+			j++;
 		}
 		if (!isswap)
 			break ;
+		i++;
 	}
 }
 
@@ -422,10 +424,12 @@ void		shift(int keycode, t_game *game)
 	}
 	else if (keycode == 97 || keycode == 2) // left 2
 	{
-		buf = game->plr.dir[1] * sin(1.57) * move_speed;
+		// buf = game->plr.dir[1] * sin(1.57) * move_speed;
+		buf = game->plr.dir[1] * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0] + buf)][(int)(game->plr.pos[1])])
 			game->plr.pos[0] += game->plr.plane[0] * move_speed;
-		buf = game->plr.dir[0] * sin(1.57) * move_speed;
+		// buf = game->plr.dir[0] * sin(1.57) * move_speed;
+		buf = game->plr.dir[0] * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] - buf)])
 			game->plr.pos[1] += game->plr.plane[1] * move_speed;
 	}
@@ -438,14 +442,16 @@ void		shift(int keycode, t_game *game)
 	}
 	else if (keycode == 100 || keycode == 0) // right
 	{
-		buf = game->plr.dir[1] * sin(1.57) * move_speed;
+		// buf = game->plr.dir[1] * sin(1.57) * move_speed;
+		buf = game->plr.dir[1] * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0] - buf)][(int)(game->plr.pos[1])])
 			game->plr.pos[0] -= game->plr.plane[0] * move_speed;
-		buf = game->plr.dir[0] * sin(1.57) * move_speed;
+		// buf = game->plr.dir[0] * sin(1.57) * move_speed;
+		buf = game->plr.dir[0] * move_speed;
 		if (!worldMap[(int)(game->plr.pos[0])][(int)(game->plr.pos[1] + buf)])
 			game->plr.pos[1] -= game->plr.plane[1] * move_speed;
 	}
-	else if (keycode == 65361 || keycode == 123) // right rot
+	else if (keycode == 65361 || keycode == 123) // left rot
 	{
 		double olddir_x = game->plr.dir[0];
 		game->plr.dir[0] = game->plr.dir[0] * cos(rot_speed) - game->plr.dir[1] * sin(rot_speed);
@@ -454,7 +460,7 @@ void		shift(int keycode, t_game *game)
 		game->plr.plane[0] = game->plr.plane[0] * cos(rot_speed) - game->plr.plane[1] * sin(rot_speed);
 		game->plr.plane[1] = oldplane_x * sin(rot_speed) + game->plr.plane[1] * cos(rot_speed);
 	}
-	else if (keycode == 65363 || keycode == 124) // left rot
+	else if (keycode == 65363 || keycode == 124) // right rot
 	{
 		double olddir_x = game->plr.dir[0];
 		game->plr.dir[0] = game->plr.dir[0] * cos(-rot_speed) - game->plr.dir[1] * sin(-rot_speed);

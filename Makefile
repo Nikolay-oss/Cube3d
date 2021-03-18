@@ -8,7 +8,8 @@ MLX			= ./mlx/
 
 # MLX			= ./minilibx-linux/
 
-SRCS		=   test3d.c#gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c parser/map_parser.c
+SRCS		= gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c parser/map_parser.c \
+			  ft_cube/ft_cube.c
 
 CFLAGS		= #-Wall -Wextra -Werror
 
@@ -21,13 +22,13 @@ LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
 all:	$(NAME)
 
 %.o:	%.c
-		$(CC) -g $(CFLAGS) -I$(INCLUDES) -I$(MLX) -c $< -o $@
+		$(CC) $(CFLAGS) -I$(INCLUDES) -I$(MLX) -c $< -o $@
 
 $(NAME):	$(OBJS)
 		make -C libft/
 		# make -C $(MLX)
 		# mv $(MLX)/libmlx.dylib .
-		$(CC) -g -o $(NAME) $(CFLAGS) -O2 -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
+		$(CC) -o $(NAME) $(CFLAGS) -O2 -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
 
 clean:
 		make -C libft/ clean
