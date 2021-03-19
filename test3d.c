@@ -94,7 +94,8 @@ int				win_close_esc(int keycode, t_game *game)
 {
 	mlx_destroy_image(game->vars.mlx, game->tex.img.img);
 	mlx_destroy_image(game->vars.mlx, game->tex2.img.img);
-	return (keycode == 53 ? win_close(game) : 0);
+	win_close(game);
+	//return (keycode == 53 ? win_close(game) : 0);
 	// return (keycode == 65307 ? win_close(game) : 0);
 }
 
@@ -242,13 +243,14 @@ int			raycaster(t_game *game)
 		}
 
 		int tex_x = (int)(wallx * (double)(w));
-		if (side == 0 && ray_dir[0] > 0) tex_x = w - tex_x - 1;
-		if (side == 1 && ray_dir[1] < 0) tex_x = w - tex_x - 1;
+		// if (side == 0 && ray_dir[0] > 0) tex_x = w - tex_x - 1;
+		// if (side == 1 && ray_dir[1] < 0) tex_x = w - tex_x - 1;
 		double step_tex = (double)h / line_height;
 		double texPos = (draw_start - height / 2 + line_height / 2) * step_tex;
 		for (int y = draw_start; y < draw_end; y++)
 		{
-			int tex_y = (int)texPos & (h - 1);
+			//(int)texPos & (h - 1);
+			int tex_y = texPos;
 			texPos += step_tex;
 			// printf("tex_x -> %d\ttex_y -> %d\n", tex_x, tex_y);
 			// data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
@@ -258,11 +260,11 @@ int			raycaster(t_game *game)
 				color = *(unsigned int*)(game->tex2.img.addr + (tex_y * game->tex2.img.line_length + (game->tex2.img.bits_per_pixel / 8) * tex_x));
 			// printf("%d\n", tex_y * game->tex.img.line_length + (game->tex.img.bits_per_pixel / 8) * tex_x);
 			// color = *(unsigned int*)(game->tex.img.addr + (tex_x * texHeight + tex_y));
-			if (side)
-				color = (color >> 1) & 8355711;
+			// if (side)
+			// 	color = (color >> 1) & 8355711;
 			my_mlx_pixel_put(&game->img, x, y, color);
 		}
-		draw_floor(x, draw_end, height, game, 0xd4d7ea);
+		draw_floor(x, draw_end, height - 1, game, 0xd4d7ea);
 		draw_sky(x, draw_start, game, 0x8aadfb);
 		// draw_vertline(x, draw_start, draw_end, game, color);
 		x++;
@@ -294,7 +296,7 @@ void		shift(int keycode, t_game *game)
 
 	// clc_img(game);
 	// printf("key -> %d\n", keycode);
-	if (keycode == 53)
+	if (keycode == 53 || keycode == 65307)
 		win_close_esc(keycode, game);
 	else if (keycode == 119 || keycode == 13) // up 13
 	{
@@ -414,7 +416,7 @@ int			main()
 
 	// raycaster(&game);
 
-	mlx_hook(game.vars.win, 17, 0, &win_close, &game);
+	mlx_hook(game.vars.win, 33, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &choice_key, &game);
 	mlx_loop_hook(game.vars.mlx, &render_frame, &game);
 	mlx_loop(game.vars.mlx);
