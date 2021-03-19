@@ -6,13 +6,12 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:19:27 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/15 14:09:21 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/03/18 07:31:08 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PARSER_H
 # define FT_PARSER_H
-# include <fcntl.h>
 # include <unistd.h>
 
 typedef	struct	s_opt

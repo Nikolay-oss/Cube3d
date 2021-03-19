@@ -43,8 +43,50 @@ typedef	struct	s_point
 	double			y;
 }				t_point;
 
+void		ft_sort(int *spriteOrder, double *sprites_dist, int count)
+{
+	int i;
+	int j;
+	int isswap;
+	int tmp;
+
+	i = 0;
+	isswap = 0;
+	while (i < count - 1)
+	{
+		j = 0;
+		while (j < count - i - 1)
+		{
+			if (sprites_dist[j] < sprites_dist[j + 1])
+			{
+				tmp = sprites_dist[j];
+				sprites_dist[j] = sprites_dist[j + 1];
+				sprites_dist[j + 1] = tmp;
+				tmp = spriteOrder[j];
+				spriteOrder[j] = spriteOrder[j + 1];
+				spriteOrder[j + 1] = tmp;
+				isswap = 1;
+			}
+			j++;
+		}
+		if (!isswap)
+			break ;
+		i++;
+	}
+}
+
 int	main()
 {
+	double a[5] = {2, 3, 1, 8, 4};
+	int b[5] = {0, 1, 2, 3, 4};
+	ft_sort(b, a, 5);
+	int i = 0;
+	while (i < 5)
+	{
+		printf("%lf ", a[i]);
+		i++;
+	}
+	printf("\n");
 	// t_point	plr_pos;
 	// t_point ray_pos;
 	// double	fov = M_PI / 3; // 60 degrees -> (M_PI / 3) * 180 / M_PI
@@ -68,18 +110,18 @@ int	main()
 	// 	}
 	// }
 	// printf("%lf\n", 2.092759 * 180 / M_PI);
-	t_point	des_p;
-	double	phi = 1.570796;
-	double	alpha = 0.523599;
-	double	r = 1;
+	// t_point	des_p;
+	// double	phi = 1.570796;
+	// double	alpha = 0.523599;
+	// double	r = 1;
 
-	des_p.x = 6 + (r / cos(alpha)) * cos(phi - alpha);
-	des_p.y = 3 + (r / cos(alpha)) * sin(phi - alpha);
+	// des_p.x = 6 + (r / cos(alpha)) * cos(phi - alpha);
+	// des_p.y = 3 + (r / cos(alpha)) * sin(phi - alpha);
 
 	// printf("desire_x -> %lf\tdesire_y -> %lf\n", 6.66, 4.0);
 	// printf("x -> %lf\ty -> %lf\n", des_p.x, des_p.y);
 	// printf("%lf\n", 3 * sqrt(1 + pow(2 / 3, 2)));
-	printf("%lf\n", 1.555724 * sin(50 * M_PI / 180));//sqrt(pow(1.555724, 2) - 1));//1/cos(50 * M_PI / 180));
+	// printf("%lf\n", 1.555724 * sin(50 * M_PI / 180));//sqrt(pow(1.555724, 2) - 1));//1/cos(50 * M_PI / 180));
 
 	// printf("%lf\n", cos(30 * M_PI / 180));
 	// printf("%lf\n", 6 - sin(30 * M_PI / 180));

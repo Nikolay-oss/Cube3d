@@ -6,13 +6,14 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/15 15:35:33 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/03/18 07:31:21 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "libft.h"
 #include "ft_parser.h"
+#include <fcntl.h>
 #include <stdio.h>
 
 int		skip_spaces(char *line)

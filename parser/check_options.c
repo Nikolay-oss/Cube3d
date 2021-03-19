@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 21:42:20 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/15 13:48:03 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/03/18 05:15:55 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ static	int		check_nbrs(char **params)
 	return (0);
 }
 
-// check leaks! and you must do smart_free
 int				check_color_opt(t_opt *opt, int *option, char *param)
 {
 	char	**color_map;
