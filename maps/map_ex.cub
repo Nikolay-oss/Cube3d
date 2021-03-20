@@ -2,16 +2,16 @@
 R 00000000000000001920  0000000001080
   
 
-NO   ./path/to_the/south/NO_texture.xpm
+NO   ./textures/redbrick_1.xpm
      
-SO ./path/to_the/south/SO_texture.xpm
+SO ./textures/redbrick_1.xpm
 
      
-WE ./path/to_the/south/WE_texture.xpm
+WE ./textures/redbrick_1.xpm
 
-EA   ./path/to_the/south/EA_texture.xpm
+EA   ./textures/redbrick_1.xpm
    
-S   ./path/to_the/south/S_texture.xpm
+S   ./textures/barrel.xpm
 F    000000220    ,    00000100    ,   00000000000000000  
   
 C 225,30,0

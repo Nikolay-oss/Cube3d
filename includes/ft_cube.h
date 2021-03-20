@@ -16,6 +16,15 @@
 # include "mlx.h"
 # include "ft_parser.h"
 
+# define ESC_U 65307
+# define W_U 119
+# define A_U 97
+# define S_U 115
+# define D_U 100
+# define L_ARROW_U 65361
+# define R_ARROW_U 65363
+
+# define ESC 53
 # define W 13
 # define A 2
 # define S 1
@@ -23,11 +32,13 @@
 # define L_ARROW 123
 # define R_ARROW 124
 
-# define W_PRESS	0b00000001
-# define A_PRESS	0b00000010
-# define S_PRESS	0b00000100
-# define D_PRESS	0b00001000
-# define RESET		0b00000000
+# define W_PRESS		0b00000001
+# define A_PRESS		0b00000010
+# define S_PRESS		0b00000100
+# define D_PRESS		0b00001000
+# define L_ARROW_PRESS	0b00010000
+# define R_ARROW_PRESS	0b00100000
+# define RESET			0b00000000
 
 typedef unsigned int	t_uint;
 
@@ -94,8 +105,19 @@ typedef struct	s_game
 	t_sprite	spr;
 	int			color_ceil;
 	int			color_floor;
+	// char		**map;
+	size_t		img_size;
 }				t_game;
 
 int		init_cube(t_game *game, t_opt *opt);
+void	ft_cube(t_game *game);
+int		get_color(int t, int r, int g, int b);
+
+// hooks
+int		win_close(t_game *game);
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
+int		render_frame(t_game *game);
+// end hooks
 
 #endif

@@ -37,24 +37,34 @@ int		check_texs(t_game *game, t_opt *opt)
 	return (1);
 }
 
-int		ft_cube(t_game *game)
+void	ft_cube(t_game *game)
 {
 	game->win.win = mlx_new_window(game->win.mlx, game->win.w, game->win.h, "Cube3d");
-	// mlx_hook(game->win.win, 17, 0, fun, game); // macOS
-	// mlx_hook(game->win.win, 33, 0, fun, game); // ubuntu
-	// mlx_hook(game->win.win, 2, 1L<<0, fun, game);
-	// mlx_loop_hook(game->win.mlx, fun, game);
+	game->img.img = mlx_new_image(game->win.mlx, game->win.w, game->win.h);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel,
+		&game->img.line_length, &game->img.endian);
+	mlx_loop_hook(game->win.mlx, &render_frame, game);
+	// mlx_hook(game->win.win, 17, 0, &win_close, game); // macOS
+	mlx_hook(game->win.win, 33, 0, &win_close, game); // ubuntu
+	mlx_hook(game->win.win, 2, 1L<<0, &key_press, game);
+	mlx_hook(game->win.win, 3, 1L<<1, &key_release, game);
+	mlx_loop(game->win.mlx);
 }
 
 int		init_cube(t_game *game, t_opt *opt)
 {
+	if (!(game->win.mlx = mlx_init()))
+		return (-1); // exit error
 	if (check_texs(game, opt) < 0)
-		return (-1);
+		return (-1); // exit error
 	// set all parametrs after parser and choice game or screen
-	// delete!!!!
 	game->win.w = opt->r[0];
 	game->win.h = opt->r[1];
-	
-	// --------------
+	game->color_ceil = get_color(0, opt->c[0], opt->c[1], opt->c[2]);
+	game->color_floor = get_color(0, opt->f[0], opt->f[1], opt->f[2]);
+	game->img_size = game->win.h * game->img.line_length +
+		game->win.w * (game->img.bits_per_pixel / 8);
+	// game->map = opt->map;
+	// destroy struct opt without map!
 	return (1);
 }

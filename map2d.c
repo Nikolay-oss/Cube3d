@@ -194,7 +194,7 @@ void	draw_plr(t_game *game)
 {
 	int	x = OFFSET + game->plr.pos.x * PSQUARE;
 	int y = OFFSET + game->plr.pos.y * PSQUARE;
-	printf("x -> %lf\ty -> %lf\n", game->plr.pos.x, game->plr.pos.y);
+	// printf("x -> %lf\ty -> %lf\n", game->plr.pos.x, game->plr.pos.y);
 	draw_rectangle(game, x - 5, y - 5, 0x0000FF00, 10);
 }
 
@@ -253,8 +253,8 @@ void	raycaster(t_game *game)
 	int		side_map;
 	double		x;
 
-	x = -0.66;
-	while (x < 0.66)
+	x = -1.0;
+	while (x < 1.0)
 	{
 		ray_x = game->plr.dir.x + game->plane.x * x;
 		ray_y = game->plr.dir.y + game->plane.y * x;
@@ -262,9 +262,9 @@ void	raycaster(t_game *game)
 		ray_map_posy = game->plr.pos.y;
 		kx = fabs(1 / ray_x); /*sqrt(1 + pow(1 / game->plr.dir.x, 2));*/ //game->plr.dir.y == 0 ? 0 : (game->plr.dir.x == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.x, 2)));
 		ky = fabs(1 / ray_y); /*sqrt(1 + pow(1 / game->plr.dir.y, 2));*/ //game->plr.dir.x == 0 ? 0 : (game->plr.dir.y == 0 ? 1 : sqrt(1 + pow(1 / game->plr.dir.y, 2)));
-		printf("kx -> %lf\tky -> %lf\n", kx, ky);
-		printf("ray_x -> %lf\tray_y -> %lf\n", ray_x, ray_y);
-		printf("ray_len -> %lf\n", sqrt(pow(ray_x, 2) + pow(ray_y, 2)));
+		// printf("kx -> %lf\tky -> %lf\n", kx, ky);
+		// printf("ray_x -> %lf\tray_y -> %lf\n", ray_x, ray_y);
+		// printf("ray_len -> %lf\n", sqrt(pow(ray_x, 2) + pow(ray_y, 2)));
 		if (game->plr.dir.x > 0)
 		{
 			side_x = (ray_map_posx + 1.0 - game->plr.pos.x) * kx;
@@ -285,7 +285,7 @@ void	raycaster(t_game *game)
 			side_y = (game->plr.pos.y - ray_map_posy) * ky;
 			step_y = -1;
 		}
-		printf("side_x -> %lf\tside_y -> %lf\n", side_x, side_y);
+		// printf("side_x -> %lf\tside_y -> %lf\n", side_x, side_y);
 		ishit = 0;
 		while (!ishit)
 		{
@@ -322,7 +322,7 @@ void	raycaster(t_game *game)
 			intersect.y = ray_map_posy + 0.5;
 		draw_vec(game, game->plr.pos.x, game->plr.pos.y, intersect.x, intersect.y, 0x00FF0000);
 		// draw_vec(game, game->plr.pos.x, game->plr.pos.y, ray_map_posx, ray_map_posy, 0x00FF0000);
-		x += 0.01;
+		x += 0.05;
 	}
 }
 
@@ -394,7 +394,7 @@ int		key_hook(int keycode, t_game *game)
 		game->plane.x = game->plane.x * cos(rot_speed) - game->plane.y * sin(rot_speed);
 		game->plane.y = old_value * sin(rot_speed) + game->plane.y * cos(rot_speed);
 	}
-	printf("or_angle -> %lf\n", game->origin_angle);
+	// printf("or_angle -> %lf\n", game->origin_angle);
 	return (0);
 }
 

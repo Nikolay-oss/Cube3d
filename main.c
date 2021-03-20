@@ -21,24 +21,19 @@ int	main(int ac, char **av)
 	t_game	*game;
 
 	if (ac < 2 || ac > 3)
-		return (0);
+	{
+		ft_putstr_fd("Invalid args\n", 0);
+		return (1); // exit_error
+	}
 	init_opt(&opt);
 	if (ft_parser(&opt, *(av + 1)) < 0)
-		return (0);
-	game = (t_game*)ft_calloc(1, sizeof(t_game));
-	game->win.mlx = mlx_init();
+		return (1); // exit_error
+	if (!(game = (t_game*)ft_calloc(1, sizeof(t_game))))
+		return (1); // exit_error
+	init_cube(game, &opt);
 	if (ac == 3)
-		;
-	else
-	{
-		if (init_cube(game, &opt) < 0)
-		{
-			free(game);
-			// clear opt!
-			return (0);
-		}
-	}
-	mlx_loop(game->win.mlx);
+		; // screen
+	ft_cube(game);
 	//sleep(1000);
 	return (0);
 }

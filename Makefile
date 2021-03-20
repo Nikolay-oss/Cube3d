@@ -8,8 +8,15 @@ INCLUDES	= ./includes/
 
 MLX			= ./minilibx-linux/
 
-SRCS		= gnl/get_next_line.c main.c parser/ft_parser.c parser/check_options.c parser/init_options.c parser/utils.c parser/map_parser.c \
-			  ft_cube/ft_cube.c
+PARS_DIR	= ./parser/
+
+CUBE_DIR	= ./ft_cube/
+
+PLR_DIR		= ./ft_cube/player_control/
+
+SRCS		= test3d.c#gnl/get_next_line.c main.c $(PARS_DIR)ft_parser.c $(PARS_DIR)check_options.c $(PARS_DIR)init_options.c \
+			  $(PARS_DIR)utils.c $(PARS_DIR)map_parser.c	  $(CUBE_DIR)ft_cube.c		$(PLR_DIR)ft_events.c \
+			  $(CUBE_DIR)ft_paint.c
 
 CFLAGS		= #-Wall -Wextra -Werror
 
