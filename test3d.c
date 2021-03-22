@@ -241,7 +241,7 @@ int			raycaster(t_game *game)
 			step[1] = 1;
 			side_dist[1] = (map[1] + 1.0 - game->plr.pos[1]) * delta_dist[1];
 		}
-		// printf("side_x -> %lf\tsize_y -> %lf\n", side_dist[0], side_dist[1]);
+		// printf("side_x -> %lf\tside_y -> %lf\n", side_dist[0], side_dist[1]);
 		while (!hit)
 		{
 			if (side_dist[0] < side_dist[1])

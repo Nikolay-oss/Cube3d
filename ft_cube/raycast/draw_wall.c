@@ -1,0 +1,45 @@
+#include "ft_cube.h"
+#include <math.h>
+
+static void	draw_col_tex(t_game *game, t_texture *tex, double wallx, int x)
+{
+	t_point_i	tex_pos;
+	double		step_tex;
+	double		st_tex_pos;
+	int			y;
+	int			color;
+
+	tex_pos.x = (int)(wallx * (double)tex->w);
+	step_tex = (double)tex->h / game->rcast.wall_height;
+	st_tex_pos = (game->rcast.draw_start - game->win.h / 2 +
+		game->rcast.wall_height / 2) * step_tex;
+	y = game->rcast.draw_start;
+	while (y < game->rcast.draw_end)
+	{
+		tex_pos.y = st_tex_pos;
+		st_tex_pos += step_tex;
+		color = *(unsigned int*)(tex->img.addr + (tex_pos.y *
+			tex->img.line_length + tex_pos.x * (tex->img.bits_per_pixel / 8)));
+		ft_pixel_put(&game->img, x, y, color);
+		y++;
+	}
+}
+
+static void	choice_tex(t_game *game, t_vector *ray, t_texture *tex)
+{
+
+}
+
+void		draw_line_wall(t_game *game, t_vector *ray, int x)
+{
+	double		wallx;
+	t_texture	tex;
+
+	if (game->rcast.side_map)
+		wallx = game->plr.pos.y + game->rcast.dist_to_wall * ray->y;
+	else
+		wallx = game->plr.pos.x + game->rcast.dist_to_wall * ray->x;
+	wallx -= floor(wallx);
+	choice_tex(game, ray, &tex);
+	draw_col_tex(game, &tex, wallx, x);
+}

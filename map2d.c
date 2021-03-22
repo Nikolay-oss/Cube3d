@@ -265,7 +265,7 @@ void	raycaster(t_game *game)
 		// printf("kx -> %lf\tky -> %lf\n", kx, ky);
 		// printf("ray_x -> %lf\tray_y -> %lf\n", ray_x, ray_y);
 		// printf("ray_len -> %lf\n", sqrt(pow(ray_x, 2) + pow(ray_y, 2)));
-		if (game->plr.dir.x > 0)
+		if (ray_x > 0)
 		{
 			side_x = (ray_map_posx + 1.0 - game->plr.pos.x) * kx;
 			step_x = 1;
@@ -275,7 +275,7 @@ void	raycaster(t_game *game)
 			side_x = (game->plr.pos.x - ray_map_posx) * kx;
 			step_x = -1;
 		}
-		if (game->plr.dir.y > 0)
+		if (ray_y > 0)
 		{
 			side_y = (ray_map_posy + 1.0 - game->plr.pos.y) * ky;
 			step_y = 1;

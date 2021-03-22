@@ -9,14 +9,28 @@
 #define T	0b11111101
 #define UNPRESS 0b11111110
 
+void	test_bitch(int c)
+{
+	int bitch;
+
+	bitch = c >> 12;
+	printf("x -> %d\ty -> %d\n", bitch, c & 0x000FFF);
+}
+
 int main()
 {
+	int x = 1920;
+	int y = 4080;
+	int c = x;
+	c = c << 12;
+	c |= y;
+	test_bitch(c);
 	// unsigned int tmp = S_PRESS;
 	// tmp |= S1;
 	// printf("%d\t%d\n", tmp, UNPRESS);
 	// tmp &= UNPRESS << 2;
 	// printf("%d\t%d\n", tmp, S1);
-	printf("%d\t%d\n", S_PRESS, UNPRESS << 1);
+	// printf("%d\t%d\n", S_PRESS, UNPRESS << 1);
 }
 
 /*

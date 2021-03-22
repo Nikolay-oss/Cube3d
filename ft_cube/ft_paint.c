@@ -1,26 +1,44 @@
 #include "ft_cube.h"
 
-int	get_color(int t, int r, int g, int b)
+int			get_color(int t, int r, int g, int b)
 {
 	return(t << 24 | r << 16 | g << 8 | b);
 }
 
-// int	get_t(int trgb)
-// {
-// 	return (trgb & (0xFF << 24));
-// }
+void		ft_pixel_put(t_image *img, int x, int y, int color)
+{
+	char *dest;
 
-// int	get_r(int trgb)
-// {
-// 	return (trgb & (0xFF << 16));
-// }
+	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)dest = color;
+}
 
-// int	get_g(int trgb)
-// {
-// 	return (trgb & (0xFF << 8));
-// }
+static void	draw_vertline(t_image *img, int x, int draw_range[2], int color)
+{
+	int y;
 
-// int	get_b(int trgb)
-// {
-// 	return (trgb & 0xFF);
-// }
+	y = draw_range[0];
+	while (y < draw_range[1])
+	{
+		ft_pixel_put(img, x, y, color);
+		y++;
+	}
+}
+
+void		draw_floor(t_game *game, int x)
+{
+	int	draw_range[2];
+
+	draw_range[0] = game->rcast.draw_end;
+	draw_range[1] = game->win.h - 1;
+	draw_vertline(&game->img, x, draw_range, game->color_floor);
+}
+
+void		draw_ceil(t_game *game, int x)
+{
+	int	draw_range[2];
+
+	draw_range[0] = 0;
+	draw_range[1] = game->rcast.draw_start;
+	draw_vertline(&game->img, x, draw_range, game->color_ceil);
+}
