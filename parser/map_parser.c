@@ -11,10 +11,60 @@
 /* ************************************************************************** */
 
 #include "ft_parser.h"
-#include "libft.h"
 #include <stdio.h>
 
-// int		check_map_line(t_opt *opt, char *line)
-// {
-// 	return (0);
-// }
+int		check_map_line(t_opt *opt, char *line)
+{
+	size_t	i;
+	size_t	str_size;
+
+	i = 0;
+	str_size = ft_strlen(line);
+	while (i < str_size)
+	{
+		if (!ft_memchr(" 1", *(line + i), 2))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	save_mapline(t_opt *opt, t_list *map_lines, char *line)
+{
+	if (!map_lines->size && !check_symbs(line))
+	{
+		free(line);
+		return ;
+	}
+	// check last map line
+	// if ()
+	ft_push_back(map_lines, line);
+}
+
+void	make_map(t_opt *opt, t_list *map_lines)
+{
+	t_node	*node;
+	size_t	line_size;
+	size_t	i;
+	size_t	j;
+
+	if (!(opt->map = (char**)ft_calloc(map_lines->size, sizeof(char*))))
+		return ; // destroy memory and exit
+	i = 0;
+	node = map_lines->head;
+	while (i < map_lines->size)
+	{
+		line_size = ft_strlen(node->content);
+		*(opt->map + i) = (char*)ft_calloc(line_size, sizeof(char));
+		if (!*(opt->map + i))
+			return ; // destroy memory and exit
+		j = 0;
+		while (j < line_size)
+		{
+			*(*(opt->map + i) + j) = *(char*)(node->content + j);
+			j++;
+		}
+		node = node->next;
+		i++;
+	}
+}

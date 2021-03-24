@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "libft.h"
 #include "ft_parser.h"
 #include <fcntl.h>
 #include <stdio.h>
@@ -50,7 +49,7 @@ int		check_options(t_opt *opt, char *param)
 	else if (!ft_strncmp(param, "C  ", 2))
 		{opt->eflag = check_color_opt(opt, opt->c, param + 1);printf("|C|: color -> %d, %d, %d\n", opt->c[0], opt->c[1], opt->c[2]);}
 	else
-		check_symbs(opt, param); //  brain on, please!!!!!
+		opt->eflag = check_symbs(param); //  brain on, please!!!!!
 	// printf("%d\n", ft_strncmp("NO    ./path/to_the/south/NO_texture.xpm", "NO ", 3));
 	return (1);
 }
@@ -66,13 +65,11 @@ int		check_ext(char *filename, const char *set)
 	return (1);
 }
 
-void	check_line(t_opt *opt, int fd, int *res)
+void	check_line(t_opt *opt, t_list *map_lines, int fd, int *res)
 {
 	char	*line;
 	char	*param;
-	t_list	*map_lines;
 
-	map_lines = ft_create_lst();
 	while ((*res = get_next_line(fd, &line)) > -1)
 	{
 		if (opt->count != 8)
@@ -85,20 +82,10 @@ void	check_line(t_opt *opt, int fd, int *res)
 			}
 			check_options(opt, param);
 			free(param);
+			free(line);
 		}
 		else
-		{
-			// map parser
-		}
-		// if (!(param = ft_strtrim(line, " ")))
-		// {
-		// 	free(line);
-		// 	exit_error(-1); // error
-		// }
-		// if (opt->count != 8)
-		// 	check_options(opt, param);
-		// free(param);
-		free(line);
+			save_mapline(opt, map_lines, line);
 		if (opt->eflag)
 			exit_error(opt->eflag);
 		if (!*res)
@@ -110,14 +97,39 @@ int		ft_parser(t_opt *opt, char *filename)
 {
 	int		fd;
 	int		res;
+	t_list	*map_lines;
 
+	map_lines = ft_create_lst();
 	if (!check_ext(filename, ".cub"))
 		exit_error(-1); // error
 	if ((fd = open(filename, O_RDONLY)) < 0)
 		exit_error(-1); // error
-	check_line(opt, fd, &res);
+	check_line(opt, map_lines, fd, &res);
+	// ---- remember to delete
+	// free(opt->ea);
+	// free(opt->so);
+	// free(opt->no);
+	// free(opt->we);
+	// free(opt->s);
+	// -------------
 	if (res < 0)
-		return (-1); // error
+		return (-1); // error and destroy list
 	close(fd);
+	make_map(opt, map_lines);
+	size_t	i = 0;
+	while (i < map_lines->size)
+	{
+		ft_putstr_fd(*(opt->map + i), 0);
+		ft_putchar_fd('\n', 0);
+		i++;
+	}
+	// i = 0;
+	// while (i < map_lines->size)
+	// {
+	// 	free(*(opt->map + i));
+	// 	i++;
+	// }
+	// free(opt->map);
+	ft_lst_clear(map_lines, &free);
 	return (0);
 }

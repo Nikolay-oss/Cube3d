@@ -107,7 +107,7 @@ typedef struct	s_raycast
 	double		dist_to_wall;
 	t_point		delta_dist;
 	t_point		dist_to_side;
-	t_point		step;
+	t_point_i	step;
 }				t_raycast;
 
 typedef struct	s_game

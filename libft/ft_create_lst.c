@@ -19,6 +19,7 @@ t_list	*ft_create_lst()
 	if (!(lst = (t_list*)malloc(sizeof(t_list))))
 		return (NULL);
 	lst->head = NULL;
+	lst->tail = NULL;
 	lst->size = 0;
 	return (lst);
 }

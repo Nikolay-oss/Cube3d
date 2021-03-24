@@ -14,9 +14,11 @@ CUBE_DIR	= ./ft_cube/
 
 PLR_DIR		= ./ft_cube/player_control/
 
-SRCS		= test3d.c#gnl/get_next_line.c main.c $(PARS_DIR)ft_parser.c $(PARS_DIR)check_options.c $(PARS_DIR)init_options.c \
+RAYCAST_DIR	= ./ft_cube/raycast/
+
+SRCS		= gnl/get_next_line.c main.c $(PARS_DIR)ft_parser.c $(PARS_DIR)check_options.c $(PARS_DIR)init_options.c \
 			  $(PARS_DIR)utils.c $(PARS_DIR)map_parser.c	  $(CUBE_DIR)ft_cube.c		$(PLR_DIR)ft_events.c \
-			  $(CUBE_DIR)ft_paint.c
+			  $(CUBE_DIR)ft_paint.c	$(RAYCAST_DIR)draw_wall.c	$(RAYCAST_DIR)ft_raycast.c
 
 CFLAGS		= #-Wall -Wextra -Werror
 
@@ -29,13 +31,13 @@ LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # 
 all:	$(NAME)
 
 %.o:	%.c
-		$(CC) $(CFLAGS) -I$(INCLUDES) -I$(MLX) -c $< -o $@
+		$(CC) -g $(CFLAGS) -I$(INCLUDES) -I$(MLX) -c $< -o $@
 
 $(NAME):	$(OBJS)
 		make -C libft/
 		# make -C $(MLX)
 		# mv $(MLX)/libmlx.dylib .
-		$(CC) -o $(NAME) $(CFLAGS) -O2 -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
+		$(CC) -g -o $(NAME) $(CFLAGS) -O2 -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
 
 clean:
 		make -C libft/ clean

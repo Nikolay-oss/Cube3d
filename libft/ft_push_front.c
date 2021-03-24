@@ -12,19 +12,20 @@
 
 #include "libft.h"
 
-void	ft_push_front(t_list *begin, void *data)
+void	ft_push_front(t_list *lst, void *data)
 {
 	t_node *node;
 	
 	if (!(node = ft_create_node(data)))
 		return ;
-	if (!begin->head)
+	if (!lst->head)
 	{
-		begin->head = node;
-		begin->size++;
+		lst->head = node;
+		lst->tail = node;
+		lst->size++;
 		return ;
 	}
-	node->next = begin->head;
-	begin->head = node;
-	begin->size++;
+	node->next = lst->head;
+	lst->head = node;
+	lst->size++;
 }

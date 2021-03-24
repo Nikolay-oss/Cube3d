@@ -30,6 +30,7 @@ void	init_opt(t_opt *ident)
 	ident->c[1] = -1;
 	ident->c[2] = -1;
 	ident->c[3] = 0;
+	ident->map = NULL;
 	ident->eflag = 0;
 	ident->count = 0;
 }

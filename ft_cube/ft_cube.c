@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_cube.h"
+#include <stdio.h>
 
 int		load_texture(t_texture *tex, void *mlx, char *path_to_tex)
 {
@@ -64,7 +65,15 @@ int		init_cube(t_game *game, t_opt *opt)
 	game->color_floor = get_color(0, opt->f[0], opt->f[1], opt->f[2]);
 	game->img_size = game->win.h * game->img.line_length +
 		game->win.w * (game->img.bits_per_pixel / 8);
-	// game->map = opt->map;
+	game->map = opt->map;
+	game->plr.pos.x = 11.5;
+	game->plr.pos.y = 6.5;
+	game->plr.dir.x = -1;
+	game->plr.dir.y = 0;
+	game->plr.cam_plane.x = 0;
+	game->plr.cam_plane.y = 0.66;
+	// printf("%d\t%d\n", game->win.w, game->win.h);
+	// exit(1);
 	// destroy struct opt without map!
 	return (1);
 }

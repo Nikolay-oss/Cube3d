@@ -13,10 +13,18 @@
 #include "ft_parser.h"
 #include "libft.h"
 
-void	check_symbs(t_opt *opt, char *line)
+int		check_symbs(char *line)
 {
-	if (*line && *line != ' ')
-		opt->eflag = 1;
+	size_t	i;
+
+	i = 0;
+	while (*(line + i))
+	{
+		if (*(line + i) != ' ')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int		split_line_free(char **strs, int errorcode)

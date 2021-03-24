@@ -55,20 +55,21 @@ char				*ft_itoa(int n);
 
 typedef struct		s_node
 {
-	void			*content;
 	struct s_node	*next;
+	void			*content;
 }					t_node;
 
 typedef	struct		s_list
 {
 	t_node			*head;
+	t_node			*tail;
 	size_t			size;
 }					t_list;
 
 t_list				*ft_create_lst();
 t_node				*ft_create_node(void *data);
-void				ft_push_front(t_list *begin, void *data);
-void				ft_push_back(t_list *begin, void *data);
-void				ft_lst_clear(t_list *begin, void (*del)(void*));
+void				ft_push_front(t_list *lst, void *data);
+void				ft_push_back(t_list *lst, void *data);
+void				ft_lst_clear(t_list *lst, void (*del)(void*));
 
 #endif

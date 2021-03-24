@@ -14,7 +14,6 @@
 # define GET_NEXT_LINE_H
 # include <unistd.h>
 # include <stdlib.h>
-# include "libft.h"
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif

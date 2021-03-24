@@ -12,22 +12,20 @@
 
 #include "libft.h"
 
-void	ft_push_back(t_list *begin, void *data)
+void	ft_push_back(t_list *lst, void *data)
 {
 	t_node *new;
-	t_node *current;
 	
 	if (!(new = ft_create_node(data)))
 		return ;
-	if (!begin->head)
+	if (!lst->tail)
 	{
-		begin->head = new;
-		begin->size++;
+		lst->head = new;
+		lst->tail = new;
+		lst->size++;
 		return ;
 	}
-	current = begin->head;
-	while (current->next)
-		current = current->next;
-	current->next = new;
-	begin->size++;
+	lst->tail->next = new;
+	lst->tail = new;
+	lst->size++;
 }

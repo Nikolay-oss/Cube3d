@@ -13,6 +13,7 @@
 #ifndef FT_PARSER_H
 # define FT_PARSER_H
 # include <unistd.h>
+# include "libft.h"
 
 typedef	struct	s_opt
 {
@@ -24,6 +25,7 @@ typedef	struct	s_opt
 	char	*s;
 	int		f[4];
 	int		c[4];
+	char	**map;
 	int		eflag;
 	int		count;
 }				t_opt;
@@ -33,12 +35,14 @@ int				ft_parser(t_opt *opt, char *filename);
 int				split_line_free(char **strs, int errorcode);
 int				check_ext(char *filename, const char *set);
 int				check_r(t_opt *opt, char *param);
-void			check_symbs(t_opt *opt, char *line);
+int				check_symbs(char *line);
 int				check_digit(char **params, int *digit_count);
 int				check_path_opt(t_opt *opt, char **option, char *param);
 int				check_color_opt(t_opt *opt, int *option, char *line);
 void			exit_error(int errorcode);
 int				check_comma(char *str);
 int				skip_spaces(char *line);
+void			save_mapline(t_opt *opt, t_list *map_lines, char *line);
+void			make_map(t_opt *opt, t_list *map_lines);
 
 #endif

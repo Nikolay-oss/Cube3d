@@ -27,7 +27,7 @@ static void	draw_col_tex(t_game *game, t_texture *tex, double wallx, int x)
 
 static void	choice_tex(t_game *game, t_vector *ray, t_texture *tex)
 {
-
+	*tex = game->tex_e;
 }
 
 void		draw_line_wall(t_game *game, t_vector *ray, int x)
@@ -35,7 +35,7 @@ void		draw_line_wall(t_game *game, t_vector *ray, int x)
 	double		wallx;
 	t_texture	tex;
 
-	if (game->rcast.side_map)
+	if (!game->rcast.side_map)
 		wallx = game->plr.pos.y + game->rcast.dist_to_wall * ray->y;
 	else
 		wallx = game->plr.pos.x + game->rcast.dist_to_wall * ray->x;

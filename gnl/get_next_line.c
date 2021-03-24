@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
 static	int		copy_to_line(char **str, char **line)
 {

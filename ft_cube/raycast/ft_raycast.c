@@ -1,12 +1,13 @@
 #include "ft_cube.h"
 #include <math.h>
+#include <stdio.h>
 
 static void	choice_dir_x(t_game *game, t_vector *ray, t_point_i *ray_map)
 {
 	double	delta_dist_x;
 
 	delta_dist_x = game->rcast.delta_dist.x;
-	if (ray->x > 0.0)
+	if (ray->x > 0)
 	{
 		game->rcast.step.x = 1;
 		game->rcast.dist_to_side.x = (-game->plr.pos.x + ray_map->x + 1.0) *
@@ -25,7 +26,7 @@ static void	choice_ray_dir(t_game *game, t_vector *ray, t_point_i *ray_map)
 	double	delta_dist_y;
 
 	delta_dist_y = game->rcast.delta_dist.y;
-	if (ray->y > 0.0)
+	if (ray->y > 0)
 	{
 		game->rcast.step.y = 1;
 		game->rcast.dist_to_side.y = (-game->plr.pos.y + ray_map->y + 1.0) *
@@ -45,7 +46,7 @@ static void	calc_walls_params(t_game *game, t_vector *ray, t_point_i *ray_map)
 	double	*dist_to_wall;
 
 	dist_to_wall = &game->rcast.dist_to_wall;
-	if (!game->rcast.side_map)
+	if (game->rcast.side_map)
 	{
 		*dist_to_wall = (ray_map->y - game->plr.pos.y +
 			(1 - game->rcast.step.y) / 2) / ray->y;
@@ -75,15 +76,15 @@ static void	find_ray_collision(t_game *game, t_vector *ray, t_point_i *ray_map)
 		{
 			dist_to_side->x += game->rcast.delta_dist.x;
 			ray_map->x += game->rcast.step.x;
-			game->rcast.side_map = 1;
+			game->rcast.side_map = 0;
 		}
 		else
 		{
 			dist_to_side->y += game->rcast.delta_dist.y;
 			ray_map->y += game->rcast.step.y;
-			game->rcast.side_map = 0;
+			game->rcast.side_map = 1;
 		}
-		if (game->map[ray_map->y][ray_map->x] == '1')
+		if (game->map[ray_map->x][ray_map->y] == '1')
 			break ;
 	}
 	calc_walls_params(game, ray, ray_map);
@@ -108,6 +109,7 @@ void		ft_raycast(t_game *game)
 		game->rcast.delta_dist.y = fabs(1 / ray.y);
 		choice_ray_dir(game, &ray, &ray_map);
 		find_ray_collision(game, &ray, &ray_map);
+		draw_line_wall(game, &ray, x);
 		draw_ceil(game, x);
 		draw_floor(game, x);
 		x++;

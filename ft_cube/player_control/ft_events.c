@@ -11,7 +11,7 @@ int	win_close(t_game *game)
 int	render_frame(t_game *game)
 {
 	ft_bzero(game->img.addr, game->img_size);
-	// raycasting
+	ft_raycast(game);
 	mlx_put_image_to_window(game->win.mlx, game->win.win, game->img.img, 0, 0);
 	return (0);
 }

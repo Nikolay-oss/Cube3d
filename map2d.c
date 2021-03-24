@@ -303,6 +303,7 @@ void	raycaster(t_game *game)
 				ray_map_posy += step_y;
 				side_map = 0;
 			}
+			// printf("x -> %d\ty -> %d\n", ray_map_posy, ray_map_posx);
 			if (worldMap[ray_map_posy][ray_map_posx])
 				ishit = 1;
 			// if (ray_map_posx < width || ray_map_posy < height)
