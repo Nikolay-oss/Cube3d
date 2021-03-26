@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 18:15:37 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/12 19:46:45 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:06:43 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void	ft_lst_clear(t_list *lst, void (*del)(void*))
 		current = node_old;
 	}
 	free(lst);
+	lst = NULL;
 }

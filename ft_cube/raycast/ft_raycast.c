@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_raycast.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/26 15:07:15 by dkenchur          #+#    #+#             */
+/*   Updated: 2021/03/26 18:39:51 by dkenchur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_cube.h"
 #include <math.h>
 #include <stdio.h>
@@ -84,6 +96,7 @@ static void	find_ray_collision(t_game *game, t_vector *ray, t_point_i *ray_map)
 			ray_map->y += game->rcast.step.y;
 			game->rcast.side_map = 1;
 		}
+		// printf("x -> %d\t y -> %d\n", ray_map->x, ray_map->y);
 		if (game->map[ray_map->x][ray_map->y] == '1')
 			break ;
 	}
@@ -98,6 +111,7 @@ void		ft_raycast(t_game *game)
 	t_point_i	ray_map;
 
 	x = 0;
+	// printf("x -> %lf\ty -> %lf\n", game->plr.pos.x, game->plr.pos.y);
 	while (x < game->win.w)
 	{
 		cam_plane = 2 * x / (double)game->win.w - 1;

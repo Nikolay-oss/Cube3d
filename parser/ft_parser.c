@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/03/18 07:31:21 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/03/26 18:46:03 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,31 +105,10 @@ int		ft_parser(t_opt *opt, char *filename)
 	if ((fd = open(filename, O_RDONLY)) < 0)
 		exit_error(-1); // error
 	check_line(opt, map_lines, fd, &res);
-	// ---- remember to delete
-	// free(opt->ea);
-	// free(opt->so);
-	// free(opt->no);
-	// free(opt->we);
-	// free(opt->s);
-	// -------------
 	if (res < 0)
 		return (-1); // error and destroy list
 	close(fd);
 	make_map(opt, map_lines);
-	size_t	i = 0;
-	while (i < map_lines->size)
-	{
-		ft_putstr_fd(*(opt->map + i), 0);
-		ft_putchar_fd('\n', 0);
-		i++;
-	}
-	// i = 0;
-	// while (i < map_lines->size)
-	// {
-	// 	free(*(opt->map + i));
-	// 	i++;
-	// }
-	// free(opt->map);
 	ft_lst_clear(map_lines, &free);
 	return (0);
 }

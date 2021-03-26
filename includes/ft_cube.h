@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 04:52:24 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/03/18 14:23:39 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/03/26 17:44:30 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,5 +147,8 @@ int		render_frame(t_game *game);
 void	ft_raycast(t_game *game);
 void	draw_line_wall(t_game *game, t_vector *ray, int x);
 // end raycast
-
+// game control
+void	player_control(t_game *game);
+void	player_rotate(t_player *plr, const double rot_speed);
+// end game control
 #endif

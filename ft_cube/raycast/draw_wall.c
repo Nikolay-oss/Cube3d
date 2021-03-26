@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_wall.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/26 15:07:08 by dkenchur          #+#    #+#             */
+/*   Updated: 2021/03/26 18:26:45 by dkenchur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_cube.h"
 #include <math.h>
 
@@ -27,7 +39,14 @@ static void	draw_col_tex(t_game *game, t_texture *tex, double wallx, int x)
 
 static void	choice_tex(t_game *game, t_vector *ray, t_texture *tex)
 {
-	*tex = game->tex_e;
+	if (ray->x < 0 && !game->rcast.side_map)
+		*tex = game->tex_n;
+	else if (ray->x > 0 && !game->rcast.side_map)
+		*tex = game->tex_s;
+	else if (ray->y < 0 && game->rcast.side_map)
+		*tex = game->tex_e;
+	else
+		*tex = game->tex_w;
 }
 
 void		draw_line_wall(t_game *game, t_vector *ray, int x)

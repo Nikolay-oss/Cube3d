@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:12:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/16 12:24:54 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/03/26 19:52:16 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void	make_map(t_opt *opt, t_list *map_lines)
 	size_t	i;
 	size_t	j;
 
-	if (!(opt->map = (char**)ft_calloc(map_lines->size, sizeof(char*))))
+	if (!(opt->map = (char**)ft_calloc(map_lines->size + 1, sizeof(char*))))
 		return ; // destroy memory and exit
 	i = 0;
 	node = map_lines->head;
 	while (i < map_lines->size)
 	{
-		line_size = ft_strlen(node->content);
-		*(opt->map + i) = (char*)ft_calloc(line_size, sizeof(char));
+		line_size = ft_strlen((const char*)node->content);
+		*(opt->map + i) = (char*)ft_calloc(line_size + 1, sizeof(char));
 		if (!*(opt->map + i))
 			return ; // destroy memory and exit
 		j = 0;
@@ -67,4 +67,5 @@ void	make_map(t_opt *opt, t_list *map_lines)
 		node = node->next;
 		i++;
 	}
+	*(opt->map + i) = NULL;
 }

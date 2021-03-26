@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 07:31:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/03/18 14:51:55 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/03/26 19:34:57 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	ft_cube(t_game *game)
 	game->img.addr = mlx_get_data_addr(game->img.img,
 		&game->img.bits_per_pixel, &game->img.line_length, &game->img.endian);
 	mlx_loop_hook(game->win.mlx, &render_frame, game);
-	// mlx_hook(game->win.win, 17, 0, &win_close, game); // macOS
-	mlx_hook(game->win.win, 33, 0, &win_close, game); // ubuntu
+	mlx_hook(game->win.win, 17, 0, &win_close, game); // macOS
+	// mlx_hook(game->win.win, 33, 0, &win_close, game); // ubuntu
 	mlx_hook(game->win.win, 2, 1L<<0, &key_press, game);
 	mlx_hook(game->win.win, 3, 1L<<1, &key_release, game);
 	mlx_loop(game->win.mlx);
@@ -66,12 +66,19 @@ int		init_cube(t_game *game, t_opt *opt)
 	game->img_size = game->win.h * game->img.line_length +
 		game->win.w * (game->img.bits_per_pixel / 8);
 	game->map = opt->map;
+	// game->plr.pos.x = 2.5;//11.5;
+	// game->plr.pos.y = 2.5;//6.5;
 	game->plr.pos.x = 11.5;
 	game->plr.pos.y = 6.5;
-	game->plr.dir.x = -1;
+	game->plr.dir.x = -0.99;
 	game->plr.dir.y = 0;
 	game->plr.cam_plane.x = 0;
 	game->plr.cam_plane.y = 0.66;
+	free(opt->ea);
+	free(opt->so);
+	free(opt->no);
+	free(opt->we);
+	free(opt->s);
 	// printf("%d\t%d\n", game->win.w, game->win.h);
 	// exit(1);
 	// destroy struct opt without map!

@@ -4,29 +4,30 @@ NAME		= cub3D
 
 INCLUDES	= ./includes/
 
-# MLX			= ./mlx/
+MLX			= ./mlx/
 
-MLX			= ./minilibx-linux/
+# MLX			= ./minilibx-linux/
 
 PARS_DIR	= ./parser/
 
 CUBE_DIR	= ./ft_cube/
 
-PLR_DIR		= ./ft_cube/player_control/
+GAME_DIR	= ./ft_cube/game_control/
 
 RAYCAST_DIR	= ./ft_cube/raycast/
 
 SRCS		= gnl/get_next_line.c main.c $(PARS_DIR)ft_parser.c $(PARS_DIR)check_options.c $(PARS_DIR)init_options.c \
-			  $(PARS_DIR)utils.c $(PARS_DIR)map_parser.c	  $(CUBE_DIR)ft_cube.c		$(PLR_DIR)ft_events.c \
-			  $(CUBE_DIR)ft_paint.c	$(RAYCAST_DIR)draw_wall.c	$(RAYCAST_DIR)ft_raycast.c
+			  $(PARS_DIR)utils.c $(PARS_DIR)map_parser.c	  $(CUBE_DIR)ft_cube.c			$(GAME_DIR)ft_events.c \
+			  $(CUBE_DIR)ft_paint.c	$(RAYCAST_DIR)draw_wall.c	$(RAYCAST_DIR)ft_raycast.c	$(GAME_DIR)player_control.c \
+			  $(GAME_DIR)player_rotate.c
 
 CFLAGS		= #-Wall -Wextra -Werror
 
 OBJS		= $(SRCS:.c=.o)
 
-# LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
+LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
 
-LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
+# LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
 
 all:	$(NAME)
 
@@ -50,7 +51,3 @@ fclean:	clean
 		rm -rf $(NAME)
 
 re:		fclean all
-
-# remember to delete
-t1:	$(NAME)
-		@./cub3D maps/map_ex.cub 
