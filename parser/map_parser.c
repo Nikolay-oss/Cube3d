@@ -49,7 +49,7 @@ void	make_map(t_opt *opt, t_list *map_lines)
 	size_t	j;
 
 	if (!(opt->map = (char**)ft_calloc(map_lines->size + 1, sizeof(char*))))
-		return ; // destroy memory and exit
+		return ; // error exit
 	i = 0;
 	node = map_lines->head;
 	while (i < map_lines->size)

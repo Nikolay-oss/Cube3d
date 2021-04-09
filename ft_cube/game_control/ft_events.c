@@ -12,23 +12,11 @@
 
 #include "ft_cube.h"
 #include "libft.h"
+#include <stdio.h>
 
 int	win_close(t_game *game)
 {
-	// destroy memory
-	mlx_destroy_image(game->win.mlx, game->tex_e.img.img);
-	mlx_destroy_image(game->win.mlx, game->tex_n.img.img);
-	mlx_destroy_image(game->win.mlx, game->tex_s.img.img);
-	mlx_destroy_image(game->win.mlx, game->tex_w.img.img);
-	mlx_destroy_image(game->win.mlx, game->spr.tex.img.img);
-	mlx_destroy_image(game->win.mlx, game->img.img);
-	mlx_destroy_window(game->win.mlx, game->win.win);
-	size_t i = 0;
-	while (*(game->map + i))
-		free(*(game->map + i++));
-	free(game->map);
-	free(game->win.mlx);
-	free(game);
+	destroy_game_mem(game);
 	exit(1);
 	return (0);
 }

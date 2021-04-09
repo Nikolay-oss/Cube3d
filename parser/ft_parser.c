@@ -86,9 +86,7 @@ void	check_line(t_opt *opt, t_list *map_lines, int fd, int *res)
 		}
 		else
 			save_mapline(opt, map_lines, line);
-		if (opt->eflag)
-			exit_error(opt->eflag);
-		if (!*res)
+		if (!*res || opt->eflag)
 			break ;
 	}
 }

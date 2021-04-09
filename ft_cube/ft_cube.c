@@ -45,8 +45,8 @@ void	ft_cube(t_game *game)
 	game->img.addr = mlx_get_data_addr(game->img.img,
 		&game->img.bits_per_pixel, &game->img.line_length, &game->img.endian);
 	mlx_loop_hook(game->win.mlx, &render_frame, game);
-	mlx_hook(game->win.win, 17, 0, &win_close, game); // macOS
-	// mlx_hook(game->win.win, 33, 0, &win_close, game); // ubuntu
+	// mlx_hook(game->win.win, 17, 0, &win_close, game); // macOS
+	mlx_hook(game->win.win, 33, 0, &win_close, game); // ubuntu
 	mlx_hook(game->win.win, 2, 1L<<0, &key_press, game);
 	mlx_hook(game->win.win, 3, 1L<<1, &key_release, game);
 	mlx_loop(game->win.mlx);
@@ -74,13 +74,6 @@ int		init_cube(t_game *game, t_opt *opt)
 	game->plr.dir.y = 0;
 	game->plr.cam_plane.x = 0;
 	game->plr.cam_plane.y = 0.66;
-	free(opt->ea);
-	free(opt->so);
-	free(opt->no);
-	free(opt->we);
-	free(opt->s);
-	// printf("%d\t%d\n", game->win.w, game->win.h);
-	// exit(1);
-	// destroy struct opt without map!
+	destroy_options_mem(opt, 0);
 	return (1);
 }

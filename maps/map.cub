@@ -1,4 +1,4 @@
-R 1280  960
+R 1920  1080
 NO       ./textures/eagle.xpm
 SO ./textures/barrel.xpm
 WE    ./textures/mossy.xpm

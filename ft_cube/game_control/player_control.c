@@ -30,18 +30,18 @@ static void	move_backward(const char **map, t_player *plr, const double speed)
 
 static void	move_left(const char **map, t_player *plr, const double speed)
 {
-	if (map[(int)(plr->pos.x + plr->dir.y * speed)][(int)plr->pos.y] != '1')
-		plr->pos.x += plr->cam_plane.x * speed;
-	if (map[(int)plr->pos.x][(int)(plr->pos.y - plr->dir.x * speed)] != '1')
-		plr->pos.y += plr->cam_plane.y * speed;
-}
-
-static void	move_right(const char **map, t_player *plr, const double speed)
-{
 	if (map[(int)(plr->pos.x - plr->dir.y * speed)][(int)plr->pos.y] != '1')
 		plr->pos.x -= plr->cam_plane.x * speed;
 	if (map[(int)plr->pos.x][(int)(plr->pos.y + plr->dir.x * speed)] != '1')
 		plr->pos.y -= plr->cam_plane.y * speed;
+}
+
+static void	move_right(const char **map, t_player *plr, const double speed)
+{
+	if (map[(int)(plr->pos.x + plr->dir.y * speed)][(int)plr->pos.y] != '1')
+		plr->pos.x += plr->cam_plane.x * speed;
+	if (map[(int)plr->pos.x][(int)(plr->pos.y - plr->dir.x * speed)] != '1')
+		plr->pos.y += plr->cam_plane.y * speed;
 }
 
 void		player_control(t_game *game)

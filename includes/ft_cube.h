@@ -151,4 +151,9 @@ void	draw_line_wall(t_game *game, t_vector *ray, int x);
 void	player_control(t_game *game);
 void	player_rotate(t_player *plr, const double rot_speed);
 // end game control
+// destroy memory
+void	destroy_options_mem(t_opt *opt, int isfreemap);
+void	destroy_game_mem(t_game *game);
+void	destroy_all(t_opt *opt, t_game *game);
+// end destroy memory
 #endif
