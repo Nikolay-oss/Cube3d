@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:17:09 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/12 09:23:33 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/09 19:10:42 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,10 @@ void	init_opt(t_opt *ident)
 {
 	ident->r[0] = -1;
 	ident->r[1] = -1;
-	ident->r[2] = 0;
-	ident->so = NULL;
-	ident->no = NULL;
-	ident->we = NULL;
-	ident->ea = NULL;
-	ident->s = NULL;
 	ident->f[0] = -1;
 	ident->f[1] = -1;
 	ident->f[2] = -1;
-	ident->f[3] = 0;
 	ident->c[0] = -1;
 	ident->c[1] = -1;
 	ident->c[2] = -1;
-	ident->c[3] = 0;
-	ident->map = NULL;
-	ident->eflag = 0;
-	ident->count = 0;
 }

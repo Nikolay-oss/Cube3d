@@ -6,28 +6,30 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:12:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/03/26 19:52:16 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/09 20:20:38 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
+#include "ft_cube.h"
 #include <stdio.h>
 
-int		check_map_line(t_opt *opt, char *line)
-{
-	size_t	i;
-	size_t	str_size;
+// убрать если не понадобится
+// int		check_map_line(t_opt *opt, char *line)
+// {
+// 	size_t	i;
+// 	size_t	str_size;
 
-	i = 0;
-	str_size = ft_strlen(line);
-	while (i < str_size)
-	{
-		if (!ft_memchr(" 1", *(line + i), 2))
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	str_size = ft_strlen(line);
+// 	while (i < str_size)
+// 	{
+// 		if (!ft_memchr(" 1", *(line + i), 2))
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 void	save_mapline(t_opt *opt, t_list *map_lines, char *line)
 {
@@ -38,6 +40,7 @@ void	save_mapline(t_opt *opt, t_list *map_lines, char *line)
 	}
 	// check last map line
 	// if ()
+	// use check_map_line or make map and check
 	ft_push_back(map_lines, line);
 }
 
@@ -46,10 +49,9 @@ void	make_map(t_opt *opt, t_list *map_lines)
 	t_node	*node;
 	size_t	line_size;
 	size_t	i;
-	size_t	j;
 
 	if (!(opt->map = (char**)ft_calloc(map_lines->size + 1, sizeof(char*))))
-		return ; // error exit
+		exit_error(5, opt, NULL, map_lines);
 	i = 0;
 	node = map_lines->head;
 	while (i < map_lines->size)
@@ -57,13 +59,8 @@ void	make_map(t_opt *opt, t_list *map_lines)
 		line_size = ft_strlen((const char*)node->content);
 		*(opt->map + i) = (char*)ft_calloc(line_size + 1, sizeof(char));
 		if (!*(opt->map + i))
-			return ; // destroy memory and exit
-		j = 0;
-		while (j < line_size)
-		{
-			*(*(opt->map + i) + j) = *(char*)(node->content + j);
-			j++;
-		}
+			exit_error(5, opt, NULL, map_lines);
+		ft_strlcpy(*(opt->map + i), (const char*)node->content, line_size + 1);
 		node = node->next;
 		i++;
 	}

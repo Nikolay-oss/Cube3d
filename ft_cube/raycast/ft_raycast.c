@@ -6,11 +6,12 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:07:15 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/03/26 18:39:51 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/09 20:07:04 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
+#include "ft_paint.h"
 #include <math.h>
 #include <stdio.h>
 

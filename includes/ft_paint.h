@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_clear.c                                     :+:      :+:    :+:   */
+/*   ft_paint.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/12 18:15:37 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 16:10:50 by dkenchur         ###   ########.fr       */
+/*   Created: 2021/04/09 20:05:00 by dkenchur          #+#    #+#             */
+/*   Updated: 2021/04/09 20:08:18 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_PAINT_H
+# define FT_PAINT_H
+# include "data_types.h"
 
-void	ft_lst_clear(t_list *lst, void (*del)(void*))
-{
-	t_node *current;
-	t_node *node_old;
+int		get_color(int t, int r, int g, int b);
+void	ft_pixel_put(t_image *img, int x, int y, int color);
+void	draw_ceil(t_game *game, int x);
+void	draw_floor(t_game *game, int x);
+void	draw_line_wall(t_game *game, t_vector *ray, int x);
 
-	if (!lst)
-		return ;
-	if (!lst->head)
-	{
-		free(lst);
-		lst = NULL;
-		return ;
-	}
-	current = lst->head;
-	while (current)
-	{
-		node_old = current->next;
-		if (del)
-			del(current->content);
-		free(current);
-		current = node_old;
-	}
-	free(lst);
-	lst = NULL;
-}
+#endif

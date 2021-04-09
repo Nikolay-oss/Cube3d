@@ -6,11 +6,12 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:07:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/03/26 18:26:45 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/09 20:06:47 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
+#include "ft_paint.h"
 #include <math.h>
 
 static void	draw_col_tex(t_game *game, t_texture *tex, double wallx, int x)

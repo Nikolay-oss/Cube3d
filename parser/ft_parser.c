@@ -6,12 +6,13 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/03/26 18:46:03 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/09 20:20:23 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "ft_parser.h"
+#include "ft_cube.h"
 #include <fcntl.h>
 #include <stdio.h>
 
@@ -20,18 +21,15 @@ int		skip_spaces(char *line)
 	int	i;
 
 	i = 0;
-	while (*line && *line == ' ')
-	{
-		line++;
+	while (*(line + i) && *(line + i) == ' ')
 		i++;
-	}
 	return (i);
 }
 
-int		check_options(t_opt *opt, char *param)
+void	check_options(t_opt *opt, char *param)
 {
 	if (!param)
-		return (1);
+		return ;
 	if (!ft_strncmp(param, "R  ", 2))
 		{opt->eflag = check_r(opt, param + 1);printf("|R|: resolution -> %d %d\n", opt->r[0], opt->r[1]);}
 	else if (!ft_strncmp(param, "NO  ", 3))
@@ -49,9 +47,9 @@ int		check_options(t_opt *opt, char *param)
 	else if (!ft_strncmp(param, "C  ", 2))
 		{opt->eflag = check_color_opt(opt, opt->c, param + 1);printf("|C|: color -> %d, %d, %d\n", opt->c[0], opt->c[1], opt->c[2]);}
 	else
-		opt->eflag = check_symbs(param); //  brain on, please!!!!!
+		opt->eflag = check_symbs(param); //  brain on, please!!!!! wait! -> check_symbs(param, code_error)
 	// printf("%d\n", ft_strncmp("NO    ./path/to_the/south/NO_texture.xpm", "NO ", 3));
-	return (1);
+	return ;
 }
 
 int		check_ext(char *filename, const char *set)
@@ -78,7 +76,7 @@ void	check_line(t_opt *opt, t_list *map_lines, int fd, int *res)
 			{
 				free(line);
 				ft_lst_clear(map_lines, NULL);
-				exit_error(-1); // error
+				exit_error(5, opt, NULL, NULL);
 			}
 			check_options(opt, param);
 			free(param);
@@ -91,7 +89,7 @@ void	check_line(t_opt *opt, t_list *map_lines, int fd, int *res)
 	}
 }
 
-int		ft_parser(t_opt *opt, char *filename)
+void	ft_parser(t_opt *opt, char *filename)
 {
 	int		fd;
 	int		res;
@@ -99,14 +97,15 @@ int		ft_parser(t_opt *opt, char *filename)
 
 	map_lines = ft_create_lst();
 	if (!check_ext(filename, ".cub"))
-		exit_error(-1); // error
+		exit_error(2, opt, NULL, map_lines);
 	if ((fd = open(filename, O_RDONLY)) < 0)
-		exit_error(-1); // error
+		exit_error(3, opt, NULL, map_lines);
 	check_line(opt, map_lines, fd, &res);
+	if (opt->eflag)
+		exit_error(opt->eflag, opt, NULL, map_lines);
 	if (res < 0)
-		return (-1); // error and destroy list
+		exit_error(4, opt, NULL, map_lines);
 	close(fd);
 	make_map(opt, map_lines);
 	ft_lst_clear(map_lines, &free);
-	return (0);
 }

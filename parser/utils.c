@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 19:28:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/15 13:44:49 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/09 17:43:36 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,6 @@ int		split_line_free(char **strs, int errorcode)
 		free(*(strs + i++));
 	free(strs);
 	return (errorcode);
-}
-
-void	exit_error(int errorcode)
-{
-	if (errorcode)
-	{
-		write(1, "ERROR\n", 6);
-		exit(1);
-	}
 }
 
 // rewrite! принимать как строку и скипать нули. Посчитать кол-во цифр

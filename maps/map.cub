@@ -5,7 +5,7 @@ WE    ./textures/mossy.xpm
 EA ./textures/redbrick_1.xpm
 
 S ./textures/barrel.xpm
-F 121, 132, 130
+F 121, 132, 130 
 C 188, 190, 233
 
         1111111111111111111111111
