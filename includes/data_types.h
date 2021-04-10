@@ -15,10 +15,10 @@
 # include <stdlib.h>
 
 # define ESC_U 65307
-# define W_U 119
-# define A_U 97
-# define S_U 115
-# define D_U 100
+# define W_U 'w'
+# define A_U 'a'
+# define S_U 's'
+# define D_U 'd'
 # define L_ARROW_U 65361
 # define R_ARROW_U 65363
 
