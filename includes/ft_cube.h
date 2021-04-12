@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 04:52:24 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 20:08:13 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:09:44 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	player_control(t_game *game);
 void	player_rotate(t_player *plr, const double rot_speed);
 // end game control
 
-// temp!
-void	exit_error(const int code_error, t_opt *opt, t_game *game, t_list *lst);
+// temp
 
 #endif

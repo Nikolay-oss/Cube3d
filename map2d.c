@@ -329,8 +329,12 @@ void	raycaster(t_game *game)
 
 int		render_frame(t_game *game)
 {
-	// ft_bzero(game->img.img, width);  разобраться с bzero
+	// ft_bzero(game->img.addr, height * game->img.line_length +
+	// 	width * (game->img.bits_per_pixel / 8));
 	// draw fun
+	// game->img.img = mlx_new_image(game->vars.mlx, width, height);
+	// game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
+	// 	&game->img.endian);
 	game->img.img = mlx_new_image(game->vars.mlx, width, height);
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
 		&game->img.endian);
@@ -360,7 +364,7 @@ int		key_hook(int keycode, t_game *game)
 		game->plr.pos.x += game->plr.dir.x * move_speed;
 		game->plr.pos.y += game->plr.dir.y * move_speed;
 	}
-	else if (keycode == 97 || keycode == 2) // left
+	else if (keycode == 97 || keycode == 0) // left
 	{
 		game->plr.pos.x -= game->plane.x * move_speed;
 		game->plr.pos.y -= game->plane.y * move_speed;
@@ -370,7 +374,7 @@ int		key_hook(int keycode, t_game *game)
 		game->plr.pos.x -= game->plr.dir.x * move_speed;
 		game->plr.pos.y -= game->plr.dir.y * move_speed;
 	}
-	else if (keycode == 100 || keycode == 0) // right
+	else if (keycode == 100 || keycode == 2) // right
 	{
 		game->plr.pos.x += game->plane.x * move_speed;
 		game->plr.pos.y += game->plane.y * move_speed;
@@ -405,6 +409,9 @@ int	main()
 
 	game.vars.mlx = mlx_init();
 	game.vars.win = mlx_new_window(game.vars.mlx, width, height, "Raycaster2D");
+	// game.img.img = mlx_new_image(game.vars.mlx, width, height);
+	// game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
+	// 	&game.img.endian);
 
 	game.plr.pos.x = 12;
 	game.plr.pos.y = 12;
@@ -417,7 +424,7 @@ int	main()
 
 	// printf("dx -> %lf\tdy -> %lf\n", sqrt(1 + pow(game.plr.dir.y / game.plr.dir.x, 2)), sqrt(1 + pow(game.plr.dir.x / game.plr.dir.y, 2)));
 	
-	mlx_hook(game.vars.win, 33, 0, &win_close, &game);
+	mlx_hook(game.vars.win, 17, 0, &win_close, &game);
 	mlx_hook(game.vars.win, 2, 1L<<0, &key_hook, &game);
 	mlx_loop_hook(game.vars.mlx, &render_frame, &game);
 	mlx_loop(game.vars.mlx);

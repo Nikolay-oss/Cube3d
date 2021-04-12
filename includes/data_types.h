@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 19:49:16 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 19:52:39 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:22:51 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 
 # define ESC 53
 # define W 13
-# define A 2
+# define A 0
 # define S 1
-# define D 0
+# define D 2
 # define L_ARROW 123
 # define R_ARROW 124
 
@@ -64,18 +64,22 @@ typedef struct	s_texture
 	int			h;
 }				t_texture;
 
-typedef struct	s_sprite
-{
-	t_texture	tex;
-	int			w;
-	int			h;
-}				t_sprite;
-
 typedef struct	s_point
 {
 	double		x;
 	double		y;
 }				t_point;
+
+typedef struct	s_sprite
+{
+	t_texture	tex;
+	double		*distances;
+	t_point		*positions;
+	size_t		count;
+	double		matrix[2][2];
+	int			w;
+	int			h;
+}				t_sprite;
 
 typedef struct	s_point_i
 {

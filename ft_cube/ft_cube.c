@@ -6,12 +6,13 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 07:31:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 20:06:30 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/12 20:53:51 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
 #include "destroy_memory.h"
+# include "handler_errors.h"
 #include "ft_paint.h"
 #include <stdio.h>
 
@@ -19,7 +20,7 @@ int		load_texture(t_texture *tex, void *mlx, char *path_to_tex)
 {
 	if (!(tex->img.img = mlx_xpm_file_to_image(mlx, path_to_tex, &tex->w,
 		&tex->h)))
-		return (-1);
+		return (0);
 	tex->img.addr = mlx_get_data_addr(tex->img.img, &tex->img.bits_per_pixel,
 		&tex->img.line_length, &tex->img.endian);
 	return (1);
@@ -27,16 +28,16 @@ int		load_texture(t_texture *tex, void *mlx, char *path_to_tex)
 
 int		check_texs(t_game *game, t_opt *opt)
 {
-	if (load_texture(&game->tex_s, game->win.mlx, opt->so) < 0)
-		return (-1);
-	if (load_texture(&game->tex_n, game->win.mlx, opt->no) < 0)
-		return (-1);
-	if (load_texture(&game->tex_w, game->win.mlx, opt->we) < 0)
-		return (-1);
-	if (load_texture(&game->tex_e, game->win.mlx, opt->ea) < 0)
-		return (-1);
-	if (load_texture(&game->spr.tex, game->win.mlx, opt->s) < 0)
-		return (-1);
+	if (!load_texture(&game->tex_s, game->win.mlx, opt->so))
+		return (0);
+	if (!load_texture(&game->tex_n, game->win.mlx, opt->no))
+		return (0);
+	if (!load_texture(&game->tex_w, game->win.mlx, opt->we))
+		return (0);
+	if (!load_texture(&game->tex_e, game->win.mlx, opt->ea))
+		return (0);
+	if (!load_texture(&game->spr.tex, game->win.mlx, opt->s))
+		return (0);
 	return (1);
 }
 
@@ -63,12 +64,12 @@ int		init_cube(t_game *game, t_opt *opt)
 {
 	if (!(game->win.mlx = mlx_init()))
 		exit_error(5, opt, game, NULL);//return (-1); // exit error
-	if (check_texs(game, opt) < 0)
+	if (!check_texs(game, opt))
 		exit_error(3, opt, game, NULL);
 	// set all parametrs after parser and choice game or screen
 	game->win.w = opt->r[0];
 	game->win.h = opt->r[1];
-	game->color_ceil = get_color(0, opt->c[0], opt->c[1], opt->c[2]);
+	game->color_ceil = get_color(0, opt->c[0], opt->c[1], opt->c[2]);	
 	game->color_floor = get_color(0, opt->f[0], opt->f[1], opt->f[2]);
 	game->img_size = game->win.h * game->img.line_length +
 		game->win.w * (game->img.bits_per_pixel / 8);

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:50:31 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 20:00:39 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/12 15:17:32 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static void	select_error(const int code_error)
 {
 	if (code_error == 1)
-		perror("Invalid args");
+		ft_putstr_fd("Error: Invalid args\n", 1);
 	else if (code_error == 2)
 		ft_putstr_fd("Error: Invalid file extension\n", 1);
 	else if (code_error == 3 || code_error == 4 || code_error == 5)
