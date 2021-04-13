@@ -6,12 +6,13 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:07:15 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 20:07:04 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/13 20:27:27 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
 #include "ft_paint.h"
+#include "ft_sprites.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -127,6 +128,8 @@ void		ft_raycast(t_game *game)
 		draw_line_wall(game, &ray, x);
 		draw_ceil(game, x);
 		draw_floor(game, x);
+		game->spr.zbuf[x] = game->rcast.dist_to_wall;
 		x++;
 	}
+	ft_sprites(game);
 }

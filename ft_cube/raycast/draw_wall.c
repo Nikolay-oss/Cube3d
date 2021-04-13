@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:07:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 20:06:47 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/13 17:57:00 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,22 @@ static void	draw_col_tex(t_game *game, t_texture *tex, double wallx, int x)
 	}
 }
 
-static void	choice_tex(t_game *game, t_vector *ray, t_texture *tex)
+static void	choice_tex(t_game *game, t_vector *ray, t_texture **tex)
 {
 	if (ray->x < 0 && !game->rcast.side_map)
-		*tex = game->tex_n;
+		*tex = &game->tex_n;
 	else if (ray->x > 0 && !game->rcast.side_map)
-		*tex = game->tex_s;
+		*tex = &game->tex_s;
 	else if (ray->y < 0 && game->rcast.side_map)
-		*tex = game->tex_e;
+		*tex = &game->tex_e;
 	else
-		*tex = game->tex_w;
+		*tex = &game->tex_w;
 }
 
 void		draw_line_wall(t_game *game, t_vector *ray, int x)
 {
 	double		wallx;
-	t_texture	tex;
+	t_texture	*tex;
 
 	if (!game->rcast.side_map)
 		wallx = game->plr.pos.y + game->rcast.dist_to_wall * ray->y;
@@ -61,5 +61,5 @@ void		draw_line_wall(t_game *game, t_vector *ray, int x)
 		wallx = game->plr.pos.x + game->rcast.dist_to_wall * ray->x;
 	wallx -= floor(wallx);
 	choice_tex(game, ray, &tex);
-	draw_col_tex(game, &tex, wallx, x);
+	draw_col_tex(game, tex, wallx, x);
 }

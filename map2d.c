@@ -329,15 +329,15 @@ void	raycaster(t_game *game)
 
 int		render_frame(t_game *game)
 {
-	// ft_bzero(game->img.addr, height * game->img.line_length +
-	// 	width * (game->img.bits_per_pixel / 8));
+	ft_bzero(game->img.addr, (height - 1) * game->img.line_length +
+		(width - 0) * (game->img.bits_per_pixel / 8));
 	// draw fun
 	// game->img.img = mlx_new_image(game->vars.mlx, width, height);
 	// game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
 	// 	&game->img.endian);
-	game->img.img = mlx_new_image(game->vars.mlx, width, height);
-	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
-		&game->img.endian);
+	// game->img.img = mlx_new_image(game->vars.mlx, width, height);
+	// game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,
+	// 	&game->img.endian);
 	draw_map(game);
 	draw_grid(game);
 	draw_plr(game);
@@ -347,7 +347,7 @@ int		render_frame(t_game *game)
 	draw_dir(game, 0x0000FF00);
 	mlx_put_image_to_window(game->vars.mlx, game->vars.win, game->img.img, 0, 0);
 	mlx_do_sync(game->vars.mlx);
-	mlx_destroy_image(game->vars.mlx, game->img.img);
+	// mlx_destroy_image(game->vars.mlx, game->img.img);
 	return (0);
 }
 
@@ -409,9 +409,9 @@ int	main()
 
 	game.vars.mlx = mlx_init();
 	game.vars.win = mlx_new_window(game.vars.mlx, width, height, "Raycaster2D");
-	// game.img.img = mlx_new_image(game.vars.mlx, width, height);
-	// game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
-	// 	&game.img.endian);
+	game.img.img = mlx_new_image(game.vars.mlx, width, height);
+	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
+		&game.img.endian);
 
 	game.plr.pos.x = 12;
 	game.plr.pos.y = 12;

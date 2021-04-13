@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 19:49:16 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/12 19:22:51 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/13 17:27:16 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@
 # define RESET			0b00000000
 
 typedef unsigned int	t_uint;
+typedef unsigned int	t_bool;
 
-typedef struct	s_win
+typedef struct s_win
 {
 	void		*mlx;
 	void		*win;
@@ -48,7 +49,7 @@ typedef struct	s_win
 	int			h;
 }				t_win;
 
-typedef struct	s_image
+typedef struct s_image
 {
 	void		*img;
 	char		*addr;
@@ -57,50 +58,56 @@ typedef struct	s_image
 	int			endian;
 }				t_image;
 
-typedef struct	s_texture
+typedef struct s_texture
 {
 	t_image		img;
 	int			w;
 	int			h;
 }				t_texture;
 
-typedef struct	s_point
+typedef struct s_point
 {
 	double		x;
 	double		y;
 }				t_point;
 
-typedef struct	s_sprite
-{
-	t_texture	tex;
-	double		*distances;
-	t_point		*positions;
-	size_t		count;
-	double		matrix[2][2];
-	int			w;
-	int			h;
-}				t_sprite;
-
-typedef struct	s_point_i
+typedef struct s_point_i
 {
 	int			x;
 	int			y;
 }				t_point_i;
 
-typedef struct	s_vector
+typedef struct s_sprite
+{
+	t_texture	tex;
+	double		*distances;
+	double		*zbuf;
+	t_point		*positions;
+	t_point_i	draw_start;
+	t_point_i	draw_end;
+	size_t		count;
+	double		matrix[2][2];
+	int			spr_scr_x;
+	int			spr_scr_size;
+	int			v_move_scr;
+	int			w;
+	int			h;
+}				t_sprite;
+
+typedef struct s_vector
 {
 	double		x;
 	double		y;
 }				t_vector;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	t_point		pos;
 	t_vector	dir;
 	t_vector	cam_plane;
 }				t_player;
 
-typedef struct	s_raycast
+typedef struct s_raycast
 {
 	int			draw_start;
 	int			draw_end;
@@ -112,7 +119,7 @@ typedef struct	s_raycast
 	t_point_i	step;
 }				t_raycast;
 
-typedef struct	s_game
+typedef struct s_game
 {
 	t_uint		press_flags;
 	t_win		win;
@@ -130,7 +137,7 @@ typedef struct	s_game
 	size_t		img_size;
 }				t_game;
 
-typedef	struct	s_opt
+typedef struct s_opt
 {
 	int		r[3];
 	char	*so;

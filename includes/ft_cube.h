@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 04:52:24 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/12 19:09:44 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/13 13:55:58 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,5 @@ void	ft_raycast(t_game *game);
 void	player_control(t_game *game);
 void	player_rotate(t_player *plr, const double rot_speed);
 // end game control
-
-// temp
 
 #endif

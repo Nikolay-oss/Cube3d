@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 07:31:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/12 20:53:51 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/13 20:27:59 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ int		init_cube(t_game *game, t_opt *opt)
 	game->plr.dir.y = 0;
 	game->plr.cam_plane.x = 0;
 	game->plr.cam_plane.y = 0.66;
+	game->spr.distances = (double *)ft_calloc(1, sizeof(double));
+	game->spr.zbuf = (double *)ft_calloc(game->win.w, sizeof(double));
+	game->spr.positions = (t_point *)ft_calloc(1, sizeof(t_point));
+	game->spr.positions[0].x = 13.5;
+	game->spr.positions[0].y = 6.5;
+	game->spr.count = 1;
+	
 	destroy_options_mem(opt, 0);
 	return (1);
 }
