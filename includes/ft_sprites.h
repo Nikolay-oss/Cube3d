@@ -15,7 +15,7 @@
 # include "data_types.h"
 
 void	ft_sprites(t_game *game);
-void	ft_sort(double *distances, size_t count);
+void	ft_sort(double *distances, t_point *pos, size_t count);
 void	draw_sprite(const t_game *game, const t_sprite *spr,
 	const t_point *tr_p);
 

@@ -336,8 +336,8 @@ int			raycaster(t_game *game)
 	}
 
 	int i = 0;
-	sprite[0].x = 2;
-	sprite[0].y = 2;
+	sprite[0].x = 2.5;
+	sprite[0].y = 2.5;
 	// sprite[1].x = 4;
 	// sprite[1].y = 2;
 	// sprite[2].x = 2;
@@ -363,13 +363,8 @@ int			raycaster(t_game *game)
 
 		int sprite_scr_x = (int)((width / 2) * (1 + tr_x / tr_y));
 
-		// убрать нахер
-		#define uDiv 1
-      	#define vDiv 1
-      	#define vMove 0.0
-		// -------------
-		int v_move_scr = (int)(vMove / tr_y);
-		int sprite_h = abs((int)(height / tr_y)) / vDiv;
+		int v_move_scr = (int)(0.0 / tr_y);
+		int sprite_h = abs((int)(height / tr_y));
 		int draw_start_y = -sprite_h / 2 + height / 2 + v_move_scr;
 		if (draw_start_y < 0)
 			draw_start_y = 0;
@@ -377,7 +372,7 @@ int			raycaster(t_game *game)
 		if (draw_end_y >= height)
 			draw_end_y = height - 1;
 
-		int sprite_w = abs((int)(height / tr_y)) / uDiv;
+		int sprite_w = abs((int)(height / tr_y));
 		int draw_start_x = -sprite_w / 2 + sprite_scr_x;
 		if (draw_start_x < 0)
 			draw_start_x = 0;

@@ -12,6 +12,7 @@
 
 #include "ft_sprites.h"
 #include "math_func.h"
+#include <stdio.h>
 
 void	calc_dists2_to_sprites(t_game *game, const size_t spr_count)
 {
@@ -53,12 +54,9 @@ void	calc_sprite_drawing_borders(t_game *game, const t_point *tr_p)
 	win_size.y = game->win.h;
 	spr = &game->spr;
 	spr->spr_scr_x = (int)((win_size.x / 2) * (1 + tr_p->x / tr_p->y));
-	spr->v_move_scr = (int)(1 / tr_p->y);
 	spr->spr_scr_size = abs((int)(win_size.y / tr_p->y));
-	spr->draw_start.y = -spr->spr_scr_size / 2 + win_size.y / 2 +
-		spr->v_move_scr;
-	spr->draw_end.y = spr->spr_scr_size / 2 + win_size.y / 2 +
-		spr->v_move_scr;
+	spr->draw_start.y = -spr->spr_scr_size / 2 + win_size.y / 2;
+	spr->draw_end.y = spr->spr_scr_size / 2 + win_size.y / 2;
 	spr->draw_start.x = -spr->spr_scr_size / 2 + spr->spr_scr_x;
 	spr->draw_end.x = spr->spr_scr_size / 2 + spr->spr_scr_x;
 	correct_draw_borders(&game->spr, &win_size);
@@ -79,9 +77,9 @@ void	ft_sprites(t_game *game)
 	t_point	relative_spr_pos;
 
 	calc_dists2_to_sprites(game, game->spr.count);
-	ft_sort(game->spr.distances, game->spr.count);
+	ft_sort(game->spr.distances, game->spr.positions, game->spr.count);
+	init_matrix(game->spr.matrix, &game->plr);
 	i = 0;
-	init_matrix((double **)game->spr.matrix, &game->plr);
 	while (i < game->spr.count)
 	{
 		relative_spr_pos.x = (game->spr.positions + i)->x - game->plr.pos.x;

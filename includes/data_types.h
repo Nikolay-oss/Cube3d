@@ -86,12 +86,9 @@ typedef struct s_sprite
 	t_point_i	draw_start;
 	t_point_i	draw_end;
 	size_t		count;
-	double		matrix[2][2];
+	double		**matrix;
 	int			spr_scr_x;
 	int			spr_scr_size;
-	int			v_move_scr;
-	int			w;
-	int			h;
 }				t_sprite;
 
 typedef struct s_vector

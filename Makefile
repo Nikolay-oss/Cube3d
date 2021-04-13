@@ -4,9 +4,9 @@ NAME		= cub3D
 
 INCLUDES	= ./includes/
 
-MLX			= ./mlx/
+# MLX			= ./mlx/
 
-# MLX			= ./minilibx-linux/
+MLX			= ./minilibx-linux/
 
 PARS_DIR	= ./parser/
 
@@ -26,9 +26,9 @@ CFLAGS		= #-Wall -Wextra -Werror
 
 OBJS		= $(SRCS:.c=.o)
 
-LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
+# LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
 
-# LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
+LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
 
 all:	$(NAME)
 # don't forget about dylib!!!!!!!!!!

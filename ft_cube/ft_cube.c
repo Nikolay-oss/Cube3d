@@ -71,7 +71,7 @@ int		init_cube(t_game *game, t_opt *opt)
 	game->win.h = opt->r[1];
 	game->color_ceil = get_color(0, opt->c[0], opt->c[1], opt->c[2]);	
 	game->color_floor = get_color(0, opt->f[0], opt->f[1], opt->f[2]);
-	game->img_size = game->win.h * game->img.line_length +
+	game->img_size = (game->win.h - 0) * game->img.line_length +
 		game->win.w * (game->img.bits_per_pixel / 8);
 	game->map = opt->map;
 	// game->plr.pos.x = 2.5;//11.5;
@@ -82,13 +82,20 @@ int		init_cube(t_game *game, t_opt *opt)
 	game->plr.dir.y = 0;
 	game->plr.cam_plane.x = 0;
 	game->plr.cam_plane.y = 0.66;
-	game->spr.distances = (double *)ft_calloc(1, sizeof(double));
+	game->spr.count = 3;
+	game->spr.distances = (double *)ft_calloc(game->spr.count, sizeof(double));
 	game->spr.zbuf = (double *)ft_calloc(game->win.w, sizeof(double));
-	game->spr.positions = (t_point *)ft_calloc(1, sizeof(t_point));
-	game->spr.positions[0].x = 13.5;
+	game->spr.positions = (t_point *)ft_calloc(game->spr.count, sizeof(t_point));
+	game->spr.positions[0].x = 9.5;
 	game->spr.positions[0].y = 6.5;
-	game->spr.count = 1;
-	
+	game->spr.positions[1].x = 9.5;
+	game->spr.positions[1].y = 4.5;
+	game->spr.positions[2].x = 9.5;
+	game->spr.positions[2].y = 9.5;
+	game->spr.matrix = (double **)ft_calloc(2, sizeof(double *));
+	int i = 0;
+	while (i < 2)
+		*(game->spr.matrix + i++) = (double *)ft_calloc(2, sizeof(double));
 	destroy_options_mem(opt, 0);
 	return (1);
 }
