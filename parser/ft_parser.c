@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/12 19:09:32 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/21 06:39:08 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ void	ft_parser(t_opt *opt, char *filename)
 		exit_error(4, opt, NULL, map_lines);
 	close(fd);
 	make_map(opt, map_lines);
+	map_parser(opt);
 	ft_lst_clear(map_lines, &free);
 }

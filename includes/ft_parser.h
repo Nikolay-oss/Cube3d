@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:19:27 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 20:20:30 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/21 06:38:22 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@ int				check_comma(char *str);
 int				skip_spaces(char *line);
 void			save_mapline(t_opt *opt, t_list *map_lines, char *line);
 void			make_map(t_opt *opt, t_list *map_lines);
+t_bool			compare_symbs(const char *str, const char *str_cmp,
+								const size_t strcmp_size);
+void			map_parser(t_opt *opt);
 
 #endif

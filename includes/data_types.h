@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 19:49:16 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/13 17:27:16 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/21 05:41:31 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,12 @@ typedef struct s_game
 	size_t		img_size;
 }				t_game;
 
+typedef struct s_map
+{
+	size_t	rows;
+	char	**map;
+}			t_map;
+
 typedef struct s_opt
 {
 	int		r[3];
@@ -144,7 +150,7 @@ typedef struct s_opt
 	char	*s;
 	int		f[4];
 	int		c[4];
-	char	**map;
+	t_map	map;
 	int		eflag;
 	int		count;
 }				t_opt;
