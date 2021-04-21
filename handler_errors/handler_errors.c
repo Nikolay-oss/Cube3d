@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:50:31 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/12 15:17:32 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/21 03:09:48 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static void	select_error(const int code_error)
 		ft_putstr_fd("Error: Invalid setting of option R\n", 1);
 	else if (code_error == 8)
 		ft_putstr_fd("Error: Invalid setting of option color\n", 1);
+	else if (code_error == 9)
+		ft_putstr_fd("Error: Invalid map\n", 1);
+	else if (code_error == 10)
+		ft_putstr_fd("Error: More than one map detected\n", 1);
 }
 
 void		exit_error(const int code_error, t_opt *opt, t_game *game, t_list *lst)

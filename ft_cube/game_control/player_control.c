@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:20:07 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/12 19:24:23 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/20 22:47:22 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		player_control(t_game *game)
 	double	move_speed;
 	double	rot_speed;
 
-	move_speed = 0.1;
+	move_speed = 0.1012;
 	rot_speed = 0.07;
 	if (game->press_flags & W_PRESS)
 		move_forward((const char**)game->map, &game->plr, move_speed);

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:07:43 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 16:36:14 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/20 22:49:44 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	draw_vertline(t_image *img, int x, int draw_range[2], int color)
 	int y;
 
 	y = draw_range[0];
-	while (y <= draw_range[1])
+	while (y < draw_range[1])
 	{
 		ft_pixel_put(img, x, y, color);
 		y++;

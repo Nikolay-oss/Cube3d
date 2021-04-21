@@ -5,64 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/12 20:12:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/12 19:09:27 by dkenchur         ###   ########.fr       */
+/*   Created: 2021/04/21 04:18:40 by dkenchur          #+#    #+#             */
+/*   Updated: 2021/04/21 06:38:36 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 #include "handler_errors.h"
-#include <stdio.h>
 
-// убрать если не понадобится
-// int		check_map_line(t_opt *opt, char *line)
-// {
-// 	size_t	i;
-// 	size_t	str_size;
-
-// 	i = 0;
-// 	str_size = ft_strlen(line);
-// 	while (i < str_size)
-// 	{
-// 		if (!ft_memchr(" 1", *(line + i), 2))
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-void	save_mapline(t_opt *opt, t_list *map_lines, char *line)
+t_bool	compare_symbs(const char *str, const char *str_cmp,
+						const size_t strcmp_size)
 {
-	if (!map_lines->size && !check_symbs(line))
-	{
-		free(line);
-		return ;
-	}
-	// check last map line
-	// if ()
-	// use check_map_line or make map and check
-	ft_push_back(map_lines, line);
-}
-
-void	make_map(t_opt *opt, t_list *map_lines)
-{
-	t_node	*node;
-	size_t	line_size;
 	size_t	i;
 
-	if (!(opt->map = (char**)ft_calloc(map_lines->size + 1, sizeof(char*))))
-		exit_error(5, opt, NULL, map_lines);
 	i = 0;
-	node = map_lines->head;
-	while (i < map_lines->size)
+	while (*(str + i))
 	{
-		line_size = ft_strlen((const char*)node->content);
-		*(opt->map + i) = (char*)ft_calloc(line_size + 1, sizeof(char));
-		if (!*(opt->map + i))
-			exit_error(5, opt, NULL, map_lines);
-		ft_strlcpy(*(opt->map + i), (const char*)node->content, line_size + 1);
-		node = node->next;
+		if (!ft_memchr(str_cmp, *(str + i), strcmp_size))
+			return (0);
 		i++;
 	}
-	*(opt->map + i) = NULL;
+	return (1);
+}
+
+static void	check_map_borders(t_opt *opt)
+{
+	if (!compare_symbs(*opt->map.map, " 1", 2))
+		exit_error(9, opt, NULL, NULL);
+	if (!compare_symbs(*(opt->map.map + opt->map.rows - 1), " 1", 2))
+		exit_error(9, opt, NULL, NULL);
+}
+
+void	map_parser(t_opt *opt)
+{
+	check_map_borders(opt);
 }

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:50:35 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 19:59:08 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/21 05:35:48 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		destroy_options_mem(t_opt *opt, int isfreemap)
 		free(opt->s);
 	opt->s = NULL;
 	if (isfreemap)
-		destroy_map(opt->map);
+		destroy_map(opt->map.map);
 	free(opt);
 	opt = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 07:31:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/13 20:27:59 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/21 05:33:44 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ int		init_cube(t_game *game, t_opt *opt)
 	game->color_floor = get_color(0, opt->f[0], opt->f[1], opt->f[2]);
 	game->img_size = (game->win.h - 0) * game->img.line_length +
 		game->win.w * (game->img.bits_per_pixel / 8);
-	game->map = opt->map;
+	game->map = opt->map.map;
 	// game->plr.pos.x = 2.5;//11.5;
 	// game->plr.pos.y = 2.5;//6.5;
 	game->plr.pos.x = 11.5;
 	game->plr.pos.y = 6.5;
-	game->plr.dir.x = -0.99;
+	game->plr.dir.x = -1;
 	game->plr.dir.y = 0;
 	game->plr.cam_plane.x = 0;
 	game->plr.cam_plane.y = 0.66;
@@ -86,12 +86,12 @@ int		init_cube(t_game *game, t_opt *opt)
 	game->spr.distances = (double *)ft_calloc(game->spr.count, sizeof(double));
 	game->spr.zbuf = (double *)ft_calloc(game->win.w, sizeof(double));
 	game->spr.positions = (t_point *)ft_calloc(game->spr.count, sizeof(t_point));
-	game->spr.positions[0].x = 9.5;
+	game->spr.positions[0].x = 8.5;
 	game->spr.positions[0].y = 6.5;
-	game->spr.positions[1].x = 9.5;
-	game->spr.positions[1].y = 4.5;
-	game->spr.positions[2].x = 9.5;
-	game->spr.positions[2].y = 9.5;
+	game->spr.positions[1].x = 8.5;
+	game->spr.positions[1].y = 3.5;
+	game->spr.positions[2].x = 8.5;
+	game->spr.positions[2].y = 10.5;
 	game->spr.matrix = (double **)ft_calloc(2, sizeof(double *));
 	int i = 0;
 	while (i < 2)

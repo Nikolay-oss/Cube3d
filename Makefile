@@ -4,9 +4,9 @@ NAME		= cub3D
 
 INCLUDES	= ./includes/
 
-# MLX			= ./mlx/
+MLX			= ./mlx/
 
-MLX			= ./minilibx-linux/
+# MLX			= ./minilibx-linux/
 
 PARS_DIR	= ./parser/
 
@@ -20,15 +20,16 @@ SRCS		= gnl/get_next_line.c main.c $(PARS_DIR)ft_parser.c $(PARS_DIR)check_optio
 			  $(PARS_DIR)utils.c $(PARS_DIR)map_parser.c	  $(CUBE_DIR)ft_cube.c			$(GAME_DIR)ft_events.c \
 			  $(CUBE_DIR)ft_paint.c	$(RAYCAST_DIR)draw_wall.c	$(RAYCAST_DIR)ft_raycast.c	$(GAME_DIR)player_control.c \
 			  $(GAME_DIR)player_rotate.c	destroy_memory/destroy_mem.c	handler_errors/handler_errors.c \
-			  $(CUBE_DIR)ft_sort.c			$(CUBE_DIR)math_func.c	$(RAYCAST_DIR)ft_sprites.c $(RAYCAST_DIR)draw_sprite.c
+			  $(CUBE_DIR)ft_sort.c			$(CUBE_DIR)math_func.c	$(RAYCAST_DIR)ft_sprites.c $(RAYCAST_DIR)draw_sprite.c \
+			  $(PARS_DIR)make_map.c
 
 CFLAGS		= #-Wall -Wextra -Werror
 
 OBJS		= $(SRCS:.c=.o)
 
-# LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
+LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
 
-LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
+# LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
 
 all:	$(NAME)
 # don't forget about dylib!!!!!!!!!!
