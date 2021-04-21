@@ -1,6 +1,6 @@
 R 1920  1080
 NO       ./textures/eagle.xpm
-SO ./textures/barrel.xpm
+SO ./textures/test.xpm
 WE    ./textures/mossy.xpm
 EA ./textures/redbrick_1.xpm
 
