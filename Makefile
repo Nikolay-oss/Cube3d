@@ -45,7 +45,7 @@ all:	$(NAME)
 %.o:	%.c
 		$(CC) -g $(CFLAGS) -I$(INCLUDES) -I$(MLX) -c $< -o $@
 
-$(NAME):	$(OBJS) $(INCLUDES)*
+$(NAME):	$(OBJS)
 		make -C libft/
 		# make -C $(MLX)
 		# mv $(MLX)/libmlx.dylib .
