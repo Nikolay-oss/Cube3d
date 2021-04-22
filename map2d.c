@@ -12,6 +12,32 @@
 #define	PSQUARE 30
 #define OFFSET	200
 
+#define ESC_U 65307
+#define W_U 'w'
+#define A_U 'a'
+#define S_U 's'
+#define D_U 'd'
+#define L_ARROW_U 65361
+#define R_ARROW_U 65363
+
+#define ESC 53
+#define W 13
+#define A 0
+#define S 1
+#define D 2
+#define L_ARROW 123
+#define R_ARROW 124
+
+#define W_PRESS			0b00000001
+#define A_PRESS			0b00000010
+#define S_PRESS			0b00000100
+#define D_PRESS			0b00001000
+#define L_ARROW_PRESS	0b00010000
+#define R_ARROW_PRESS	0b00100000
+#define RESET			0b00000000
+
+unsigned int flags = 0;
+
 int worldMap[mapWidth][mapHeight]=
 {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -329,8 +355,8 @@ void	raycaster(t_game *game)
 
 int		render_frame(t_game *game)
 {
-	ft_bzero(game->img.addr, (height - 1) * game->img.line_length +
-		(width - 0) * (game->img.bits_per_pixel / 8));
+	ft_bzero(game->img.addr, (height - 0) * game->img.line_length +
+		(width - 1) * (game->img.bits_per_pixel / 8));
 	// draw fun
 	// game->img.img = mlx_new_image(game->vars.mlx, width, height);
 	// game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,

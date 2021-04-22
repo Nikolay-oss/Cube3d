@@ -14,7 +14,6 @@
 #include "ft_cube.h"
 #include "handler_errors.h"
 #include "libft.h"
-#include <stdio.h>
 
 int	main(int ac, char **av)
 {
@@ -29,11 +28,9 @@ int	main(int ac, char **av)
 	ft_parser(opt, *(av + 1));
 	if (!(game = (t_game*)ft_calloc(1, sizeof(t_game))))
 		exit_error(5, opt, game, NULL);
-	// printf("game_size -> %lu\n", sizeof(t_game));
 	init_cube(game, opt);
-	if (ac == 3)
-		; // screen
+	// if (ac == 3)
+	// 	; // screen
 	ft_cube(game);
-	// sleep(1000);
 	return (0);
 }

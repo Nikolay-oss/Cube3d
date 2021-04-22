@@ -39,7 +39,7 @@ void	save_mapline(t_opt *opt, t_list *map_lines, char *line)
 		ft_push_back(map_lines, NULL);
 		return ;
 	}
-	if (!check_map_line(line, curr_idx, &compare_symbs))
+	if (!check_map_line(line, curr_idx, &compare_strsymbs))
 		exit_error(9, opt, NULL, map_lines);
 	if (map_lines->size > 0 && !map_lines->tail->content)
 		exit_error(10, opt, NULL, map_lines);

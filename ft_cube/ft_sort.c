@@ -37,9 +37,7 @@ static void	ft_swap_points(t_point *a, t_point *b)
 
 void	ft_sort(double *distances, t_point *pos, size_t count)
 {
-	double	tmp;
 	t_bool	isswap;
-	t_point	p;
 	size_t	i;
 	size_t	j;
 

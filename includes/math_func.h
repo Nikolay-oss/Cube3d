@@ -17,5 +17,6 @@
 double	ft_pow2(double arg);
 void	transform_point(const t_game *game,
 	const t_point *relative_spr_pos, t_point *tr_point);
+t_bool	isnear(t_point *spr_pos, t_point *plr_pos, double precision);
 
 #endif

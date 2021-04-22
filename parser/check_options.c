@@ -12,16 +12,15 @@
 
 #include "ft_parser.h"
 #include "libft.h"
-#include <stdio.h>
 
-int				check_r(t_opt *opt, char *param)
+int	check_r(t_opt *opt, char *param)
 {
 	char	**resolution;
 	int 	count;
 	int 	digit_count;
 
 	if (opt->r[2])
-		return (6); // duplicate line
+		return (6);
 	if (!(resolution = ft_split(param, ' ')))
 		return (5);
 	count = 0;
@@ -29,9 +28,9 @@ int				check_r(t_opt *opt, char *param)
 		count++;
 	digit_count = 0;
 	if (count != 2)
-		return (split_line_free(resolution, 7)); // error
+		return (split_line_free(resolution, 7));
 	else if (!check_digit(resolution, &digit_count)) // rewrite!
-		return (split_line_free(resolution, 7)); // error
+		return (split_line_free(resolution, 7));
 	// добавить установку максимального разрешения, если подано разрешение больше максимального разрешения экрана
 	while (count--)
 		opt->r[count] = ft_atoi(*(resolution + count));
@@ -41,7 +40,7 @@ int				check_r(t_opt *opt, char *param)
 	return (0);
 }
 
-int				check_path_opt(t_opt *opt, char **option, char *param)
+int	check_path_opt(t_opt *opt, char **option, char *param)
 {
 	if (*option)
 		return (6);
@@ -56,7 +55,7 @@ int				check_path_opt(t_opt *opt, char **option, char *param)
 	return (0);
 }
 
-static	char	**check_color_line(char *line)
+static char	**check_color_line(char *line)
 {
 	char	**params;
 	int		count;
@@ -69,7 +68,7 @@ static	char	**check_color_line(char *line)
 	return (params);
 }
 
-static	int		check_nbrs(char **params)
+static t_bool	check_nbrs(char **params)
 {
 	int	i;
 	int	j;
@@ -92,9 +91,9 @@ static	int		check_nbrs(char **params)
 		}
 		j += skip_spaces(*(params + i) + j);
 		if (*(*(params + i) + j) && *(*(params + i) + j) != ' ')
-			return (1); //   invalid symbol
+			return (1);
 		else if (count > 3)
-			return (1); // число больше 3 знаков, значит больше максимального 255
+			return (1);
 		else if (!count && !zero_count)
 			return (1);
 		i++;
@@ -102,7 +101,7 @@ static	int		check_nbrs(char **params)
 	return (0);
 }
 
-int				check_color_opt(t_opt *opt, int *option, char *param)
+int	check_color_opt(t_opt *opt, int *option, char *param)
 {
 	char	**color_map;
 	int		count;
@@ -115,7 +114,7 @@ int				check_color_opt(t_opt *opt, int *option, char *param)
 	while (*(color_map + count))
 		count++;
 	if (count != 3)
-		return (split_line_free(color_map, 8)); // invalid color
+		return (split_line_free(color_map, 8));
 	if (check_nbrs(color_map))
 		return (split_line_free(color_map, 8));
 	while (count--)

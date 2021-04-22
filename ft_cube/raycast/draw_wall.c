@@ -45,9 +45,9 @@ static void	choice_tex(t_game *game, t_vector *ray, t_texture **tex)
 	else if (ray->x > 0 && !game->rcast.side_map)
 		*tex = &game->tex_s;
 	else if (ray->y < 0 && game->rcast.side_map)
-		*tex = &game->tex_e;
-	else
 		*tex = &game->tex_w;
+	else
+		*tex = &game->tex_e;
 }
 
 void		draw_line_wall(t_game *game, t_vector *ray, int x)

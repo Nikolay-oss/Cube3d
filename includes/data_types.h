@@ -13,6 +13,7 @@
 #ifndef DATA_TYPES_H
 # define DATA_TYPES_H
 # include <stdlib.h>
+# include "libft.h"
 
 # define ESC_U 65307
 # define W_U 'w'
@@ -142,17 +143,20 @@ typedef struct s_map
 
 typedef struct s_opt
 {
-	int		r[3];
-	char	*so;
-	char	*no;
-	char	*we;
-	char	*ea;
-	char	*s;
-	int		f[4];
-	int		c[4];
-	t_map	map;
-	int		eflag;
-	int		count;
+	int			r[3];
+	char		*so;
+	char		*no;
+	char		*we;
+	char		*ea;
+	char		*s;
+	int			f[4];
+	int			c[4];
+	t_map		map;
+	t_player	plr;
+	t_point		*spr_positions;
+	size_t		sprites_count;
+	int			eflag;
+	int			count;
 }				t_opt;
 
 #endif

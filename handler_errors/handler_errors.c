@@ -14,6 +14,20 @@
 #include "libft.h"
 #include <stdio.h>
 
+static void	select_error2(const int code_error)
+{
+	if (code_error == 9)
+		ft_putstr_fd("Error: Invalid map\n", 1);
+	else if (code_error == 10)
+		ft_putstr_fd("Error: More than one map detected\n", 1);
+	else if (code_error == 11)
+		ft_putstr_fd("Error: Map not found\n", 1);
+	else if (code_error == 12)
+		ft_putstr_fd("Error: There can be only one player\n", 1);
+	else if (code_error == 13)
+		ft_putstr_fd("Error: Player not found\n", 1);
+}
+
 static void	select_error(const int code_error)
 {
 	if (code_error == 1)
@@ -28,10 +42,7 @@ static void	select_error(const int code_error)
 		ft_putstr_fd("Error: Invalid setting of option R\n", 1);
 	else if (code_error == 8)
 		ft_putstr_fd("Error: Invalid setting of option color\n", 1);
-	else if (code_error == 9)
-		ft_putstr_fd("Error: Invalid map\n", 1);
-	else if (code_error == 10)
-		ft_putstr_fd("Error: More than one map detected\n", 1);
+	select_error2(code_error);
 }
 
 void		exit_error(const int code_error, t_opt *opt, t_game *game, t_list *lst)

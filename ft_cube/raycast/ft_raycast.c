@@ -14,7 +14,6 @@
 #include "ft_paint.h"
 #include "ft_sprites.h"
 #include <math.h>
-#include <stdio.h>
 
 static void	choice_dir_x(t_game *game, t_vector *ray, t_point_i *ray_map)
 {
@@ -98,7 +97,6 @@ static void	find_ray_collision(t_game *game, t_vector *ray, t_point_i *ray_map)
 			ray_map->y += game->rcast.step.y;
 			game->rcast.side_map = 1;
 		}
-		// printf("x -> %d\t y -> %d\n", ray_map->x, ray_map->y);
 		if (game->map[ray_map->x][ray_map->y] == '1')
 			break ;
 	}
@@ -113,7 +111,6 @@ void		ft_raycast(t_game *game)
 	t_point_i	ray_map;
 
 	x = 0;
-	// printf("x -> %lf\ty -> %lf\n", game->plr.pos.x, game->plr.pos.y);
 	while (x < game->win.w)
 	{
 		cam_plane = 2 * x / (double)game->win.w - 1;
@@ -131,5 +128,6 @@ void		ft_raycast(t_game *game)
 		game->spr.zbuf[x] = game->rcast.dist_to_wall;
 		x++;
 	}
-	ft_sprites(game);
+	if (game->spr.count)
+		ft_sprites(game);
 }

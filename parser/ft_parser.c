@@ -47,19 +47,17 @@ void	check_options(t_opt *opt, char *param)
 	else if (!ft_strncmp(param, "C  ", 2))
 		{opt->eflag = check_color_opt(opt, opt->c, param + 1);printf("|C|: color -> %d, %d, %d\n", opt->c[0], opt->c[1], opt->c[2]);}
 	else
-		opt->eflag = check_symbs(param); //  brain on, please!!!!! wait! -> check_symbs(param, code_error)
-	// printf("%d\n", ft_strncmp("NO    ./path/to_the/south/NO_texture.xpm", "NO ", 3));
-	return ;
+		opt->eflag = check_symbs(param);
 }
 
-int		check_ext(char *filename, const char *set)
+t_bool	check_ext(char *filename, const char *set)
 {
 	char *p_point;
 
 	if (!(p_point = ft_strrchr(filename, '.')))
-		return (0); // error
+		return (0);
 	if (ft_strncmp(p_point, set, 4) != 0)
-		return (0); // error
+		return (0);
 	return (1);
 }
 
@@ -96,6 +94,8 @@ void	ft_parser(t_opt *opt, char *filename)
 	t_list	*map_lines;
 
 	map_lines = ft_create_lst();
+	if (!map_lines)
+		exit_error(5, opt, NULL, NULL);
 	if (!check_ext(filename, ".cub"))
 		exit_error(2, opt, NULL, map_lines);
 	if ((fd = open(filename, O_RDONLY)) < 0)

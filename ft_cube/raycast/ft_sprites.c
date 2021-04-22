@@ -12,7 +12,6 @@
 
 #include "ft_sprites.h"
 #include "math_func.h"
-#include <stdio.h>
 
 void	calc_dists2_to_sprites(t_game *game, const size_t spr_count)
 {
@@ -82,6 +81,8 @@ void	ft_sprites(t_game *game)
 	i = 0;
 	while (i < game->spr.count)
 	{
+		if (isnear(game->spr.positions + i, &game->plr.pos, 0.1))
+			return ;
 		relative_spr_pos.x = (game->spr.positions + i)->x - game->plr.pos.x;
 		relative_spr_pos.y = (game->spr.positions + i)->y - game->plr.pos.y;
 		transform_point(game, &relative_spr_pos, &tr_point);

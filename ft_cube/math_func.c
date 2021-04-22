@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "math_func.h"
+#include <math.h>
 
 double	ft_pow2(const double arg)
 {
@@ -36,4 +37,16 @@ void	transform_point(const t_game *game,
 		dir->x * relative_spr_pos->y);
 	tr_point->y = inv_det * (-plane->y * relative_spr_pos->x +
 		plane->x * relative_spr_pos->y);
+}
+
+t_bool	isnear(t_point *spr_pos, t_point *plr_pos, double precision)
+{
+	double	delta_x;
+	double	delta_y;
+
+	delta_x = fabs(plr_pos->x - spr_pos->x);
+	delta_y = fabs(plr_pos->y - spr_pos->y);
+	if (delta_x < precision && delta_y < precision)
+		return (1);
+	return (0);
 }

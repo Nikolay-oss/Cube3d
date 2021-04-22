@@ -15,8 +15,10 @@
 # include "data_types.h"
 # include "mlx.h"
 
-void	destroy_options_mem(t_opt *opt, int isfreemap);
+void	destroy_options_mem(t_opt *opt, int isfree);
 void	destroy_game_mem(t_game *game);
+void	destroy_sptite_memory(t_game *game);
+void	destroy_general_memory(char **map, t_point *spr_positions);
 void	destroy_all(t_opt *opt, t_game *game);
 
 #endif

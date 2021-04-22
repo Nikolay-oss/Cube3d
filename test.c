@@ -77,16 +77,32 @@ void		ft_sort(int *spriteOrder, double *sprites_dist, int count)
 
 int	main()
 {
-	double a[5] = {2, 3, 1, 8, 4};
-	int b[5] = {0, 1, 2, 3, 4};
-	ft_sort(b, a, 5);
-	int i = 0;
-	while (i < 5)
-	{
-		printf("%lf ", a[i]);
-		i++;
-	}
-	printf("\n");
+
+	// char *str = "abc";
+	// size_t i;
+
+	// i = 0;
+	// while (*(str + i))
+	// {
+	// 	if (*(str + i) == 'a')
+	// 	{
+	// 		i++;
+	// 		continue;
+	// 	}
+	// 	printf("%c", *(str + i));
+	// 	i++;
+	// }
+	// printf("\n");
+	// double a[5] = {2, 3, 1, 8, 4};
+	// int b[5] = {0, 1, 2, 3, 4};
+	// ft_sort(b, a, 5);
+	// int i = 0;
+	// while (i < 5)
+	// {
+	// 	printf("%lf ", a[i]);
+	// 	i++;
+	// }
+	// printf("\n");
 	// t_point	plr_pos;
 	// t_point ray_pos;
 	// double	fov = M_PI / 3; // 60 degrees -> (M_PI / 3) * 180 / M_PI

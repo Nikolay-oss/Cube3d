@@ -13,7 +13,7 @@
 #include "ft_parser.h"
 #include "libft.h"
 
-int		check_symbs(char *line)
+t_bool	check_symbs(char *line)
 {
 	size_t	i;
 
@@ -29,7 +29,7 @@ int		check_symbs(char *line)
 
 int		split_line_free(char **strs, int errorcode)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (*(strs + i))
@@ -39,7 +39,7 @@ int		split_line_free(char **strs, int errorcode)
 }
 
 // rewrite! принимать как строку и скипать нули. Посчитать кол-во цифр
-int		check_digit(char **params, int *digit_count)
+t_bool	check_digit(char **params, int *digit_count)
 {
 	int	i;
 	int	j;

@@ -19,19 +19,13 @@
 
 int		init_cube(t_game *game, t_opt *opt);
 void	ft_cube(t_game *game);
-
-// hooks
 int		win_close(t_game *game);
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
 int		render_frame(t_game *game);
-// end hooks
-// raycast
 void	ft_raycast(t_game *game);
-// end raycast
-// game control
 void	player_control(t_game *game);
 void	player_rotate(t_player *plr, const double rot_speed);
-// end game control
+void	data_transfer(t_game *game, t_opt *opt);
 
 #endif
