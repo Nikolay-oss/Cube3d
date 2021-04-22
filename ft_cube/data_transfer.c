@@ -43,8 +43,8 @@ static void	graphic_data_transfer(t_game *game, t_opt *opt)
 	game->win.h = opt->r[1];
 	game->color_ceil = get_color(0, opt->c[0], opt->c[1], opt->c[2]);	
 	game->color_floor = get_color(0, opt->f[0], opt->f[1], opt->f[2]);
-	game->img_size = (game->win.h - 0) * game->img.line_length +
-		game->win.w * (game->img.bits_per_pixel / 8);
+	game->img_size = game->win.h * game->win.w *
+		(game->img.bits_per_pixel / 8);
 	game->map = opt->map.map;
 }
 

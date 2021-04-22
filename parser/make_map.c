@@ -14,12 +14,11 @@
 #include "handler_errors.h"
 #include <stdio.h>
 
-static t_bool	check_map_line(const char *line, size_t curr_idx,
-	t_bool (*cmp)(const char *, const char *, const size_t))
+static t_bool	check_map_line(const char *line, size_t curr_idx)
 {
 	if (*(line + curr_idx) != '1')
 		return (0);
-	if (!cmp(line + curr_idx, " 102NSWE", 8))
+	if (!compare_strsymbs(line + curr_idx, " 102NSWE", 8))
 		return (0);
 	return (1);
 }
@@ -39,7 +38,7 @@ void	save_mapline(t_opt *opt, t_list *map_lines, char *line)
 		ft_push_back(map_lines, NULL);
 		return ;
 	}
-	if (!check_map_line(line, curr_idx, &compare_strsymbs))
+	if (!check_map_line(line, curr_idx))
 		exit_error(9, opt, NULL, map_lines);
 	if (map_lines->size > 0 && !map_lines->tail->content)
 		exit_error(10, opt, NULL, map_lines);

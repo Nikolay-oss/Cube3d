@@ -14,7 +14,7 @@
 #include "destroy_memory.h"
 #include "handler_errors.h"
 
-int		load_texture(t_texture *tex, void *mlx, char *path_to_tex)
+static t_bool	load_texture(t_texture *tex, void *mlx, char *path_to_tex)
 {
 	if (!(tex->img.img = mlx_xpm_file_to_image(mlx, path_to_tex, &tex->w,
 		&tex->h)))
@@ -24,7 +24,7 @@ int		load_texture(t_texture *tex, void *mlx, char *path_to_tex)
 	return (1);
 }
 
-int		check_texs(t_game *game, t_opt *opt)
+static t_bool	check_texs(t_game *game, t_opt *opt)
 {
 	if (!load_texture(&game->tex_s, game->win.mlx, opt->so))
 		return (0);
@@ -62,7 +62,7 @@ void	ft_cube(t_game *game)
 	mlx_loop(game->win.mlx);
 }
 
-int		init_cube(t_game *game, t_opt *opt)
+void	init_cube(t_game *game, t_opt *opt)
 {
 	if (!(game->win.mlx = mlx_init()))
 		exit_error(5, opt, game, NULL);
@@ -70,5 +70,4 @@ int		init_cube(t_game *game, t_opt *opt)
 		exit_error(3, opt, game, NULL);
 	data_transfer(game, opt);
 	destroy_options_mem(opt, 0);
-	return (1);
 }

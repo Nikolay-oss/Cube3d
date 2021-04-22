@@ -355,8 +355,7 @@ void	raycaster(t_game *game)
 
 int		render_frame(t_game *game)
 {
-	ft_bzero(game->img.addr, (height - 0) * game->img.line_length +
-		(width - 1) * (game->img.bits_per_pixel / 8));
+	ft_bzero(game->img.addr, (height) * (width) * (game->img.bits_per_pixel / 8));
 	// draw fun
 	// game->img.img = mlx_new_image(game->vars.mlx, width, height);
 	// game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel, &game->img.line_length,

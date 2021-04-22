@@ -17,7 +17,7 @@
 # include "data_types.h"
 
 
-int		init_cube(t_game *game, t_opt *opt);
+void	init_cube(t_game *game, t_opt *opt);
 void	ft_cube(t_game *game);
 int		win_close(t_game *game);
 int		key_press(int keycode, t_game *game);
