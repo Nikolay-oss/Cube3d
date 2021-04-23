@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 15:19:27 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 18:36:19 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 23:36:59 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void			make_map(t_opt *opt, t_list *map_lines);
 t_bool			compare_strsymbs(const char *str, const char *str_cmp,
 					const size_t strcmp_size);
 void			map_parser(t_opt *opt);
-void			check_around_02plr(t_opt *opt, const size_t *str_sizes, size_t i,
-					size_t j);
+void			check_around_02plr(t_opt *opt, const size_t *str_sizes,
+					size_t i, size_t j);
 void			save_player_position(t_opt *opt, const char c, const size_t x,
 					const size_t y);
 void			ft_loop_digits(char **params, int *i, int *j, int *count);

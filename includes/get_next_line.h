@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 15:10:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/11 18:04:14 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 23:53:07 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,7 @@
 # endif
 
 int		get_next_line(int fd, char **line);
+int		ft_exit_code(int isexit, int res);
+int		fill_remainder(char **current, char **remainder, char **buf,
+			int *isexit);
 #endif

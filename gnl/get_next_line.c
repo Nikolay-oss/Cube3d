@@ -6,14 +6,14 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 12:35:22 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/01/19 16:11:47 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 23:56:01 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "libft.h"
 
-static	int		copy_to_line(char **str, char **line)
+static int	copy_to_line(char **str, char **line)
 {
 	char	*current;
 
@@ -28,14 +28,15 @@ static	int		copy_to_line(char **str, char **line)
 	return (1);
 }
 
-static	int		check_remainder(char **remainder, char **line)
+static int	check_remainder(char **remainder, char **line)
 {
 	char	*current;
 	char	*p_n;
 
 	if (!*remainder)
 		return (0);
-	if ((p_n = ft_strchr(*remainder, '\n')))
+	p_n = ft_strchr(*remainder, '\n');
+	if (p_n)
 	{
 		*p_n = '\0';
 		if (!copy_to_line(remainder, line))
@@ -55,52 +56,47 @@ static	int		check_remainder(char **remainder, char **line)
 	return (0);
 }
 
-static	int		get_line(int fd, char **line, char **remainder, char **buf)
+static int	get_line(int fd, char **line, char **remainder, char **buf)
 {
 	int		res;
 	char	*current;
 	int		isexit;
 
 	isexit = 1;
-	while (isexit && (res = read(fd, *buf, BUFFER_SIZE)) > 0)
+	res = read(fd, *buf, BUFFER_SIZE);
+	while (isexit && res > 0)
 	{
 		*(*buf + res) = '\0';
-		if ((current = ft_strchr(*buf, '\n')))
-		{
-			*current = '\0';
-			if (!(*remainder = ft_strdup(++current)))
-			{
-				free(*buf);
-				return (-1);
-			}
-			isexit = 0;
-		}
+		if (!fill_remainder(&current, remainder, buf, &isexit))
+			return (-1);
 		if (!copy_to_line(buf, line))
 			return (-1);
 	}
 	free(*buf);
-	if (!isexit && res > 0)
-		return (1);
-	return (res == -1 ? -1 : 0);
+	return (ft_exit_code(isexit, res));
 }
 
-int				get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	static	char	*remainder;
+	static char		*remainder;
 	int				res;
 	char			*buf;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || !line)
 		return (-1);
-	if (!(*line = ft_strdup("")))
+	*line = ft_strdup("");
+	if (!*line)
 		return (-1);
-	if ((res = check_remainder(&remainder, line)) > 0)
+	res = check_remainder(&remainder, line);
+	if (res > 0)
 		return (1);
 	else if (res == -1)
 		return (-1);
-	if (!(buf = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
 		return (-1);
-	if ((res = get_line(fd, line, &remainder, &buf)) < 0)
+	res = get_line(fd, line, &remainder, &buf);
+	if (res < 0)
 		return (-1);
 	return (res);
 }

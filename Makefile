@@ -41,21 +41,19 @@ LIBS		= -L. -lmlx -framework OpenGL -framework AppKit -lm -Llibft -lft
 # LIBS = -Lminilibx-linux/ -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -Llibft -lft # for linux
 
 all:	$(NAME)
-# don't forget about dylib!!!!!!!!!!
+
 %.o:	%.c
-		$(CC) -g $(CFLAGS) -I$(INCLUDES) -I$(MLX) -c $< -o $@
+		$(CC) $(CFLAGS) -I$(INCLUDES) -I$(MLX) -c $< -o $@
 
 $(NAME):	$(OBJS)
 		make -C libft/
 		make -C $(MLX)
-		mv $(MLX)/libmlx.dylib .
-		$(CC) -g -o $(NAME) $(CFLAGS) -O2 -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
+		$(CC) -o $(NAME) $(CFLAGS) -O2 -I$(INCLUDES) -I$(MLX) $(OBJS) $(LIBS)
 
 clean:
 		make -C libft/ clean
 		make -C $(MLX) clean
 		rm -rf $(OBJS)
-		rm -rf libmlx.dylib
 
 fclean:	clean
 		make -C libft/ fclean

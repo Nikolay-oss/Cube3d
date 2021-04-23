@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 04:52:24 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 20:44:10 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 23:36:32 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "mlx.h"
 # include "libft.h"
 # include "data_types.h"
-
 
 void	init_cube(t_game *game, t_opt *opt);
 void	ft_cube(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 19:49:16 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/21 05:41:31 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 22:55:03 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define DATA_TYPES_H
 # include <stdlib.h>
 # include "libft.h"
+
+# define WIDTH 2560
+# define HEIGHT 1440
 
 # define ESC_U 65307
 # define W_U 'w'

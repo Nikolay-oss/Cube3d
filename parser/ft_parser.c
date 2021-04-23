@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 19:14:47 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 23:33:27 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "handler_errors.h"
 #include <fcntl.h>
 
-int		skip_spaces(char *line)
+int	skip_spaces(char *line)
 {
 	int	i;
 
@@ -51,9 +51,10 @@ void	check_options(t_opt *opt, char *param)
 
 t_bool	check_ext(char *filename, const char *set)
 {
-	char *p_point;
+	char	*p_point;
 
-	if (!(p_point = ft_strrchr(filename, '.')))
+	p_point = ft_strrchr(filename, '.');
+	if (!p_point)
 		return (0);
 	if (ft_strncmp(p_point, set, 4) != 0)
 		return (0);
@@ -65,11 +66,13 @@ void	check_line(t_opt *opt, t_list *map_lines, int fd, int *res)
 	char	*line;
 	char	*param;
 
-	while ((*res = get_next_line(fd, &line)) > -1)
+	*res = get_next_line(fd, &line);
+	while (*res > -1)
 	{
 		if (opt->count != 8)
 		{
-			if (!(param = ft_strtrim(line, " ")))
+			param = ft_strtrim(line, " ");
+			if (!param)
 			{
 				free(line);
 				ft_lst_clear(map_lines, NULL);
@@ -97,7 +100,8 @@ void	ft_parser(t_opt *opt, char *filename)
 		exit_error(5, opt, NULL, NULL);
 	if (!check_ext(filename, ".cub"))
 		exit_error(2, opt, NULL, map_lines);
-	if ((fd = open(filename, O_RDONLY)) < 0)
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
 		exit_error(3, opt, NULL, map_lines);
 	check_line(opt, map_lines, fd, &res);
 	if (opt->eflag)

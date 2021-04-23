@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:50:31 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/21 03:09:48 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 23:39:33 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	select_error(const int code_error)
 	select_error2(code_error);
 }
 
-void		exit_error(const int code_error, t_opt *opt, t_game *game, t_list *lst)
+void	exit_error(const int code_error, t_opt *opt, t_game *game, t_list *lst)
 {
 	destroy_all(opt, game);
 	if (lst)

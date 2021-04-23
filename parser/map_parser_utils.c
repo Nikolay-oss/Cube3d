@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 15:14:58 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 17:49:46 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 23:35:21 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	check_around_02plr(t_opt *opt, const size_t *str_sizes, size_t i,
 	size_t j)
 {
-	const char **map;
+	const char	**map;
 	size_t		k;
 	char		around_symbs[4];
 

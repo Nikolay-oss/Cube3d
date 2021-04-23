@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:11:34 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/13 19:25:05 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 23:38:53 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 double	ft_pow2(double arg);
 void	transform_point(const t_game *game,
-	const t_point *relative_spr_pos, t_point *tr_point);
+			const t_point *relative_spr_pos, t_point *tr_point);
 t_bool	isnear(t_point *spr_pos, t_point *plr_pos, double precision);
 
 #endif

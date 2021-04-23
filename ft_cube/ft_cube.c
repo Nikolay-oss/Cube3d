@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 07:31:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 20:44:06 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 22:10:13 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	ft_cube(t_game *game)
 	if (!game->win.win)
 		exit_error(5, NULL, game, NULL);
 	init_main_image(game);
+	mlx_loop_hook(game->win.mlx, &render_frame, game);
 	mlx_hook(game->win.win, 17, 0, &win_close, game); // macOS
 	// mlx_hook(game->win.win, 33, 0, &win_close, game); // ubuntu
 	mlx_hook(game->win.win, 2, 1L<<0, &key_press, game);
 	mlx_hook(game->win.win, 3, 1L<<1, &key_release, game);
-	mlx_loop_hook(game->win.mlx, &render_frame, game);
 	mlx_loop(game->win.mlx);
 }
 

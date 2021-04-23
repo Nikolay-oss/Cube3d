@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 13:01:35 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/12 19:47:03 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 23:38:34 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,20 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_itoa(int n);
 
-typedef struct		s_node
+typedef struct s_node
 {
 	struct s_node	*next;
 	void			*content;
 }					t_node;
 
-typedef	struct		s_list
+typedef struct s_list
 {
 	t_node			*head;
 	t_node			*tail;
 	size_t			size;
 }					t_list;
 
-t_list				*ft_create_lst();
+t_list				*ft_create_lst(void);
 t_node				*ft_create_node(void *data);
 void				ft_push_front(t_list *lst, void *data);
 void				ft_push_back(t_list *lst, void *data);
