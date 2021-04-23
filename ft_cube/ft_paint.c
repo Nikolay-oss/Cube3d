@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:07:43 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/20 22:49:44 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 13:41:48 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		draw_floor(t_game *game, int x)
 	int	draw_range[2];
 
 	draw_range[0] = game->rcast.draw_end;
-	draw_range[1] = game->win.h - 1;
+	draw_range[1] = game->win.h;
 	draw_vertline(&game->img, x, draw_range, game->color_floor);
 }
 

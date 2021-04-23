@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 20:12:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/21 06:38:53 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 14:03:38 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	save_mapline(t_opt *opt, t_list *map_lines, char *line)
 	if (!*(line + curr_idx))
 	{
 		ft_push_back(map_lines, NULL);
+		free(line);
 		return ;
 	}
 	if (!check_map_line(line, curr_idx))

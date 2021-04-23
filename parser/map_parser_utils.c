@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parser_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/23 15:14:58 by dkenchur          #+#    #+#             */
+/*   Updated: 2021/04/23 17:49:46 by dkenchur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_parser.h"
 #include "handler_errors.h"
-// рассчитывать длины строк в follow_linemap
+
 void	check_around_02plr(t_opt *opt, const size_t *str_sizes, size_t i,
 	size_t j)
 {
@@ -20,7 +32,7 @@ void	check_around_02plr(t_opt *opt, const size_t *str_sizes, size_t i,
 	k = 0;
 	while (k < 4)
 	{
-		if (!ft_memchr("012NSWE", *around_symbs, 7))
+		if (!ft_memchr("012NSWE", around_symbs[k], 7))
 			exit_error(9, opt, NULL, NULL);
 		k++;
 	}

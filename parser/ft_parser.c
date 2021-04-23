@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/21 06:39:08 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 19:14:47 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "ft_parser.h"
 #include "handler_errors.h"
 #include <fcntl.h>
-#include <stdio.h>
 
 int		skip_spaces(char *line)
 {
@@ -31,21 +30,21 @@ void	check_options(t_opt *opt, char *param)
 	if (!param)
 		return ;
 	if (!ft_strncmp(param, "R  ", 2))
-		{opt->eflag = check_r(opt, param + 1);printf("|R|: resolution -> %d %d\n", opt->r[0], opt->r[1]);}
+		opt->eflag = check_r(opt, param + 1);
 	else if (!ft_strncmp(param, "NO  ", 3))
-		{opt->eflag = check_path_opt(opt, &opt->no, param + 2);printf("|NO|: path -> <%s>\n", opt->no);}
+		opt->eflag = check_path_opt(opt, &opt->no, param + 2);
 	else if (!ft_strncmp(param, "SO  ", 3))
-		{opt->eflag = check_path_opt(opt, &opt->so, param + 2);printf("|SO|: path -> <%s>\n", opt->so);}
+		opt->eflag = check_path_opt(opt, &opt->so, param + 2);
 	else if (!ft_strncmp(param, "WE  ", 3))
-		{opt->eflag = check_path_opt(opt, &opt->we, param + 2);printf("|WE|: path -> <%s>\n", opt->we);}
+		opt->eflag = check_path_opt(opt, &opt->we, param + 2);
 	else if (!ft_strncmp(param, "EA  ", 3))
-		{opt->eflag = check_path_opt(opt, &opt->ea, param + 2);printf("|EA|: path -> <%s>\n", opt->ea);}
+		opt->eflag = check_path_opt(opt, &opt->ea, param + 2);
 	else if (!ft_strncmp(param, "S  ", 2))
-		{opt->eflag = check_path_opt(opt, &opt->s, param + 1);printf("|S|: path -> <%s>\n", opt->s);}
+		opt->eflag = check_path_opt(opt, &opt->s, param + 1);
 	else if (!ft_strncmp(param, "F  ", 2))
-		{opt->eflag = check_color_opt(opt, opt->f, param + 1);printf("|F|: color -> %d, %d, %d\n", opt->f[0], opt->f[1], opt->f[2]);}
+		opt->eflag = check_color_opt(opt, opt->f, param + 1);
 	else if (!ft_strncmp(param, "C  ", 2))
-		{opt->eflag = check_color_opt(opt, opt->c, param + 1);printf("|C|: color -> %d, %d, %d\n", opt->c[0], opt->c[1], opt->c[2]);}
+		opt->eflag = check_color_opt(opt, opt->c, param + 1);
 	else
 		opt->eflag = check_symbs(param);
 }

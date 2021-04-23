@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 21:42:20 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 17:34:39 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:19:56 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,22 @@
 int	check_r(t_opt *opt, char *param)
 {
 	char	**resolution;
-	int 	count;
-	int 	digit_count;
+	size_t	count;
+	size_t	digit_count[2];
 
 	if (opt->r[2])
 		return (6);
-	if (!(resolution = ft_split(param, ' ')))
-		return (5);
+	resolution = ft_split(param, ' ');
+	if (!resolution)
+		return (7);
 	count = 0;
 	while (*(resolution + count))
 		count++;
-	digit_count = 0;
 	if (count != 2)
 		return (split_line_free(resolution, 7));
-	else if (!check_digit(resolution, &digit_count)) // rewrite!
+	else if (!check_digit(resolution, digit_count))
 		return (split_line_free(resolution, 7));
-	// добавить установку максимального разрешения, если подано разрешение больше максимального разрешения экрана
-	while (count--)
-		opt->r[count] = ft_atoi(*(resolution + count));
+	correct_resolution(opt, digit_count, resolution);
 	opt->r[2] = 1;
 	opt->count++;
 	split_line_free(resolution, 1);
@@ -46,7 +44,8 @@ int	check_path_opt(t_opt *opt, char **option, char *param)
 		return (6);
 	if (!check_ext(param, ".xpm"))
 		return (2);
-	if (!(*option = ft_strtrim(param, " ")))
+	*option = ft_strtrim(param, " ");
+	if (!*option)
 	{
 		free(*option);
 		return (5);
@@ -63,7 +62,8 @@ static char	**check_color_line(char *line)
 	count = check_comma(line);
 	if (count > 2 || count < 2)
 		return (NULL);
-	if (!(params = ft_split(line, ',')))
+	params = ft_split(line, ',');
+	if (!params)
 		return (NULL);
 	return (params);
 }
@@ -84,17 +84,11 @@ static t_bool	check_nbrs(char **params)
 			j++;
 		zero_count = j - zero_count;
 		count = 0;
-		while (ft_isdigit(*(*(params + i) + j)))
-		{
-			count++;
-			j++;
-		}
+		ft_loop_digits(params, &i, &j, &count);
 		j += skip_spaces(*(params + i) + j);
 		if (*(*(params + i) + j) && *(*(params + i) + j) != ' ')
 			return (1);
-		else if (count > 3)
-			return (1);
-		else if (!count && !zero_count)
+		else if (count > 3 || (!count && !zero_count))
 			return (1);
 		i++;
 	}
@@ -108,8 +102,9 @@ int	check_color_opt(t_opt *opt, int *option, char *param)
 
 	if (option[3])
 		return (6);
-	if (!(color_map = check_color_line(param)))
-		return (5);
+	color_map = check_color_line(param);
+	if (!color_map)
+		return (8);
 	count = 0;
 	while (*(color_map + count))
 		count++;

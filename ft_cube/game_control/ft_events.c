@@ -6,18 +6,17 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:07:10 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 19:59:52 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 21:08:42 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
 #include "destroy_memory.h"
-#include <stdio.h>
+#include "handler_errors.h"
 
 int	win_close(t_game *game)
 {
 	destroy_game_mem(game);
-	// sleep(1000);
 	exit(1);
 	return (0);
 }

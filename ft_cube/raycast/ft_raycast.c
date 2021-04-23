@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:07:15 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/20 22:46:16 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 19:44:21 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	calc_walls_params(t_game *game, t_vector *ray, t_point_i *ray_map)
 	if (game->rcast.draw_start < 0)
 		game->rcast.draw_start = 0;
 	if (game->rcast.draw_end >= game->win.h)
-		game->rcast.draw_end = game->win.h - 1;
+		game->rcast.draw_end = game->win.h;
 }
 
 static void	find_ray_collision(t_game *game, t_vector *ray, t_point_i *ray_map)

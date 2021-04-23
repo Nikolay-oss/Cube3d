@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:53:06 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/13 20:04:21 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/23 13:47:21 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	correct_draw_borders(t_sprite *spr, t_point_i *win_size)
 	if (spr->draw_start.y < 0)
 		spr->draw_start.y = 0;
 	if (spr->draw_end.y >= win_size->y)
-		spr->draw_end.y = win_size->y - 1;
+		spr->draw_end.y = win_size->y;
 	if (spr->draw_start.x < 0)
 		spr->draw_start.x = 0;
 	if (spr->draw_end.x >= win_size->x)
