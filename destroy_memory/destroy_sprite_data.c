@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 15:15:35 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 15:15:36 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 02:18:30 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static void	destroy_matrix(double **matrix)
 	while (i < 2)
 		free(*(matrix + i++));
 	free(matrix);
-	matrix = NULL;	
+	matrix = NULL;
 }
 
-void	destroy_sptite_memory(t_game *game)
+void	destroy_sprite_memory(t_game *game)
 {
 	destroy_matrix(game->spr.matrix);
 	if (game->spr.distances)

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:56:06 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/04 09:15:12 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:45:00 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	long long int num;
+	long long int	num;
 
 	num = n;
 	if (num < 0)

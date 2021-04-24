@@ -6,13 +6,13 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 16:01:09 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/01 13:50:57 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:25:13 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isprint(int c)
+int	ft_isprint(int c)
 {
 	if (c >= 32 && c <= 126)
 		return (1);

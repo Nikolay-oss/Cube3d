@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 00:04:17 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/02/09 20:22:24 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:36:02 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,19 @@ static void	split_free(char **strs)
 	strs = NULL;
 }
 
+static char	*get_new_mem(char **strs, int word_size)
+{
+	char	*str;
+
+	str = (char *)malloc(word_size * sizeof(char));
+	if (!str)
+	{
+		split_free(strs);
+		return (NULL);
+	}
+	return (str);
+}
+
 static void	split_words(char **strs, char const *s, int size, char c)
 {
 	char	*ptr;
@@ -60,11 +73,9 @@ static void	split_words(char **strs, char const *s, int size, char c)
 		}
 		else
 			word_size = ptr - s + 1;
-		if (!(*strs = (char*)malloc(word_size)))
-		{
-			split_free(strs);
+		*strs = get_new_mem(strs, word_size);
+		if (!*strs)
 			return ;
-		}
 		ft_strlcpy(*strs, s, word_size);
 		strs++;
 		s = ptr;
@@ -72,7 +83,7 @@ static void	split_words(char **strs, char const *s, int size, char c)
 	*strs = NULL;
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**strs;
 	int		words_count;
@@ -80,7 +91,7 @@ char		**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	words_count = get_words_count(s, c);
-	strs = (char**)malloc(sizeof(char*) * (words_count + 1));
+	strs = (char **)malloc(sizeof(char *) * (words_count + 1));
 	if (!strs)
 		return (strs);
 	split_words(strs, s, words_count, c);

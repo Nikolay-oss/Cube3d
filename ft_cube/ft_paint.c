@@ -6,28 +6,28 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:07:43 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 13:41:48 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 02:11:22 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
 
-int			get_color(int t, int r, int g, int b)
+int	get_color(int t, int r, int g, int b)
 {
-	return(t << 24 | r << 16 | g << 8 | b);
+	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void		ft_pixel_put(t_image *img, int x, int y, int color)
+void	ft_pixel_put(t_image *img, int x, int y, int color)
 {
-	char *dest;
+	char	*dest;
 
 	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dest = color;
+	*(unsigned int *)dest = color;
 }
 
 static void	draw_vertline(t_image *img, int x, int draw_range[2], int color)
 {
-	int y;
+	int	y;
 
 	y = draw_range[0];
 	while (y < draw_range[1])
@@ -37,7 +37,7 @@ static void	draw_vertline(t_image *img, int x, int draw_range[2], int color)
 	}
 }
 
-void		draw_floor(t_game *game, int x)
+void	draw_floor(t_game *game, int x)
 {
 	int	draw_range[2];
 
@@ -46,7 +46,7 @@ void		draw_floor(t_game *game, int x)
 	draw_vertline(&game->img, x, draw_range, game->color_floor);
 }
 
-void		draw_ceil(t_game *game, int x)
+void	draw_ceil(t_game *game, int x)
 {
 	int	draw_range[2];
 

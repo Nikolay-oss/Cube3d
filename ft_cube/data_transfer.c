@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 15:15:47 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 22:56:12 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:47:37 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ static void	graphic_data_transfer(t_game *game, t_opt *opt)
 		game->win.w = (int)WIDTH;
 	if (opt->r[1] > (int)HEIGHT)
 		game->win.h = (int)HEIGHT;
-	game->color_ceil = get_color(0, opt->c[0], opt->c[1], opt->c[2]);	
+	game->color_ceil = get_color(0, opt->c[0], opt->c[1], opt->c[2]);
 	game->color_floor = get_color(0, opt->f[0], opt->f[1], opt->f[2]);
-	game->img_size = game->win.h * game->win.w *
-		(game->img.bits_per_pixel / 8);
 	game->map = opt->map.map;
 }
 

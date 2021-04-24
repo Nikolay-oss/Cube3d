@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 18:57:02 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/02 20:39:24 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:44:20 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,18 @@ static int	isforbiden(char const *set, char const c)
 	return (0);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+static size_t	init_idx(char const *s1)
+{
+	size_t	idx;
+
+	idx = ft_strlen(s1);
+	if (!idx)
+		return (1);
+	else
+		return (idx - 1);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	i;
 	size_t	j;
@@ -34,10 +45,9 @@ char		*ft_strtrim(char const *s1, char const *set)
 	char	*str;
 
 	if (!s1)
-		return ((char*)s1);
+		return ((char *)s1);
 	i = 0;
-	j = ft_strlen(s1);
-	j = !j ? 1 : j - 1;
+	j = init_idx(s1);
 	while (i <= j)
 	{
 		if (isforbiden(set, *(s1 + i)))
@@ -47,7 +57,8 @@ char		*ft_strtrim(char const *s1, char const *set)
 		else
 			break ;
 	}
-	if (!(str = ft_calloc(j - i + 2, 1)))
+	str = ft_calloc(j - i + 2, sizeof(char));
+	if (!str)
 		return (str);
 	k = 0;
 	while (i <= j)

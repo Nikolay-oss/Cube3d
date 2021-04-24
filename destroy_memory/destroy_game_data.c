@@ -6,21 +6,21 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 15:15:40 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 20:43:33 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 02:17:38 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "destroy_memory.h"
 
-static void		destroy_game_mem2(t_game *game)
+static void	destroy_game_mem2(t_game *game)
 {
 	destroy_general_memory(game->map, game->spr.positions);
-	destroy_sptite_memory(game);
+	destroy_sprite_memory(game);
 	free(game);
 	game = NULL;
 }
 
-void		destroy_game_mem(t_game *game)
+void	destroy_game_mem(t_game *game)
 {
 	if (!game)
 		return ;

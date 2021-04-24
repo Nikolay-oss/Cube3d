@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:43:19 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/02 13:20:57 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:22:20 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,14 @@ static int	ft_issign(const char c)
 		return (0);
 }
 
-int			ft_atoi(const char *str)
+static int	select_sign(const char c)
+{
+	if (c == '-')
+		return (-1);
+	return (1);
+}
+
+int	ft_atoi(const char *str)
 {
 	unsigned long long int	res;
 	unsigned long long int	max;
@@ -40,16 +47,16 @@ int			ft_atoi(const char *str)
 	max = 922337203685477580;
 	while (ft_isspace(*(str + i)))
 		i++;
-	sign = *str == '-' ? -1 : 1;
+	sign = select_sign(*str);
 	if (ft_issign(*str))
 		i++;
 	while (ft_isdigit(*(str + i)))
 	{
 		if ((res > max || (res == max && (*(str + i) - '0') > 7))
-															&& sign == 1)
+			&& sign == 1)
 			return (-1);
 		else if ((res > max || (res == max && (*(str + i) - '0') > 8))
-																&& sign == -1)
+			&& sign == -1)
 			return (0);
 		res = res * 10 + (*(str + i) - '0');
 		i++;

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:20:07 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/20 22:47:22 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 02:19:16 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	move_right(const char **map, t_player *plr, const double speed)
 		plr->pos.y += plr->cam_plane.y * speed;
 }
 
-void		player_control(t_game *game)
+void	player_control(t_game *game)
 {
 	double	move_speed;
 	double	rot_speed;
@@ -52,13 +52,13 @@ void		player_control(t_game *game)
 	move_speed = 0.1012;
 	rot_speed = 0.07;
 	if (game->press_flags & W_PRESS)
-		move_forward((const char**)game->map, &game->plr, move_speed);
+		move_forward((const char **)game->map, &game->plr, move_speed);
 	if (game->press_flags & A_PRESS)
-		move_left((const char**)game->map, &game->plr, move_speed);
+		move_left((const char **)game->map, &game->plr, move_speed);
 	if (game->press_flags & S_PRESS)
-		move_backward((const char**)game->map, &game->plr, move_speed);
+		move_backward((const char **)game->map, &game->plr, move_speed);
 	if (game->press_flags & D_PRESS)
-		move_right((const char**)game->map, &game->plr, move_speed);
+		move_right((const char **)game->map, &game->plr, move_speed);
 	if (game->press_flags & L_ARROW_PRESS)
 		player_rotate(&game->plr, rot_speed);
 	if (game->press_flags & R_ARROW_PRESS)

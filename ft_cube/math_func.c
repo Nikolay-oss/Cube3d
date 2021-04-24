@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:53:13 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/13 19:34:24 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 02:15:20 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	transform_point(const t_game *game,
 	dir = &game->plr.dir;
 	plane = &game->plr.cam_plane;
 	inv_det = inverse_det2n2((const double **)game->spr.matrix);
-	tr_point->x = inv_det * (dir->y * relative_spr_pos->x -
-		dir->x * relative_spr_pos->y);
-	tr_point->y = inv_det * (-plane->y * relative_spr_pos->x +
-		plane->x * relative_spr_pos->y);
+	tr_point->x = inv_det * (dir->y * relative_spr_pos->x
+			- dir->x * relative_spr_pos->y);
+	tr_point->y = inv_det * (-plane->y * relative_spr_pos->x
+			+ plane->x * relative_spr_pos->y);
 }
 
 t_bool	isnear(t_point *spr_pos, t_point *plr_pos, double precision)

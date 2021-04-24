@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 13:00:25 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/01 15:50:39 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:36:53 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	i;
 
 	if (!s1 || !s2)
-		return ((char*)s1);
+		return ((char *)s1);
 	size = ft_strlen(s1);
 	size += ft_strlen(s2);
-	str = (char*)malloc(sizeof(char) * (size + 1));
+	str = (char *)malloc(sizeof(char) * (size + 1));
 	if (str == NULL)
 		return (NULL);
 	i = 0;

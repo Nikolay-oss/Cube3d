@@ -22,15 +22,16 @@ GAME_DIR	= ./ft_cube/game_control/
 
 RAYCAST_DIR	= ./ft_cube/raycast/
 
-SRCS		= main.c							$(GNL_DIR)get_next_line.c		$(PARS_DIR)init_options.c \
-			  $(PARS_DIR)ft_parser.c			$(PARS_DIR)check_options.c		$(PARS_DIR)utils.c \
-			  $(PARS_DIR)map_parser.c			$(CUBE_DIR)ft_cube.c			$(GAME_DIR)ft_events.c \
-			  $(CUBE_DIR)ft_paint.c				$(RAYCAST_DIR)draw_wall.c		$(RAYCAST_DIR)ft_raycast.c \
-			  $(GAME_DIR)player_control.c		$(GAME_DIR)player_rotate.c		$(CUBE_DIR)ft_sort.c \
-			  $(CUBE_DIR)math_func.c			$(RAYCAST_DIR)ft_sprites.c		$(RAYCAST_DIR)draw_sprite.c \
-			  $(PARS_DIR)make_map.c				$(PARS_DIR)map_parser_utils.c	$(CUBE_DIR)data_transfer.c \
-			  $(MEM_DIR)destroy_mem.c			$(HERRORS_DIR)handler_errors.c	$(MEM_DIR)destroy_sprite_data.c \
-			  $(MEM_DIR)destroy_game_data.c		$(PARS_DIR)check_options_utils.c
+SRCS		= main.c							$(GNL_DIR)get_next_line.c			$(PARS_DIR)init_options.c \
+			  $(PARS_DIR)ft_parser.c			$(PARS_DIR)check_options.c			$(PARS_DIR)utils.c \
+			  $(PARS_DIR)map_parser.c			$(CUBE_DIR)ft_cube.c				$(GAME_DIR)ft_events.c \
+			  $(CUBE_DIR)ft_paint.c				$(RAYCAST_DIR)draw_wall.c			$(RAYCAST_DIR)ft_raycast.c \
+			  $(GAME_DIR)player_control.c		$(GAME_DIR)player_rotate.c			$(CUBE_DIR)ft_sort.c \
+			  $(CUBE_DIR)math_func.c			$(RAYCAST_DIR)ft_sprites.c			$(RAYCAST_DIR)draw_sprite.c \
+			  $(PARS_DIR)make_map.c				$(PARS_DIR)map_parser_utils.c		$(CUBE_DIR)data_transfer.c \
+			  $(MEM_DIR)destroy_mem.c			$(HERRORS_DIR)handler_errors.c		$(MEM_DIR)destroy_sprite_data.c \
+			  $(MEM_DIR)destroy_game_data.c		$(PARS_DIR)check_options_utils.c	$(CUBE_DIR)ft_screenshot.c \
+			  $(GNL_DIR)get_next_line_utils.c
 
 CFLAGS		= -Wall -Wextra -Werror
 

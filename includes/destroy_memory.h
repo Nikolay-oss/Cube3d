@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 19:55:46 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/09 19:58:49 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 00:55:51 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	destroy_options_mem(t_opt *opt, int isfree);
 void	destroy_game_mem(t_game *game);
-void	destroy_sptite_memory(t_game *game);
+void	destroy_sprite_memory(t_game *game);
 void	destroy_general_memory(char **map, t_point *spr_positions);
 void	destroy_all(t_opt *opt, t_game *game);
 

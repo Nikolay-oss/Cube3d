@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 13:19:12 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/01 13:26:29 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:36:42 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *s1)
 	size_t	i;
 
 	size = ft_strlen(s1);
-	str = (char*)malloc(sizeof(char) * size + 1);
+	str = (char *)malloc(sizeof(char) * size + 1);
 	if (!str)
 		return (str);
 	i = 0;

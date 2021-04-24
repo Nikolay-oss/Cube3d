@@ -6,13 +6,13 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:12:26 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/10/31 15:21:02 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:25:03 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isalpha(int c)
+int	ft_isalpha(int c)
 {
 	if (c >= 'A' && c <= 'Z')
 		return (1);

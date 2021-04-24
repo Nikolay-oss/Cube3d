@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:53:06 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 13:47:21 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 02:39:31 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	calc_dists2_to_sprites(t_game *game, const size_t spr_count)
 	i = 0;
 	while (i < spr_count)
 	{
-		*(distances + i) = ft_pow2(plr_pos->x - (spr_positions + i)->x) +
-			ft_pow2(plr_pos->y - (spr_positions + i)->y);
+		*(distances + i) = ft_pow2(plr_pos->x - (spr_positions + i)->x)
+			+ ft_pow2(plr_pos->y - (spr_positions + i)->y);
 		i++;
 	}
 }

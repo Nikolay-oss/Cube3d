@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 10:21:29 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/01 18:40:52 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:27:23 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 
 	if (dst == src)
 		return (dst);
-	str_dst = (unsigned char*)dst;
-	str_src = (unsigned char*)src;
+	str_dst = (unsigned char *)dst;
+	str_src = (unsigned char *)src;
 	if (dst > src)
 	{
 		while (len > 0)

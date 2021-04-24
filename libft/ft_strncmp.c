@@ -6,13 +6,13 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 14:42:47 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/01 15:12:35 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:37:24 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
 	unsigned char	*str1;
@@ -21,8 +21,8 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (n == 0)
 		return (0);
 	i = 0;
-	str1 = (unsigned char*)s1;
-	str2 = (unsigned char*)s2;
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
 	while (i < n && *(str1 + i) && *(str2 + i))
 	{
 		if (*(str1 + i) != *(str2 + i))

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:50:35 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/21 05:35:48 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 02:18:02 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	destroy_general_memory(char **map, t_point *spr_positions)
 	spr_positions = NULL;
 }
 
-void		destroy_options_mem(t_opt *opt, int isfree)
+void	destroy_options_mem(t_opt *opt, int isfree)
 {
 	if (!opt)
 		return ;
@@ -59,7 +59,7 @@ void		destroy_options_mem(t_opt *opt, int isfree)
 	opt = NULL;
 }
 
-void		destroy_all(t_opt *opt, t_game *game)
+void	destroy_all(t_opt *opt, t_game *game)
 {
 	if (opt)
 		destroy_options_mem(opt, 0);

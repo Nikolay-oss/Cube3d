@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:41:08 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 23:33:27 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/24 21:48:31 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	check_line(t_opt *opt, t_list *map_lines, int fd, int *res)
 	char	*line;
 	char	*param;
 
-	*res = get_next_line(fd, &line);
 	while (*res > -1)
 	{
+		*res = get_next_line(fd, &line);
 		if (opt->count != 8)
 		{
 			param = ft_strtrim(line, " ");
@@ -103,6 +103,7 @@ void	ft_parser(t_opt *opt, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		exit_error(3, opt, NULL, map_lines);
+	res = 1;
 	check_line(opt, map_lines, fd, &res);
 	if (opt->eflag)
 		exit_error(opt->eflag, opt, NULL, map_lines);

@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:50:31 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/23 23:39:33 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:04:08 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	select_error2(const int code_error)
 		ft_putstr_fd("Error: There can be only one player\n", 1);
 	else if (code_error == 13)
 		ft_putstr_fd("Error: Player not found\n", 1);
+	else if (code_error == 14)
+		ft_putstr_fd("Error: The second argument is not valid\n", 1);
 }
 
 static void	select_error(const int code_error)

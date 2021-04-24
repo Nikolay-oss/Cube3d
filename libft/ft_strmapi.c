@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 20:48:22 by dkenchur          #+#    #+#             */
-/*   Updated: 2020/11/02 21:02:44 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 01:45:30 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char			*str;
 
 	if (!s)
-		return ((char*)s);
+		return ((char *)s);
 	i = 0;
 	size = ft_strlen(s);
-	if (!(str = ft_calloc(size + 1, 1)))
+	str = ft_calloc(size + 1, sizeof(char));
+	if (!str)
 		return (str);
 	while (*(s + i))
 	{
