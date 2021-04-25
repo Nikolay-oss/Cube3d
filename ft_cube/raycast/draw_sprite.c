@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:36:42 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/25 02:22:07 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 06:45:26 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_sprite(const t_game *game, const t_sprite *spr,
 	{
 		tex.x = (int)(256 * (x - (-spr->spr_scr_size / 2 + spr->spr_scr_x))
 				* spr->tex.w / spr->spr_scr_size) / 256;
-		if (tr_p->y > 0 && x > 0 && x < game->win.w && tr_p->y < spr->zbuf[x])
+		if (tr_p->y > 0 && tr_p->y < spr->zbuf[x])
 			draw_col_sprite(game, spr, &tex, x);
 		x++;
 	}

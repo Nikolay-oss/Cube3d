@@ -6,7 +6,7 @@
 /*   By: dkenchur <dkenchur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:53:06 by dkenchur          #+#    #+#             */
-/*   Updated: 2021/04/25 02:39:31 by dkenchur         ###   ########.fr       */
+/*   Updated: 2021/04/25 06:45:47 by dkenchur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	correct_draw_borders(t_sprite *spr, t_point_i *win_size)
 	if (spr->draw_start.x < 0)
 		spr->draw_start.x = 0;
 	if (spr->draw_end.x >= win_size->x)
-		spr->draw_end.x = win_size->x - 1;
+		spr->draw_end.x = win_size->x;
 }
 
 void	calc_sprite_drawing_borders(t_game *game, const t_point *tr_p)
