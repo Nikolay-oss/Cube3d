@@ -14,6 +14,7 @@
 #include "handler_errors.h"
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 
 static void	fill_four_bytes(char *ft_screen, int data)
 {
@@ -35,8 +36,8 @@ static void	fill_bmp_header(t_game *game, char *ft_screen,
 static void	fill_dib_header(t_game *game, char *ft_screen)
 {
 	*(ft_screen + 14) = (char)40;
-	fill_four_bytes(ft_screen + 18, (int)game->win.w);
-	fill_four_bytes(ft_screen + 22, (int)game->win.h);
+	fill_four_bytes(ft_screen + 18, game->win.w);
+	fill_four_bytes(ft_screen + 22, game->win.h);
 	*(ft_screen + 26) = 1;
 	*(ft_screen + 28) = 32;
 }
