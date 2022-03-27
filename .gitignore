@@ -1,4 +1,4 @@
-/mlx
+# /mlx
 
 /mlx1
 
@@ -8,8 +8,12 @@
 
 /cub3D.dSYM
 
-/minilibx-linux
+# /minilibx-linux
 
 /example.cpp
 
 /shemes
+
+*.o
+*.a
+cub3D
